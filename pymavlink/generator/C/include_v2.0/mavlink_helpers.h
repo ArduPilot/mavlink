@@ -99,13 +99,17 @@ MAVLINK_HELPER bool mavlink_signature_check(mavlink_signing_t *signing,
 		return true;
 	}
         const uint8_t *p = (const uint8_t *)&msg->magic;
-        uint16_t len = MAVLINK_CORE_HEADER_LEN+1+msg->len+2+1+6;
+        uint32_t len = MAVLINK_CORE_HEADER_LEN+1+msg->len+2+1+6;
 	const uint8_t *psig = p + MAVLINK_CORE_HEADER_LEN+1+msg->len+2;
         const uint8_t *incoming_signature = psig+7;
 	mavlink_sha256_ctx ctx;
 	uint8_t signature[6];
 	uint16_t i;
-        
+
+        if (len > UINT16_MAX) {
+                return false;
+        }
+
 	mavlink_sha256_init(&ctx);
 	mavlink_sha256_update(&ctx, signing->secret_key, sizeof(signing->secret_key));
 	mavlink_sha256_update(&ctx, p, len);
