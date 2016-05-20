@@ -3342,7 +3342,7 @@
             <field type="int16_t" name="vn">GPS velocity in cm/s in NORTH direction in earth-fixed NED frame</field>
             <field type="int16_t" name="ve">GPS velocity in cm/s in EAST direction in earth-fixed NED frame</field>
             <field type="int16_t" name="vd">GPS velocity in cm/s in DOWN direction in earth-fixed NED frame</field>
-            <field type="uint16_t" name="cog">Course over ground in centidegrees, 0.0..359.99 degrees.</field>
+            <field type="uint16_t" name="cog">Course over ground in centidegrees, 0..35999.</field>
             <field type="int32_t" name="sog">Speed over ground in cm/s</field>
             <field type="int32_t" name="speed_accuracy">GPS speed accuracy in cm/s</field>
             <field type="int32_t" name="horiz_accuracy">GPS horizontal accuracy in cm</field>
