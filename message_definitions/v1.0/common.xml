@@ -2188,6 +2188,32 @@
           </enum>
 
           <!-- GPS_INPUT ignore flags enum -->
+          <enum name="GPS_INPUT_IGNORE_FLAGS_BIT">
+              <entry name="GPS_INPUT_IGNORE_FLAG_ALT_BIT" value="0">
+                  <description>ignore altitude field bit#</description>
+              </entry>
+              <entry name="GPS_INPUT_IGNORE_FLAG_HDOP_BIT" value="1">
+                  <description>ignore hdop field bit#</description>
+              </entry>
+              <entry name="GPS_INPUT_IGNORE_FLAG_VDOP_BIT" value="2">
+                  <description>ignore vdop field bit#</description>
+              </entry>
+              <entry name="GPS_INPUT_IGNORE_FLAG_VEL_HORIZ_BIT" value="3">
+                  <description>ignore horizontal velocity field (vn and ve) bit#</description>
+              </entry>
+              <entry name="GPS_INPUT_IGNORE_FLAG_VEL_VERT_BIT" value="4">
+                  <description>ignore vertical velocity field (vd) bit#</description>
+              </entry>
+              <entry name="GPS_INPUT_IGNORE_FLAG_SPEED_ACCURACY_BIT" value="5">
+                  <description>ignore speed accuracy field bit#</description>
+              </entry>
+              <entry name="GPS_INPUT_IGNORE_FLAG_HORIZONTAL_ACCURACY_BIT" value="6">
+                  <description>ignore horizontal accuracy field bit#</description>
+              </entry>
+              <entry name="GPS_INPUT_IGNORE_FLAG_VERTICAL_ACCURACY_BIT" value="7">
+                  <description>ignore vertical accuracy field bit#</description>
+              </entry>
+          </enum>
           <enum name="GPS_INPUT_IGNORE_FLAGS">
               <entry name="GPS_INPUT_IGNORE_FLAG_ALT" value="1">
                   <description>ignore altitude field</description>
