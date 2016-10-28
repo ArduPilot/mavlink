@@ -3698,7 +3698,7 @@
                <field type="uint64_t" name="initial_timestamp">initial timestamp</field>
           </message>
 
-	  <message id="257" name="BUTTON_CHANGE">
+		<message id="257" name="BUTTON_CHANGE">
             <description>Report button state change</description>
             <field type="uint32_t" name="time_boot_ms">Timestamp (milliseconds since system boot)</field>
             <field name="last_change_ms" type="uint32_t">Time of last change of button state</field>
@@ -3710,6 +3710,12 @@
             <field name="target_system" type="uint8_t">System ID</field>
             <field name="target_component" type="uint8_t">Component ID</field>
             <field name="tune" type="char[30]">tune in board specific format</field>
+          </message>
+		  
+		  <message id="259" name="PREARM_STATUS">
+            <description>Report prearm check value</description>
+            <field type="uint8_t" name="prearm_status">PreArm status flag</field>
+            <field type="uint8_t" name="prearm_rc_status">PreArm RC status flag</field>
           </message>
           
         </messages>
