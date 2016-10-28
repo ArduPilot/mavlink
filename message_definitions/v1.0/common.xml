@@ -2295,7 +2295,6 @@
                <field type="uint8_t" name="base_mode">System mode bitfield, see MAV_MODE_FLAG ENUM in mavlink/include/mavlink_types.h</field>
                <field type="uint32_t" name="custom_mode">A bitfield for use for autopilot-specific flags.</field>
                <field type="uint8_t" name="system_status">System status flag, see MAV_STATE ENUM</field>
-               <field type="uint8_t" name="prearm_status">PreArm status flag</field>
                <field type="uint8_t_mavlink_version" name="mavlink_version">MAVLink version, not writable by user, gets added by protocol because of magic data type: uint8_t_mavlink_version</field>
           </message>
           <message id="1" name="SYS_STATUS">
