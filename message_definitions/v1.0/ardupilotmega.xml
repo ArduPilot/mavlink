@@ -1022,6 +1022,28 @@
                 <description>This block has been received</description>
             </entry>
         </enum>
+
+        <enum name="PLANE_FLIGHT_MODE">
+            <entry name="PLANE_FLIGHT_MODE_MANUAL"        value="0"/>
+            <entry name="PLANE_FLIGHT_MODE_CIRCLE"        value="1"/>
+            <entry name="PLANE_FLIGHT_MODE_STABILIZE"     value="2"/>
+            <entry name="PLANE_FLIGHT_MODE_TRAINING"      value="3"/>
+            <entry name="PLANE_FLIGHT_MODE_ACRO"          value="4"/>
+            <entry name="PLANE_FLIGHT_MODE_FLY_BY_WIRE_A" value="5"/>
+            <entry name="PLANE_FLIGHT_MODE_FLY_BY_WIRE_B" value="6"/>
+            <entry name="PLANE_FLIGHT_MODE_CRUISE"        value="7"/>
+            <entry name="PLANE_FLIGHT_MODE_AUTOTUNE"      value="8"/>
+            <entry name="PLANE_FLIGHT_MODE_AUTO"          value="10"/>
+            <entry name="PLANE_FLIGHT_MODE_RTL"           value="11"/>
+            <entry name="PLANE_FLIGHT_MODE_LOITER"        value="12"/>
+            <entry name="PLANE_FLIGHT_MODE_GUIDED"        value="15"/>
+            <entry name="PLANE_FLIGHT_MODE_INITIALISING"  value="16"/>
+            <entry name="PLANE_FLIGHT_MODE_QSTABILIZE"    value="17"/>
+            <entry name="PLANE_FLIGHT_MODE_QHOVER"        value="18"/>
+            <entry name="PLANE_FLIGHT_MODE_QLOITER"       value="19"/>
+            <entry name="PLANE_FLIGHT_MODE_QLAND"         value="20"/>
+            <entry name="PLANE_FLIGHT_MODE_QRTL"          value="21"/>
+        </enum>
     </enums>
 
     <messages>
