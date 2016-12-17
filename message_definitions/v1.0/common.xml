@@ -3959,8 +3959,8 @@
 
           <message id="270" name="AOA_SSA">
                <description>Angle of Attack and Side Slip Angle</description>
-               <field name="AOA" type="float">AOA (degrees)</field>
-               <field name="SSA" type="float">SSA (degrees)</field>
+               <field name="AOA" type="float">Angle of Attack (degrees)</field>
+               <field name="SSA" type="float">Side Slip Angle (degrees)</field>
           </message>
 
     </messages>
