@@ -1082,7 +1082,7 @@
       <!-- Path planned landings are still in the future, but we want these fields ready: -->
       <field type="int16_t" name="break_alt">Break altitude in meters relative to home</field>
       <field type="uint16_t" name="land_dir">Heading to aim for when landing. In centi-degrees.</field>
-      <field type="uint8_t" name="flags" enum="RALLY_FLAGS">See RALLY_FLAGS enum for definition of the bitmask.</field>
+      <field type="uint8_t" name="flags" enum="RALLY_FLAGS" display="bitmask">See RALLY_FLAGS enum for definition of the bitmask.</field>
     </message>
     <message id="176" name="RALLY_FETCH_POINT">
       <description>Request a current rally point from MAV. MAV should respond with a RALLY_POINT message. MAV should not respond if the request is invalid.</description>
@@ -1285,7 +1285,7 @@
       <description>Heartbeat from a HeroBus attached GoPro</description>
       <field type="uint8_t" name="status" enum="GOPRO_HEARTBEAT_STATUS">Status</field>
       <field type="uint8_t" name="capture_mode" enum="GOPRO_CAPTURE_MODE">Current capture mode</field>
-      <field type="uint8_t" name="flags" enum="GOPRO_HEARTBEAT_FLAGS">additional status bits</field>
+      <field type="uint8_t" name="flags" enum="GOPRO_HEARTBEAT_FLAGS" display="bitmask">additional status bits</field>
       <!-- see GOPRO_HEARTBEAT_FLAGS -->
     </message>
     <message id="216" name="GOPRO_GET_REQUEST">
