@@ -2361,7 +2361,7 @@
       <description>The heartbeat message shows that a system is present and responding. The type of the MAV and Autopilot hardware allow the receiving system to treat further messages from this system appropriate (e.g. by laying out the user interface based on the autopilot).</description>
       <field type="uint8_t" name="type" enum="MAV_TYPE">Type of the MAV (quadrotor, helicopter, etc., up to 15 types, defined in MAV_TYPE ENUM)</field>
       <field type="uint8_t" name="autopilot" enum="MAV_AUTOPILOT">Autopilot type / class. defined in MAV_AUTOPILOT ENUM</field>
-      <field type="uint8_t" name="base_mode" enum="MAV_MODE_FLAG" display="bitmask">System mode bitfield, see MAV_MODE_FLAG ENUM in mavlink/include/mavlink_types.h</field>
+      <field type="uint8_t" name="base_mode" enum="MAV_MODE_FLAG_DECODE_POSITION" display="bitmask">System mode bitfield, see MAV_MODE_FLAG_DECODE_POSITION ENUM in mavlink/include/mavlink_types.h</field>
       <field type="uint32_t" name="custom_mode">A bitfield for use for autopilot-specific flags.</field>
       <field type="uint8_t" name="system_status" enum="MAV_STATE">System status flag, see MAV_STATE ENUM</field>
       <field type="uint8_t_mavlink_version" name="mavlink_version">MAVLink version, not writable by user, gets added by protocol because of magic data type: uint8_t_mavlink_version</field>
@@ -3046,7 +3046,7 @@
       <field type="float" name="aux2">Aux 2, -1 .. 1</field>
       <field type="float" name="aux3">Aux 3, -1 .. 1</field>
       <field type="float" name="aux4">Aux 4, -1 .. 1</field>
-      <field type="uint8_t" name="mode">System mode (MAV_MODE)</field>
+      <field type="uint8_t" name="mode">System mode (MAV_MODE_FLAG_DECODE_POSITION)</field>
       <field type="uint8_t" name="nav_mode">Navigation mode (MAV_NAV_MODE)</field>
     </message>
     <message id="92" name="HIL_RC_INPUTS_RAW">
@@ -3705,7 +3705,7 @@
     <message id="244" name="MESSAGE_INTERVAL">
       <description>This interface replaces DATA_STREAM</description>
       <field type="uint16_t" name="message_id">The ID of the requested MAVLink message. v1.0 is limited to 254 messages.</field>
-      <field type="int32_t" name="interval_us" units="us">The interval between two messages, in microseconds. A value of -1 indicates this stream is disabled, 0 indicates it is not available, > 0 indicates the interval at which it is sent.</field>
+      <field type="int32_t" name="interval_us" units="us">The interval between two messages, in microseconds. A value of -1 indicates this stream is disabled, 0 indicates it is not available, &gt; 0 indicates the interval at which it is sent.</field>
     </message>
     <message id="245" name="EXTENDED_SYS_STATE">
       <description>Provides state for additional features</description>
