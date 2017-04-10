@@ -3132,7 +3132,7 @@
       <field type="float" name="aux2">Aux 2, -1 .. 1</field>
       <field type="float" name="aux3">Aux 3, -1 .. 1</field>
       <field type="float" name="aux4">Aux 4, -1 .. 1</field>
-      <field type="uint8_t" name="mode">System mode (MAV_MODE)</field>
+      <field type="uint8_t" name="mode" enum="MAV_MODE">System mode (MAV_MODE)</field>
       <field type="uint8_t" name="nav_mode">Navigation mode (MAV_NAV_MODE)</field>
     </message>
     <message id="92" name="HIL_RC_INPUTS_RAW">
@@ -3156,7 +3156,7 @@
       <description>Sent from autopilot to simulation. Hardware in the loop control outputs (replacement for HIL_CONTROLS)</description>
       <field type="uint64_t" name="time_usec" units="us">Timestamp (microseconds since UNIX epoch or microseconds since system boot)</field>
       <field type="float[16]" name="controls">Control outputs -1 .. 1. Channel assignment depends on the simulated hardware.</field>
-      <field type="uint8_t" name="mode">System mode (MAV_MODE), includes arming state.</field>
+      <field type="uint8_t" name="mode" enum="MAV_MODE">System mode (MAV_MODE), includes arming state.</field>
       <field type="uint64_t" name="flags">Flags as bitfield, reserved for future use.</field>
     </message>
     <message id="100" name="OPTICAL_FLOW">
