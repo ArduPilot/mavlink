@@ -946,7 +946,7 @@
     </message>
     <!-- geo-fence messages -->
     <message id="160" name="FENCE_POINT">
-      <description>A fence point. Used to set a point when from GCS -> MAV. Also used to return a point from MAV -> GCS</description>
+      <description>A fence point. Used to set a point when from GCS -&gt; MAV. Also used to return a point from MAV -&gt; GCS</description>
       <field type="uint8_t" name="target_system">System ID</field>
       <field type="uint8_t" name="target_component">Component ID</field>
       <field type="uint8_t" name="idx">point index (first point is 1, 0 is for return point)</field>
@@ -1071,7 +1071,7 @@
     </message>
     <!-- rally point messages -->
     <message id="175" name="RALLY_POINT">
-      <description>A rally point. Used to set a point when from GCS -> MAV. Also used to return a point from MAV -> GCS</description>
+      <description>A rally point. Used to set a point when from GCS -&gt; MAV. Also used to return a point from MAV -&gt; GCS</description>
       <field type="uint8_t" name="target_system">System ID</field>
       <field type="uint8_t" name="target_component">Component ID</field>
       <field type="uint8_t" name="idx">point index (first point is 0)</field>

@@ -3791,7 +3791,7 @@
     <message id="244" name="MESSAGE_INTERVAL">
       <description>This interface replaces DATA_STREAM</description>
       <field type="uint16_t" name="message_id">The ID of the requested MAVLink message. v1.0 is limited to 254 messages.</field>
-      <field type="int32_t" name="interval_us" units="us">The interval between two messages, in microseconds. A value of -1 indicates this stream is disabled, 0 indicates it is not available, > 0 indicates the interval at which it is sent.</field>
+      <field type="int32_t" name="interval_us" units="us">The interval between two messages, in microseconds. A value of -1 indicates this stream is disabled, 0 indicates it is not available, &gt; 0 indicates the interval at which it is sent.</field>
     </message>
     <message id="245" name="EXTENDED_SYS_STATE">
       <description>Provides state for additional features</description>
