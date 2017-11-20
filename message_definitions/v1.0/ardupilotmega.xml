@@ -1601,5 +1601,12 @@
       <field type="uint16_t[4]" name="rpm" units="rpm">RPM (eRPM).</field>
       <field type="uint16_t[4]" name="count">count of telemetry packets received (wraps at 65535).</field>
     </message>
+    <!-- wheel traveled distance message -->
+    <message id="11030" name="WHEEL_DISTANCE">
+      <description>Cumulative distances traveled by each wheel in meters (forward rotations increase these values, backward - decrease).</description>
+      <field name="time_usec" type="uint64_t">Timestamp (microseconds, synced to UNIX time or since system boot)</field>
+      <field type="uint8_t" name="count">Number of wheels reported</field>
+      <field type="float[4]" name="distance" units="m">Distance traveled by each wheel (m)</field>
+    </message>
   </messages>
 </mavlink>
