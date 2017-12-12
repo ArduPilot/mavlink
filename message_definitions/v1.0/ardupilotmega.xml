@@ -1473,5 +1473,13 @@
       <field name="AOA" type="float">Angle of Attack (degrees)</field>
       <field name="SSA" type="float">Side Slip Angle (degrees)</field>
     </message>
+    <!-- Fuel Status message -->
+    <message id="11030" name="FUEL_STATUS">
+      <description>Fuel Tank Information</description>
+      <field type="float" name="vol_remaining">Volume of fuel remaining (cm^3) </field>
+      <field type="float" name="percent_remaining">Percent of total fuel remaining</field>
+      <field type="float" name="consumption_rate">Fuel consumption rate (cm^3/min)</field>
+      <field type="float" name="temperature">Fuel Temperature (celsius)</field>
+    </message>
   </messages>
 </mavlink>
