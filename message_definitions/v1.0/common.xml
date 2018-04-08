@@ -3719,7 +3719,7 @@
       <field type="int32_t" name="baseline_a_mm" units="mm">Current baseline in ECEF x or NED north component in mm.</field>
       <field type="int32_t" name="baseline_b_mm" units="mm">Current baseline in ECEF y or NED east component in mm.</field>
       <field type="int32_t" name="baseline_c_mm" units="mm">Current baseline in ECEF z or NED down component in mm.</field>
-      <field type="uint32_t" name="accuracy">Current estimate of baseline accuracy.</field>
+      <field type="uint32_t" name="accuracy" units="c%">Current estimate of baseline accuracy</field>
       <field type="int32_t" name="iar_num_hypotheses">Current number of integer ambiguity hypotheses.</field>
     </message>
     <message id="128" name="GPS2_RTK">
@@ -3735,7 +3735,7 @@
       <field type="int32_t" name="baseline_a_mm" units="mm">Current baseline in ECEF x or NED north component in mm.</field>
       <field type="int32_t" name="baseline_b_mm" units="mm">Current baseline in ECEF y or NED east component in mm.</field>
       <field type="int32_t" name="baseline_c_mm" units="mm">Current baseline in ECEF z or NED down component in mm.</field>
-      <field type="uint32_t" name="accuracy">Current estimate of baseline accuracy.</field>
+      <field type="uint32_t" name="accuracy" units="c%">Current estimate of baseline accuracy</field>
       <field type="int32_t" name="iar_num_hypotheses">Current number of integer ambiguity hypotheses.</field>
     </message>
     <message id="129" name="SCALED_IMU3">
