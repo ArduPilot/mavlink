@@ -1606,7 +1606,7 @@
       <description>Cumulative distances traveled by each wheel in meters (forward rotations increase these values, backward - decrease).</description>
       <field name="time_usec" type="uint64_t">Timestamp (microseconds, synced to UNIX time or since system boot)</field>
       <field type="uint8_t" name="count">Number of wheels reported</field>
-      <field type="float[4]" name="distance" units="m">Distance traveled by each wheel (m)</field>
+      <field type="float[16]" name="distance" units="m">Distance traveled by each wheel (m)</field>
     </message>
   </messages>
 </mavlink>
