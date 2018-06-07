@@ -1416,6 +1416,16 @@
       <field type="float" name="cross_track_error" units="m">Deepstall cross track error in meters (only valid when in DEEPSTALL_STAGE_LAND)</field>
       <field type="uint8_t" name="stage" enum="DEEPSTALL_STAGE">Deepstall stage, see enum MAV_DEEPSTALL_STAGE</field>
     </message>
+    <!-- cellular network status -->
+    <message id="199" name="CELLULAR_STATUS">
+      <description>cellular network status</description>
+      <field type="char[5]" name="technology">current cellular technology: 3G, LTE, WCDMA, etc...</field>
+      <field type="uint8_t" name="rssi">cellular network signal RSSI, no negative sign</field>
+      <field type="uint16_t" name="mcc">mobile country code</field>
+      <field type="uint16_t" name="mnc">mobile network code</field>
+      <field type="uint16_t" name="lac">location area code</field>
+      <field type="uint32_t" name="cid">cell id</field>
+    </message>
     <message id="200" name="GIMBAL_REPORT">
       <description>3 axis gimbal mesuraments</description>
       <field type="uint8_t" name="target_system">System ID</field>
