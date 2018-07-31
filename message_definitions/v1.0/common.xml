@@ -1614,6 +1614,11 @@
         <param index="5">Unscaled target latitude of center of circle in CIRCLE_MODE</param>
         <param index="6">Unscaled target longitude of center of circle in CIRCLE_MODE</param>
       </entry>
+      <entry value="3001" name="MAV_CMD_ARM_AUTHORIZATION_REQUEST">
+        <description>Request authorization to arm the vehicle to a external entity, the arm authorizer is resposible to request all data that is needs from the vehicle before authorize or deny the request. If approved the progress of command_ack message should be set with period of time that this authorization is valid in seconds or in case it was denied it should be set with one of the reasons in ARM_AUTH_DENIED_REASON.
+        </description>
+        <param index="1">Vehicle system id, this way ground station can request arm authorization on behalf of any vehicle</param>
+      </entry>
       <entry value="5000" name="MAV_CMD_NAV_FENCE_RETURN_POINT">
         <description>Fence return point. There can only be one fence return point.
         </description>
