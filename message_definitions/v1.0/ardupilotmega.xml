@@ -969,7 +969,9 @@
       <entry value="12" name="PLANE_MODE_LOITER">
         <description>LOITER</description>
       </entry>
-      <entry value="14" name="PLANE_MODE_AVOID_ADSB"/>
+      <entry value="14" name="PLANE_MODE_LAND">
+        <description>LAND</description>
+      </entry>
       <entry value="15" name="PLANE_MODE_GUIDED">
         <description>GUIDED</description>
       </entry>
