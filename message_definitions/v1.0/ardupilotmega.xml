@@ -1019,8 +1019,14 @@
       <entry value="7" name="COPTER_MODE_CIRCLE">
         <description>CIRCLE</description>
       </entry>
+      <entry value="8" name="COPTER_MODE_POSITION">
+        <description>POSITION</description>
+      </entry>
       <entry value="9" name="COPTER_MODE_LAND">
         <description>LAND</description>
+      </entry>
+      <entry value="10" name="COPTER_MODE_OF_LOITER">
+        <description>OF_LOITER</description>
       </entry>
       <entry value="11" name="COPTER_MODE_DRIFT">
         <description>DRIFT</description>
@@ -1051,6 +1057,9 @@
       </entry>
       <entry value="21" name="COPTER_MODE_SMART_RTL">
         <description>SMART_RTL</description>
+      </entry>
+      <entry value="22" name="COPTER_MODE_FLOWHOLD">
+        <description>FLOWHOLD</description>
       </entry>
     </enum>
     <enum name="SUB_MODE">
