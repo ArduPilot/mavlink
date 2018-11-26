@@ -1093,6 +1093,9 @@
       <entry value="1" name="ROVER_MODE_ACRO">
         <description>ACRO</description>
       </entry>
+      <entry value="2" name="ROVER_MODE_LEARNING">
+        <description>LEARNING</description>
+      </entry>
       <entry value="3" name="ROVER_MODE_STEERING">
         <description>STEERING</description>
       </entry>
