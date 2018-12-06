@@ -1605,7 +1605,7 @@
     <message id="11040" name="WHEEL_DISTANCE">
       <description>Cumulative distances traveled by each wheel (forward rotations increase these values, backward - decrease).</description>
       <field type="uint64_t" name="time_usec" units="us">Timestamp (synced to UNIX time or since system boot)</field>
-      <field type="uint8_t" name="count">Number of wheels reported</field>
+      <field type="uint8_t" name="count">Number of wheels reported in the array field (distance)</field>
       <field type="float[16]" name="distance" units="m">Distance traveled by each wheel</field>
     </message>
   </messages>
