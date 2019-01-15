@@ -699,6 +699,15 @@
         <description>The node is no longer available online.</description>
       </entry>
     </enum>
+    <enum name="CONDITION_TYPE">
+      <description>Condition types for MAV_CMD_DO_CONDITION_JUMP</description>
+      <entry value="0" name="CONDITION_TYPE_AIRSPACE_CLEAR">
+        <description>True when airspeed is clear for param1 meters horizontally, param2 seconds in time and alt meters vertically</description>
+      </entry>
+      <entry value="1" name="CONDITION_TYPE_AIRSPACE_NOT_CLEAR">
+        <description>True when airspeed is not clear for param1 meters horizontally, param2 seconds in time and alt meters vertically</description>
+      </entry>
+    </enum>
     <enum name="MAV_CMD">
       <description>Commands to be executed by the MAV. They can be executed on user request, or as part of a mission script. If the action is used in a mission, the parameter mapping to the waypoint/mission message is as follows: Param 1, Param 2, Param 3, Param 4, X: Param 5, Y:Param 6, Z:Param 7. This command list is similar what ARINC 424 is for commercial aircraft: A data format how to interpret waypoint/mission data.</description>
       <entry value="16" name="MAV_CMD_NAV_WAYPOINT">
@@ -890,6 +899,26 @@
         <param index="5">Latitude</param>
         <param index="6">Longitude</param>
         <param index="7">Altitude (ground level)</param>
+      </entry>
+      <entry value="86" name="MAV_CMD_NAV_DELAY_BUTTON">
+        <description>Wait for a button state change. This is intended to be used as a method to allow a takeoff delay using a custom button.</description>
+        <param index="1">button bitmask</param>
+        <param index="2">Empty</param>
+        <param index="3">Empty</param>
+        <param index="4">Empty</param>
+        <param index="5">Empty</param>
+        <param index="6">Empty</param>
+        <param index="7">Empty</param>
+      </entry>
+      <entry value="87" name="MAV_CMD_NAV_DELAY_AIRSPACE_CLEAR">
+        <description>Wait for airspace to be clear, using predicted obstacle positions over clearance time. This is intended to be used as a takeoff delay. For within a mission use a DO_CONDITION_JUMP.</description>
+        <param index="1">horizontal clearance [m]</param>
+        <param index="2">vertical clearance [m]</param>
+        <param index="3">clearance time [s]</param>
+        <param index="4">Empty</param>
+        <param index="5">Empty</param>
+        <param index="6">Empty</param>
+        <param index="7">Empty</param>
       </entry>
       <!-- IDs 90 and 91 are reserved until the end of 2014,
                     as they were used in some conflicting proposals
@@ -1357,6 +1386,16 @@
         <param index="4">Empty</param>
         <param index="5">Empty</param>
         <param index="5">Empty</param>
+        <param index="6">Empty</param>
+        <param index="7">Empty</param>
+      </entry>
+      <entry value="224" name="MAV_CMD_DO_CONDITION_JUMP">
+        <description>Jump to the desired command in the mission list if condition is met</description>
+        <param index="1">Sequence number</param>
+        <param index="2">Condition type (see CONDITION_TYPE enum)</param>
+        <param index="3">param1</param>
+        <param index="4">param2</param>
+        <param index="5">param3</param>
         <param index="6">Empty</param>
         <param index="7">Empty</param>
       </entry>
