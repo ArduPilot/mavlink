@@ -2884,6 +2884,79 @@
         <description>Use precision landing, searching for beacon if not found when land command accepted (land normally if beacon cannot be found).</description>
       </entry>
     </enum>
+    <enum name="OPENDRONEID_ID_TYPE">
+      <entry value="0" name="ODID_IDTYPE_NONE">
+        <description>No type defined.</description>
+      </entry>
+      <entry value="1" name="ODID_IDTYPE_SERIAL_NUMBER">
+        <description>Serial Number (ANSI/CTA-2063).</description>
+      </entry>
+      <entry value="2" name="ODID_IDTYPE_CAA_ASSIGNED_ID">
+        <description>CAA (Civil Aviation Authority) Assigned ID.</description>
+      </entry>
+      <entry value="3" name="ODID_IDTYPE_UTM_ASSIGNED_ID">
+        <description>UTM (Unmanned Traffic Management) Assigned ID (UUID RFC4122).</description>
+      </entry>
+    </enum>
+    <enum name="OPENDRONEID_UAS_TYPE">
+      <entry value="0" name="ODID_UASTYPE_NONE">
+        <description>No UAS (Unmanned Air/Aircraft System) type defined.</description>
+      </entry>
+      <entry value="1" name="ODID_UASTYPE_FIXED_WING_POWERED">
+        <description>Fixed Wing Powered.</description>
+      </entry>
+      <entry value="2" name="ODID_UASTYPE_ROTORCRAFT_MULTIROTOR">
+        <description>Rotorcraft/Multirotor.</description>
+      </entry>
+      <entry value="3" name="ODID_UASTYPE_LTA_POWERED">
+        <description>LTA (Lighter than Air, such as a Blimp) Powered.</description>
+      </entry>
+      <entry value="4" name="ODID_UASTYPE_LTA_UNPOWERED">
+        <description>LTA Unpowered (Balloon).</description>
+      </entry>
+      <entry value="5" name="ODID_UASTYPE_VTOL">
+        <description>VTOL (Vertical Take-Off and Landing). Fixed wing aircraft that can take off vertically.</description>
+      </entry>
+      <entry value="6" name="ODID_UASTYPE_FREE_FALL">
+        <description>Free Fall/Parachute.</description>
+      </entry>
+      <entry value="7" name="ODID_UASTYPE_ROCKET">
+        <description>Rocket.</description>
+      </entry>
+      <entry value="8" name="ODID_UASTYPE_GLIDER">
+        <description>Glider.</description>
+      </entry>
+      <entry value="9" name="ODID_UASTYPE_OTHER">
+        <description>Other type of aircraft not .</description>
+      </entry>
+    </enum>
+    <enum name="OPENDRONEID_STATUS_TYPE">
+      <entry value="0" name="ODID_STATUS_UNDECLARED">
+        <description>The status of the UAS is undefined.</description>
+      </entry>
+      <entry value="1" name="ODID_STATUS_GROUND">
+        <description>The UAS is one the ground.</description>
+      </entry>
+      <entry value="2" name="ODID_STATUS_AIRBORNE">
+        <description>The UAS is in the air.</description>
+      </entry>
+    </enum>
+      <enum name="OPENDRONEID_HEIGHT_REFERENCE">
+      <entry value="0" name="ODID_HEIGHT_OVER_TAKEOFF">
+        <description>The height field is relative to the take-off location.</description>
+      </entry>
+      <entry value="1" name="ODID_HEIGHT_OVER_GROUND">
+        <description>The height field is relative to ground.</description>
+      </entry>
+    </enum>
+      <enum name="OPENDRONEID_AUTHENTICATION_TYPE">
+      <entry value="0" name="ODID_AUTHENTICATION_NONE">
+        <description>No authentication type is specified.</description>
+      </entry>
+      <entry value="1" name="ODID_AUTHENTICATION_MPUID">
+        <description>Manufacturer Programmed Unique ID.</description>
+      </entry>
+    </enum>
   </enums>
   <messages>
     <message id="0" name="HEARTBEAT">
@@ -4583,6 +4656,61 @@
       <description>Status text message (use only for important status and error messages). The full message payload can be used for status text, but we recommend that updates be kept concise. Note: The message is intended as a less restrictive replacement for STATUSTEXT.</description>
       <field type="uint8_t" name="severity" enum="MAV_SEVERITY">Severity of status. Relies on the definitions within RFC-5424.</field>
       <field type="char[254]" name="text">Status text message, without null termination character.</field>
+    </message>
+    <!-- Open Drone ID specific messages. The primary intention for these is to feed data to e.g. https://github.com/opendroneid/opendroneid-core-c -->
+    <message id="400" name="OPEN_DRONE_ID_BASIC_ID">
+      <wip/>
+      <!-- This message is work-in-progress it can therefore change, and should NOT be used in stable production environments -->
+      <description>Data for filling the OpenDroneID Basic ID message. See also https://github.com/opendroneid/opendroneid-core-c</description>
+      <field type="uint8_t" name="id_type" enum="OPENDRONEID_ID_TYPE">Indicates the format type for the ID of the UAS.</field>
+      <field type="uint8_t" name="uas_type" enum="OPENDRONEID_UAS_TYPE">Indicates the type of Unmanned Air/Aircraft System.</field>
+      <field type="uint8_t[21]" name="uas_type">UAS ID within the format of ID Type. Max length is 20 characters. If ASCII encoding is used, must be NULL terminated.</field>
+    </message>
+    <message id="401" name="OPEN_DRONE_ID_LOCATION">
+      <wip/>
+      <!-- This message is work-in-progress it can therefore change, and should NOT be used in stable production environments -->
+      <description>Data for filling the OpenDroneID Location message. The float data types below are 32-bit IEEE 754. The Location message provides the location, altitude, direction and speed of the drone.</description>
+      <field type="uint8_t" name="status" enum="OPENDRONEID_STATUS_TYPE">Indicates whether the UAS is on the ground or in the air.</field>
+      <field type="uint16_t" name="direction" units="cdeg">Direction over ground (NOT heading, but direction of movement) in degrees * 100, 0.0..359.99 degrees. If unknown, set to: UINT16_MAX</field>
+      <field type="uint16_t" name="speed_horizontal" units="cm/s">Ground speed. If unknown, set to: UINT16_MAX</field>
+      <field type="float" name="speed_vertical" units="m/s">The vertical speed. Up is positive.</field>
+      <field type="int32_t" name="latitude" units="degE7">Current latitude of the UAS.</field>
+      <field type="int32_t" name="longitude" units="degE7">Current longitude of the UAS.</field>
+      <field type="float" name="altitude_barometric" units="m">The altitude calculated from the barometric pressue. Reference is against 29.92inHg or 1013.2mb.</field>
+      <field type="float" name="altitude_geodetic" units="m">The geodetic altitude as defined by WGS84.</field>
+      <field type="uint8_t" name="height_reference" enum="OPENDRONEID_HEIGHT_REFERENCE">Indicates the reference point for the height field.</field>
+      <field type="float" name="height" units="m">The current height of the UAS above the take-off location or the ground as indicated by height_reference.</field>
+      <field type="float" name="horizontal_accuracy" units="m">The accuracy of the horizontal position.</field>
+      <field type="float" name="vertical_accuracy" units="m">The accuracy of the vertical position.</field>
+      <field type="float" name="velocity_accuracy" units="m/s">The accuracy of the horizontal and vertical velocity.</field>
+      <field type="float" name="timestamp_accuracy" units="s">The accuracy of the timestamps.</field>
+      <field type="float" name="timestamp" units="s">Seconds after the full hour. Typically the GPS outputs a time of week value in milliseconds. That value can be easily converted for this field using ((float) (time_week_ms % (60*60*1000))) / 1000.</field>
+    </message>
+    <message id="402" name="OPEN_DRONE_ID_AUTHENTICATION">
+      <wip/>
+      <!-- This message is work-in-progress it can therefore change, and should NOT be used in stable production environments -->
+      <description>Data for filling the OpenDroneID Authentication message. The Authentication Message defines a field that can provide a means of authenticity for the identity of the UA sending the message.</description>
+      <field type="uint8_t" name="authentication_type" enum="OPENDRONEID_AUTHENTICATION_TYPE">Indicates the type of authentication.</field>
+      <field type="uint8_t" name="data_page">Allowed range is 0 - 15.</field>
+      <field type="uint8_t[23]" name="authentication_data">Opaque authentication data. Sixteen pages are supported for a total of 16 * 23 = 368 bytes.</field>
+    </message>
+    <message id="403" name="OPEN_DRONE_ID_SELFID">
+      <wip/>
+      <!-- This message is work-in-progress it can therefore change, and should NOT be used in stable production environments -->
+      <description>Data for filling the OpenDroneID Self-ID message. The Self-ID Message is an opportunity for the Remote Pilot to (optionally) declare their identity and purpose of the flight. This message can provide additional information that could reduce the threat profile of a UA flying in a particular area or manner.</description>
+      <field type="uint8_t" name="description_type">0: Text Description. 1-255: Reserved.</field>
+      <field type="char[23]" name="authentication_data">Text of Operator and Purpose. Must be NULL terminated.</field>
+    </message>
+    <message id="404" name="OPEN_DRONE_ID_SYSTEM">
+      <wip/>
+      <!-- This message is work-in-progress it can therefore change, and should NOT be used in stable production environments -->
+      <description>Data for filling the OpenDroneID System message. The System Message general system information including information about the ground control station.</description>
+      <field type="uint8_t" name="location_source">0 = Take Off, 1 = Live GNSS.</field>
+      <field type="int32_t" name="latitude" units="degE7">Latitude of the operator.</field>
+      <field type="int32_t" name="longitude" units="degE7">Longitude of the operator.</field>
+      <field type="uint16_t" name="group_count">Number of aircraft in group or formation (default 0).</field>
+      <field type="uint16_t" name="group_radius" units="m">Radius of cylindrical area of group or formation (default 0).</field>
+      <field type="float" name="group_ceiling" units="m">Group Operations Ceiling relative to WGS84.</field>
     </message>
     <!-- Rover specific messages -->
     <message id="9000" name="WHEEL_DISTANCE">
