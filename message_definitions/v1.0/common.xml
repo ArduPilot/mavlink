@@ -2884,7 +2884,7 @@
         <description>Use precision landing, searching for beacon if not found when land command accepted (land normally if beacon cannot be found).</description>
       </entry>
     </enum>
-    <enum name="OPENDRONEID_ID_TYPE">
+    <enum name="ODID_ID_TYPE">
       <entry value="0" name="ODID_IDTYPE_NONE">
         <description>No type defined.</description>
       </entry>
@@ -2898,7 +2898,7 @@
         <description>UTM (Unmanned Traffic Management) Assigned ID (UUID RFC4122).</description>
       </entry>
     </enum>
-    <enum name="OPENDRONEID_UAS_TYPE">
+    <enum name="ODID_UAS_TYPE">
       <entry value="0" name="ODID_UASTYPE_NONE">
         <description>No UAS (Unmanned Air/Aircraft System) type defined.</description>
       </entry>
@@ -2927,21 +2927,21 @@
         <description>Glider.</description>
       </entry>
       <entry value="9" name="ODID_UASTYPE_OTHER">
-        <description>Other type of aircraft not .</description>
+        <description>Other type of aircraft not listed earlier.</description>
       </entry>
     </enum>
-    <enum name="OPENDRONEID_STATUS_TYPE">
+    <enum name="ODID_STATUS_TYPE">
       <entry value="0" name="ODID_STATUS_UNDECLARED">
         <description>The status of the UAS is undefined.</description>
       </entry>
       <entry value="1" name="ODID_STATUS_GROUND">
-        <description>The UAS is one the ground.</description>
+        <description>The UAS is on the ground.</description>
       </entry>
       <entry value="2" name="ODID_STATUS_AIRBORNE">
         <description>The UAS is in the air.</description>
       </entry>
     </enum>
-      <enum name="OPENDRONEID_HEIGHT_REFERENCE">
+    <enum name="ODID_HEIGHT_REFERENCE">
       <entry value="0" name="ODID_HEIGHT_OVER_TAKEOFF">
         <description>The height field is relative to the take-off location.</description>
       </entry>
@@ -2949,7 +2949,7 @@
         <description>The height field is relative to ground.</description>
       </entry>
     </enum>
-      <enum name="OPENDRONEID_AUTHENTICATION_TYPE">
+    <enum name="ODID_AUTHENTICATION_TYPE">
       <entry value="0" name="ODID_AUTHENTICATION_NONE">
         <description>No authentication type is specified.</description>
       </entry>
@@ -4657,20 +4657,27 @@
       <field type="uint8_t" name="severity" enum="MAV_SEVERITY">Severity of status. Relies on the definitions within RFC-5424.</field>
       <field type="char[254]" name="text">Status text message, without null termination character.</field>
     </message>
-    <!-- Open Drone ID specific messages. The primary intention for these is to feed data to e.g. https://github.com/opendroneid/opendroneid-core-c -->
-    <message id="400" name="OPEN_DRONE_ID_BASIC_ID">
+    <!-- Rover specific messages -->
+    <message id="9000" name="WHEEL_DISTANCE">
+      <description>Cumulative distance traveled for each reported wheel.</description>
+      <field type="uint64_t" name="time_usec" units="us">Timestamp (synced to UNIX time or since system boot).</field>
+      <field type="uint8_t" name="count">Number of wheels reported.</field>
+      <field type="double[16]" name="distance" units="m">Distance reported by individual wheel encoders. Forward rotations increase values, reverse rotations decrease them. Not all wheels will necessarily have wheel encoders; the mapping of encoders to wheel positions must be agreed/understood by the endpoints.</field>
+    </message>
+    <!-- Open Drone ID specific messages. The range 12900 - 12949 is reserved for these. The primary intention is to feed data to e.g. https://github.com/opendroneid/opendroneid-core-c -->
+    <message id="12900" name="OPEN_DRONE_ID_BASIC_ID">
       <wip/>
       <!-- This message is work-in-progress it can therefore change, and should NOT be used in stable production environments -->
       <description>Data for filling the OpenDroneID Basic ID message. See also https://github.com/opendroneid/opendroneid-core-c</description>
-      <field type="uint8_t" name="id_type" enum="OPENDRONEID_ID_TYPE">Indicates the format type for the ID of the UAS.</field>
-      <field type="uint8_t" name="uas_type" enum="OPENDRONEID_UAS_TYPE">Indicates the type of Unmanned Air/Aircraft System.</field>
-      <field type="uint8_t[21]" name="uas_type">UAS ID within the format of ID Type. Max length is 20 characters. If ASCII encoding is used, must be NULL terminated.</field>
+      <field type="uint8_t" name="id_type" enum="ODID_ID_TYPE">Indicates the format for the uas_id field of this message.</field>
+      <field type="uint8_t" name="uas_type" enum="ODID_UAS_TYPE">Indicates the type of Unmanned Air/Aircraft System.</field>
+      <field type="uint8_t[21]" name="uas_id">UAS ID following the format specified by id_type. Max length is 20 characters. If ASCII encoding is used, must be NULL terminated.</field>
     </message>
-    <message id="401" name="OPEN_DRONE_ID_LOCATION">
+    <message id="12901" name="OPEN_DRONE_ID_LOCATION">
       <wip/>
       <!-- This message is work-in-progress it can therefore change, and should NOT be used in stable production environments -->
       <description>Data for filling the OpenDroneID Location message. The float data types below are 32-bit IEEE 754. The Location message provides the location, altitude, direction and speed of the drone.</description>
-      <field type="uint8_t" name="status" enum="OPENDRONEID_STATUS_TYPE">Indicates whether the UAS is on the ground or in the air.</field>
+      <field type="uint8_t" name="status" enum="ODID_STATUS_TYPE">Indicates whether the UAS is on the ground or in the air.</field>
       <field type="uint16_t" name="direction" units="cdeg">Direction over ground (NOT heading, but direction of movement) in degrees * 100, 0.0..359.99 degrees. If unknown, set to: UINT16_MAX</field>
       <field type="uint16_t" name="speed_horizontal" units="cm/s">Ground speed. If unknown, set to: UINT16_MAX</field>
       <field type="float" name="speed_vertical" units="m/s">The vertical speed. Up is positive.</field>
@@ -4678,7 +4685,7 @@
       <field type="int32_t" name="longitude" units="degE7">Current longitude of the UAS.</field>
       <field type="float" name="altitude_barometric" units="m">The altitude calculated from the barometric pressue. Reference is against 29.92inHg or 1013.2mb.</field>
       <field type="float" name="altitude_geodetic" units="m">The geodetic altitude as defined by WGS84.</field>
-      <field type="uint8_t" name="height_reference" enum="OPENDRONEID_HEIGHT_REFERENCE">Indicates the reference point for the height field.</field>
+      <field type="uint8_t" name="height_reference" enum="ODID_HEIGHT_REFERENCE">Indicates the reference point for the height field.</field>
       <field type="float" name="height" units="m">The current height of the UAS above the take-off location or the ground as indicated by height_reference.</field>
       <field type="float" name="horizontal_accuracy" units="m">The accuracy of the horizontal position.</field>
       <field type="float" name="vertical_accuracy" units="m">The accuracy of the vertical position.</field>
@@ -4686,22 +4693,22 @@
       <field type="float" name="timestamp_accuracy" units="s">The accuracy of the timestamps.</field>
       <field type="float" name="timestamp" units="s">Seconds after the full hour. Typically the GPS outputs a time of week value in milliseconds. That value can be easily converted for this field using ((float) (time_week_ms % (60*60*1000))) / 1000.</field>
     </message>
-    <message id="402" name="OPEN_DRONE_ID_AUTHENTICATION">
+    <message id="12902" name="OPEN_DRONE_ID_AUTHENTICATION">
       <wip/>
       <!-- This message is work-in-progress it can therefore change, and should NOT be used in stable production environments -->
       <description>Data for filling the OpenDroneID Authentication message. The Authentication Message defines a field that can provide a means of authenticity for the identity of the UA sending the message.</description>
-      <field type="uint8_t" name="authentication_type" enum="OPENDRONEID_AUTHENTICATION_TYPE">Indicates the type of authentication.</field>
+      <field type="uint8_t" name="authentication_type" enum="ODID_AUTHENTICATION_TYPE">Indicates the type of authentication.</field>
       <field type="uint8_t" name="data_page">Allowed range is 0 - 15.</field>
       <field type="uint8_t[23]" name="authentication_data">Opaque authentication data. Sixteen pages are supported for a total of 16 * 23 = 368 bytes.</field>
     </message>
-    <message id="403" name="OPEN_DRONE_ID_SELFID">
+    <message id="12903" name="OPEN_DRONE_ID_SELFID">
       <wip/>
       <!-- This message is work-in-progress it can therefore change, and should NOT be used in stable production environments -->
       <description>Data for filling the OpenDroneID Self-ID message. The Self-ID Message is an opportunity for the Remote Pilot to (optionally) declare their identity and purpose of the flight. This message can provide additional information that could reduce the threat profile of a UA flying in a particular area or manner.</description>
       <field type="uint8_t" name="description_type">0: Text Description. 1-255: Reserved.</field>
       <field type="char[23]" name="authentication_data">Text of Operator and Purpose. Must be NULL terminated.</field>
     </message>
-    <message id="404" name="OPEN_DRONE_ID_SYSTEM">
+    <message id="12904" name="OPEN_DRONE_ID_SYSTEM">
       <wip/>
       <!-- This message is work-in-progress it can therefore change, and should NOT be used in stable production environments -->
       <description>Data for filling the OpenDroneID System message. The System Message general system information including information about the ground control station.</description>
@@ -4711,13 +4718,6 @@
       <field type="uint16_t" name="group_count">Number of aircraft in group or formation (default 0).</field>
       <field type="uint16_t" name="group_radius" units="m">Radius of cylindrical area of group or formation (default 0).</field>
       <field type="float" name="group_ceiling" units="m">Group Operations Ceiling relative to WGS84.</field>
-    </message>
-    <!-- Rover specific messages -->
-    <message id="9000" name="WHEEL_DISTANCE">
-      <description>Cumulative distance traveled for each reported wheel.</description>
-      <field type="uint64_t" name="time_usec" units="us">Timestamp (synced to UNIX time or since system boot).</field>
-      <field type="uint8_t" name="count">Number of wheels reported.</field>
-      <field type="double[16]" name="distance" units="m">Distance reported by individual wheel encoders. Forward rotations increase values, reverse rotations decrease them. Not all wheels will necessarily have wheel encoders; the mapping of encoders to wheel positions must be agreed/understood by the endpoints.</field>
     </message>
   </messages>
 </mavlink>
