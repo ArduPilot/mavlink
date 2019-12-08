@@ -4752,6 +4752,9 @@
       <description>Status text message. These messages are printed in yellow in the COMM console of QGroundControl. WARNING: They consume quite some bandwidth, so use only for important status and error messages. If implemented wisely, these messages are buffered on the MCU and sent only at a limited rate (e.g. 10 Hz).</description>
       <field type="uint8_t" name="severity" enum="MAV_SEVERITY">Severity of status. Relies on the definitions within RFC-5424.</field>
       <field type="char[50]" name="text">Status text message, without null termination character</field>
+      <extensions/>
+      <field type="uint8_t" name="chunk_count">Number of chunks making up logical statustext message.</field>
+      <field type="uint8_t" name="chunk_num">This chunk's number; indexing is from zero, so if chunk_count is 3 there will be three packets, one each with chunk_num=0, chunk_num=1, chunk_num=2.</field>
     </message>
     <message id="254" name="DEBUG">
       <description>Send a debug value. The index is used to discriminate between values. These values show up in the plot of QGroundControl as DEBUG N.</description>
