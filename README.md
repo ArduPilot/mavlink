@@ -1,4 +1,7 @@
-[![Build Status](https://travis-ci.org/ArduPilot/mavlink)](https://travis-ci.org/ArduPilot/mavlink)
+To clone this repo, use: 
+```bash
+git clone --recurse-submodules --remote-submodules git@github.com:flylogix/mavlink.git
+```
 
 ## MAVLink ##
 
