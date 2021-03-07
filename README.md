@@ -1,6 +1,9 @@
 To clone this repo, use: 
 ```bash
-git clone --recurse-submodules --remote-submodules git@github.com:flylogix/mavlink.git
+git clone git@github.com:flylogix/mavlink.git
+cd mavlink/
+git submodule update --init --recursive
+git submodule update --recursive --remote pymavlink
 ```
 
 ## MAVLink ##
