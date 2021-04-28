@@ -1708,5 +1708,15 @@
       <field type="float" name="min_distance" units="m">Minimum distance the sensor can measure.</field>
       <field type="float" name="max_distance" units="m">Maximum distance the sensor can measure.</field>
     </message>
+    <message id="11038" name="GNSS_SVINFO">
+      <description>The positioning status, as reported by GNSS. This message is intended to display status information about each satellite visible to the receiver. This message can contain information for up to 64 satellites.</description>
+      <field type="uint8_t" name="gnss_id" instance="true">GNSS instance.</field>
+      <field type="uint8_t" name="satellites_visible">Number of satellites visible</field>
+      <field type="uint64_t" name="nav_mask">mask of satellites used for navigation</field>
+      <field type="uint8_t[64]" name="SV">space vehicle number</field>
+      <field type="uint8_t[64]" name="CN0" units="db-Hz">signal to noise ratio</field>
+      <field type="uint8_t[64]" name="elev" units="deg">elevation</field>
+    </message>
+
   </messages>
 </mavlink>
