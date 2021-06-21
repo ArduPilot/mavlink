@@ -1317,7 +1317,7 @@
       <deprecated since="2017-04" replaced_by="BATTERY_STATUS"/>
       <description>2nd Battery status</description>
       <field type="uint16_t" name="voltage" units="mV">Voltage.</field>
-      <field type="int16_t" name="current_battery" units="cA">Battery current, -1: autopilot does not measure the current.</field>
+      <field type="int16_t" name="current_battery" units="c%">Fuel level - added by Flylogix.</field>
     </message>
     <message id="182" name="AHRS3">
       <description>Status of third AHRS filter if available. This is for ANU research group (Ali and Sean).</description>
