@@ -1736,5 +1736,17 @@
       <field type="float" name="distance" units="m">Distance (uncorrected)</field>
       <field type="float" name="temperature" units="degC">Water temperature</field>
     </message>
+    <message id="11039" name="DSNPNT_PARAMS">
+      <description>Digital Sky NPNT persistent parameters</description>
+      <field type="uint8_t" name="target_system">System ID.</field>
+      <field type="uint8_t" name="target_component">Component ID.</field>
+      <field type="char[32]" name="UIN">Drone Unique Identification Number</field>
+      <field type="char[64]" name="OID">Operator ID</field>
+    </message>
+    <message id="11040" name="GET_DSNPNT_PARAMS">
+      <description>Request Digital Sky NPNT persistent parameters</description>
+      <field type="uint8_t" name="target_system">System ID.</field>
+      <field type="uint8_t" name="target_component">Component ID.</field>
+    </message>
   </messages>
 </mavlink>
