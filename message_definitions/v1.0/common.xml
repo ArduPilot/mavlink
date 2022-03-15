@@ -1838,6 +1838,7 @@
       </entry>
     </enum>
     <enum name="MAV_DATA_STREAM">
+      <deprecated since="2015-06" replaced_by="MESSAGE_INTERVAL"/>
       <description>A data stream is not a fixed set of messages, but rather a
      recommendation to the autopilot software. Individual autopilots may or may not obey
      the recommended messages.</description>
