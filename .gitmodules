@@ -1,4 +1,4 @@
 [submodule "pymavlink"]
 	path = pymavlink
-	url = git://github.com/flylogix/pymavlink.git
+	url = git@github.com:flylogix/pymavlink.git
 	branch = fx-dev-1.0
