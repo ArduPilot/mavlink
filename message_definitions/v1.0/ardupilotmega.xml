@@ -1772,5 +1772,11 @@
       <field type="uint16_t" name="MCU_voltage_min" units="mV">MCU voltage minimum</field>
       <field type="uint16_t" name="MCU_voltage_max" units="mV">MCU voltage maximum</field>
     </message>
+    <message id="11040" name="VEHICLE_MODE">
+      <description>Report mapping between vehicle mode name and number, allowing for creation of custom vehicle modes. The GCS should cache this mapping for displaying modes</description>
+      <field type="uint32_t" name="custom_mode">vehicle mode number that will be reported in HEARTBEAT custom_mode</field>
+      <field type="char[20]" name="mode_name">Long mode name</field>
+      <field type="char[4]" name="short_name">Short mode name</field>
+    </message>
   </messages>
 </mavlink>
