@@ -4701,9 +4701,6 @@
       <field type="float" name="cylinder_head_temperature" units="degC">Cylinder head temperature</field>
       <field type="float" name="ignition_timing" units="deg">Ignition timing (Crank angle degrees)</field>
       <field type="float" name="injection_time" units="ms">Injection time</field>
-      <field type="float" name="exhaust_gas_temperature" units="degC">Exhaust gas temperature</field>
-      <field type="float" name="throttle_out" units="%">Output throttle</field>
-      <field type="float" name="pt_compensation">Pressure/temperature compensation</field>
     </message>
     <!-- MESSAGE IDs 180 - 229: Space for custom messages in individual projectname_messages.xml files -->
     <message id="230" name="ESTIMATOR_STATUS">
