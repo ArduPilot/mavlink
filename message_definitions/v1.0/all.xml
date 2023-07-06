@@ -1,13 +1,26 @@
 <?xml version="1.0"?>
 <mavlink>
+  <!-- ardupilotmega.xml range of IDs:
+    messages: 11000 - 11999
+    commands: 42000 - 42999
+  -->
   <include>ardupilotmega.xml</include>
   <!-- ASLUAV.xml range of IDs:
     messages: 8000 - 8999
     commands: 40001 - 41999
   -->
   <include>ASLUAV.xml</include>
+  <!-- common.xml range of IDs:
+    messages: 300 - 10000
+    commands: 0 - 39999
+    Note: entities imported from other dialects may fall outside these ranges.    
+  -->
   <include>common.xml</include>
   <include>development.xml</include>
+  <!-- icarous.xml range of IDs:
+    messages: 42000 - 42999
+    commands: ? - ?
+  -->
   <include>icarous.xml</include>
   <include>minimal.xml</include>
   <!-- paparazzi.xml: : ERROR: Duplicate message id 180 for SCRIPT_ITEM (paparazzi.xml:9) also used by CAMERA_FEEDBACK (ardupilotmega.xml:1370) -->
@@ -42,8 +55,8 @@
     commands: 52000 - 52099
   -->
   <!--Next range to allocate range of IDs:
-    messages: 52100 - ? < 60000
-    commands: 52100 - ? < 60000
+    messages: 52100 - 52100 (< 60000)
+    commands: 52100 - 52199 (< 60000)
   -->
   <messages/>
 </mavlink>
