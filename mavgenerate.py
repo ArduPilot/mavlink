@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 """\
 mavgenerate.py is a GUI front-end for mavgen, a python based MAVLink
 header generation tool.
