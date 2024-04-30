@@ -30,19 +30,19 @@
     </message>
     <message id="3" name="STATE_MESSAGE">
       <description>State message</description>
-      <field type="uint8_t[15]" name="state">State</field>
+      <field type="uint8_t[13]" name="state">State</field>
     </message>
     <message id="4" name="LOG_MESSAGE">
       <description>Log message</description>
-      <field type="uint8_t[20]" name="log">Log</field>
+      <field type="uint8_t[15]" name="log">Log</field>
     </message>
     <message id="5" name="HEALTH_MESSAGE">
       <description>Health message</description>
-      <field type="uint8_t[50]" name="health">Health</field>
+      <field type="uint8_t[40]" name="health">Health</field>
     </message>
     <message id="7" name="SENSOR_MESSAGE">
       <description>Sensor message</description>
-      <field type="uint8_t[50]" name="sensor">Sensor</field>
+      <field type="uint8_t[53]" name="sensor">Sensor</field>
     </message>
     <message id="8" name="COMMAND_MESSAGE">
       <description>Command message</description>
