@@ -38,7 +38,7 @@
     </message>
     <message id="5" name="HEALTH_MESSAGE">
       <description>Health message</description>
-      <field type="uint8_t[45]" name="health">Health</field>
+      <field type="uint8_t[47]" name="health">Health</field>
     </message>
     <message id="7" name="SENSOR_MESSAGE">
       <description>Sensor message</description>
