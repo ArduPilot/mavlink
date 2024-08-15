@@ -23,6 +23,38 @@
         <description>Channel data may be out of date. This is set when the receiver is unable to validate incoming data from the transmitter and has therefore resent the last valid data it received.</description>
       </entry>
     </enum>
+    <enum name="RADIO_LINK_STATS_FLAGS" bitmask="true">
+      <description>RADIO_LINK_STATS flags (bitmask).</description>
+      <entry value="1" name="RADIO_LINK_STATS_FLAGS_RSSI_DBM">
+        <description>Rssi values are in negative dBm. Values 1..254 corresponds to -1..-254 dBm. 0: no reception, UINT8_MAX: unknown.</description>
+      </entry>
+    </enum>
+    <enum name="RADIO_LINK_STATS_ANTENNA_FLAGS" bitmask="true">
+      <description>RADIO_LINK_STATS antenna flags (bitmask).
+        The RX_RECEIVE and TX_RECEIVE flags indicate from which antenna the received data are taken for processing.
+        The RX_TRANSMIT and TX_TRANSMIT flags specify which antenna are transmitting data.
+        Both antenna 1 and antenna 2 transmit flags can be set simultaneously, e.g., in case of dual-band or dual-frequency systems.
+        If neither flag is set then antenna 1 should be assumed.
+      </description>
+      <entry value="0x01" name="RADIO_LINK_STATS_ANTENNA_FLAGS_RX_RECEIVE_ANTENNA2">
+        <description>Rx receive antenna. If the flag is set, then the data received on antenna 2 are taken, else the data stems from antenna 1.</description>
+      </entry>
+      <entry value="0x02" name="RADIO_LINK_STATS_ANTENNA_FLAGS_RX_TRANSMIT_ANTENNA1">
+        <description>Rx transmit antenna. Data are transmitted on antenna 1.</description>
+      </entry>
+      <entry value="0x04" name="RADIO_LINK_STATS_ANTENNA_FLAGS_RX_TRANSMIT_ANTENNA2">
+        <description>Rx transmit antenna. Data are transmitted on antenna 2.</description>
+      </entry>
+      <entry value="0x08" name="RADIO_LINK_STATS_ANTENNA_FLAGS_TX_RECEIVE_ANTENNA2">
+        <description>Tx receive antenna. If the flag is set, then the data received on antenna 2 are taken, else the data stems from antenna 1.</description>
+      </entry>
+      <entry value="0x10" name="RADIO_LINK_STATS_ANTENNA_FLAGS_TX_TRANSMIT_ANTENNA1">
+        <description>Tx transmit antenna. Data are transmitted on antenna 1.</description>
+      </entry>
+      <entry value="0x20" name="RADIO_LINK_STATS_ANTENNA_FLAGS_TX_TRANSMIT_ANTENNA2">
+        <description>Tx transmit antenna. Data are transmitted on antenna 2.</description>
+      </entry>
+    </enum>
     <enum name="MAV_CMD">
       <entry value="610" name="MAV_CMD_DO_SET_SYS_CMP_ID" hasLocation="false" isDestination="false">
         <description>
@@ -95,6 +127,34 @@
       <field type="int16_t[32]" name="channels" minValue="-4096" maxValue="4096">RC channels.
         Channel values are in centered 13 bit format. Range is -4096 to 4096, center is 0. Conversion to PWM is x * 5/32 + 1500.
         Channels with indexes equal or above count should be set to 0, to benefit from MAVLink's trailing-zero trimming.</field>
+    </message>
+    <message id="421" name="RADIO_LINK_STATS">
+      <description>Radio link statistics for a MAVLink RC receiver or transmitter. Tx: ground-side device, Rx: vehicle-side device.
+        The message is normally emitted in regular time intervals upon each actual or expected receiption of an over-the-air data packet on the link.
+        A MAVLink RC receiver should emit it shortly after it emits a RADIO_RC_CHANNELS message (if it is emitting that message).
+        Per default, rssi values are in MAVLink units: 0 represents weakest signal, 254 represents maximum signal.
+        The RADIO_LINK_STATS_FLAGS_RSSI_DBM flag is set if the rssi units are negative dBm: 1..254 correspond to -1..-254 dBm, 0 represents no receiption.
+        The target_system field should normally be set to the system id of the system the link is connected to, typically the flight controller.
+        The target_component field can normally be set to 0, so that all components of the system can receive the message.
+      </description>
+      <field type="uint8_t" name="target_system">System ID (ID of target system, normally flight controller).</field>
+      <field type="uint8_t" name="target_component">Component ID (normally 0 for broadcast).</field>
+      <field type="uint8_t" name="flags" enum="RADIO_LINK_STATS_FLAGS" display="bitmask">Radio link statistics flags.</field>
+      <field type="uint8_t" name="rx_LQ_rc" units="c%" invalid="UINT8_MAX">Link quality of RC data stream from Tx to Rx. Values: 1..100, 0: no link connection, UINT8_MAX: unknown.</field>
+      <field type="uint8_t" name="rx_LQ_ser" units="c%" invalid="UINT8_MAX">Link quality of serial MAVLink data stream from Tx to Rx. Values: 1..100, 0: no link connection, UINT8_MAX: unknown.</field>
+      <field type="uint8_t" name="rx_rssi1" invalid="UINT8_MAX">Rssi of antenna 1. 0: no reception, UINT8_MAX: unknown.</field>
+      <field type="int8_t" name="rx_snr1" invalid="INT8_MAX">Noise on antenna 1. Radio link dependent. INT8_MAX: unknown.</field>
+      <field type="uint8_t" name="rx_rssi2" invalid="UINT8_MAX">Rssi of antenna 2. 0: no reception, UINT8_MAX: use rx_rssi1 if it is known else unknown.</field>
+      <field type="int8_t" name="rx_snr2" invalid="INT8_MAX">Noise on antenna 2. Radio link dependent. INT8_MAX: use rx_snr1 if it is known else unknown.</field>
+      <field type="uint8_t" name="tx_LQ_ser" units="c%" invalid="UINT8_MAX">Link quality of serial MAVLink data stream from Rx to Tx. Values: 1..100, 0: no link connection, UINT8_MAX: unknown.</field>
+      <field type="uint8_t" name="tx_rssi1" invalid="UINT8_MAX">Rssi of antenna 1. 0: no reception. UINT8_MAX: unknown.</field>
+      <field type="int8_t" name="tx_snr1" invalid="INT8_MAX">Noise on antenna 1. Radio link dependent. INT8_MAX: unknown.</field>
+      <field type="uint8_t" name="tx_rssi2" invalid="UINT8_MAX">Rssi of antenna 2. 0: no reception. UINT8_MAX: use tx_rssi1 if it is known else unknown.</field>
+      <field type="int8_t" name="tx_snr2" invalid="INT8_MAX">Noise on antenna 2. Radio link dependent. INT8_MAX: use tx_snr1 if it is known else unknown.</field>
+      <field type="uint16_t" name="antenna_flags" enum="RADIO_LINK_STATS_ANTENNA_FLAGS" display="bitmask">Radio link antenna flags. 0: unknown, assume antenna 1 for all categories.</field>
+      <extensions/>
+      <field type="float" name="frequency1" units="Hz" invalid="0">Frequency on antenna1 in Hz. 0: unknown.</field>
+      <field type="float" name="frequency2" units="Hz" invalid="0">Frequency on antenna2 in Hz. 0: unknown.</field>
     </message>
   </messages>
 </mavlink>
