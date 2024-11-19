@@ -2218,6 +2218,47 @@
         <param index="6">Empty.</param>
         <param index="7">Empty.</param>
       </entry>
+      <!-- AHRS commands (32000 to 32099) -->
+      <entry value="33000" name="MAV_CMD_AHRS_START" hasLocation="false" isDestination="false">
+        <description>Send command "start data sending" to the AHRS</description>
+        <param index="1">Empty.</param>
+        <param index="2">Empty.</param>
+        <param index="3">Empty.</param>
+        <param index="4">Empty.</param>
+        <param index="5">Empty.</param>
+        <param index="6">Empty.</param>
+        <param index="7">Empty.</param>
+      </entry>
+      <entry value="33001" name="MAV_CMD_AHRS_STOP" hasLocation="false" isDestination="false">
+        <description>Send command "stop data sending" to the AHRS</description>
+        <param index="1">Empty.</param>
+        <param index="2">Empty.</param>
+        <param index="3">Empty.</param>
+        <param index="4">Empty.</param>
+        <param index="5">Empty.</param>
+        <param index="6">Empty.</param>
+        <param index="7">Empty.</param>
+      </entry>
+      <entry value="33002" name="MAV_CMD_AHRS_ENABLE_GNSS" hasLocation="false" isDestination="false">
+        <description>Send command "enable GNSS" to the AHRS</description>
+        <param index="1">Empty.</param>
+        <param index="2">Empty.</param>
+        <param index="3">Empty.</param>
+        <param index="4">Empty.</param>
+        <param index="5">Empty.</param>
+        <param index="6">Empty.</param>
+        <param index="7">Empty.</param>
+      </entry>
+      <entry value="33003" name="MAV_CMD_AHRS_DISABLE_GNSS" hasLocation="false" isDestination="false">
+        <description>Send command "disable GNSS" to the AHRS</description>
+        <param index="1">Empty.</param>
+        <param index="2">Empty.</param>
+        <param index="3">Empty.</param>
+        <param index="4">Empty.</param>
+        <param index="5">Empty.</param>
+        <param index="6">Empty.</param>
+        <param index="7">Empty.</param>
+      </entry>
     </enum>
     <enum name="MAV_DATA_STREAM">
       <description>A data stream is not a fixed set of messages, but rather a
