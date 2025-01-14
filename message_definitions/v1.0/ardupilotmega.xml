@@ -1890,5 +1890,13 @@
       <field type="uint16_t[4]" name="rpm" units="rpm">RPM (eRPM).</field>
       <field type="uint16_t[4]" name="count">count of telemetry packets received (wraps at 65535).</field>
     </message>
+    <message id="11045" name="ARDUSOAR_EKF_ESTIMATE">
+      <wip/>
+      <description>Thermal strength, radius, and location estimate from the ArduSoar algorithm.</description>
+      <field type="float" name="radius" units="m">Estimated thermal radius</field>
+      <field type="float" name="strength" units="m/s">Estimated thermal peak lift rate</field>
+      <field type="float" name="x" units="m">Estimated thermal position, north of home (y)</field>
+      <field type="float" name="y" units="m">Estimated thermal position, east of home (x)</field>
+    </message>
   </messages>
 </mavlink>
