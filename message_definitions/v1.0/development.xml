@@ -163,6 +163,47 @@
         <param index="6" reserved="true" default="0"/>
         <param index="7" reserved="true" default="NaN"/>
       </entry>
+      <!-- AHRS commands (32000 to 32099) -->
+      <entry value="33000" name="MAV_CMD_AHRS_START" hasLocation="false" isDestination="false">
+        <description>Start measuring by AHRS</description>
+        <param index="1" label="Instance" minValue="0" increment="1">AHRS instance number.</param>
+        <param index="2">Empty.</param>
+        <param index="3">Empty.</param>
+        <param index="4">Empty.</param>
+        <param index="5">Empty.</param>
+        <param index="6">Empty.</param>
+        <param index="7">Empty.</param>
+      </entry>
+      <entry value="33001" name="MAV_CMD_AHRS_STOP" hasLocation="false" isDestination="false">
+        <description>Stop measuring by AHRS</description>
+        <param index="1" label="Instance" minValue="0" increment="1">AHRS instance number.</param>
+        <param index="2">Empty.</param>
+        <param index="3">Empty.</param>
+        <param index="4">Empty.</param>
+        <param index="5">Empty.</param>
+        <param index="6">Empty.</param>
+        <param index="7">Empty.</param>
+      </entry>
+      <entry value="33002" name="MAV_CMD_AHRS_GPS_ENABLE" hasLocation="false" isDestination="false">
+        <description>Enable GPS use by AHRS</description>
+        <param index="1" label="Instance" minValue="0" increment="1">AHRS instance number.</param>
+        <param index="2">Empty.</param>
+        <param index="3">Empty.</param>
+        <param index="4">Empty.</param>
+        <param index="5">Empty.</param>
+        <param index="6">Empty.</param>
+        <param index="7">Empty.</param>
+      </entry>
+      <entry value="33003" name="MAV_CMD_AHRS_GPS_DISABLE" hasLocation="false" isDestination="false">
+        <description>Disable GPS use by AHRS</description>
+        <param index="1" label="Instance" minValue="0" increment="1">AHRS instance number.</param>
+        <param index="2">Empty.</param>
+        <param index="3">Empty.</param>
+        <param index="4">Empty.</param>
+        <param index="5">Empty.</param>
+        <param index="6">Empty.</param>
+        <param index="7">Empty.</param>
+      </entry>
     </enum>
     <enum name="GPS_SYSTEM_ERROR_FLAGS" bitmask="true">
       <description>Flags indicating errors in a GPS receiver.</description>
