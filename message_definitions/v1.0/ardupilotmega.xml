@@ -31,22 +31,10 @@
       <entry value="215" name="MAV_CMD_DO_SET_RESUME_REPEAT_DIST" hasLocation="false" isDestination="false">
         <description>Set the distance to be repeated on mission resume</description>
         <param index="1" label="Distance" units="m">Distance.</param>
-        <param index="2">Empty.</param>
-        <param index="3">Empty.</param>
-        <param index="4">Empty.</param>
-        <param index="5">Empty.</param>
-        <param index="6">Empty.</param>
-        <param index="7">Empty.</param>
       </entry>
       <entry value="216" name="MAV_CMD_DO_SPRAYER" hasLocation="false" isDestination="false">
         <description>Control attached liquid sprayer</description>
         <param index="1" label="Sprayer Enable" minValue="0" maxValue="1" increment="1">0: disable sprayer. 1: enable sprayer.</param>
-        <param index="2">Empty.</param>
-        <param index="3">Empty.</param>
-        <param index="4">Empty.</param>
-        <param index="5">Empty.</param>
-        <param index="6">Empty.</param>
-        <param index="7">Empty.</param>
       </entry>
       <entry value="217" name="MAV_CMD_DO_SEND_SCRIPT_MESSAGE" hasLocation="false" isDestination="false">
         <description>Pass instructions onto scripting, a script should be checking for a new command</description>
@@ -54,70 +42,32 @@
         <param index="2" label="param 1">float value to be passed to scripting</param>
         <param index="3" label="param 2">float value to be passed to scripting</param>
         <param index="4" label="param 3">float value to be passed to scripting</param>
-        <param index="5">Empty.</param>
-        <param index="6">Empty.</param>
-        <param index="7">Empty.</param>
       </entry>
       <entry value="218" name="MAV_CMD_DO_AUX_FUNCTION">
         <description>Execute auxiliary function</description>
         <param index="1" label="AuxiliaryFunction">Auxiliary Function.</param>
         <param index="2" label="SwitchPosition" enum="MAV_CMD_DO_AUX_FUNCTION_SWITCH_LEVEL">Switch Level.</param>
-        <param index="3">Empty.</param>
-        <param index="4">Empty.</param>
-        <param index="5">Empty.</param>
-        <param index="6">Empty.</param>
-        <param index="7">Empty.</param>
       </entry>
       <entry value="83" name="MAV_CMD_NAV_ALTITUDE_WAIT" hasLocation="false" isDestination="false">
         <description>Mission command to wait for an altitude or downwards vertical speed. This is meant for high altitude balloon launches, allowing the aircraft to be idle until either an altitude is reached or a negative vertical speed is reached (indicating early balloon burst). The wiggle time is how often to wiggle the control surfaces to prevent them seizing up.</description>
         <param index="1" label="Altitude" units="m">Altitude.</param>
         <param index="2" label="Descent Speed" units="m/s">Descent speed.</param>
         <param index="3" label="Wiggle Time" units="s">How long to wiggle the control surfaces to prevent them seizing up.</param>
-        <param index="4">Empty.</param>
-        <param index="5">Empty.</param>
-        <param index="6">Empty.</param>
-        <param index="7">Empty.</param>
       </entry>
       <entry value="42000" name="MAV_CMD_POWER_OFF_INITIATED" hasLocation="false" isDestination="false">
         <description>A system wide power-off event has been initiated.</description>
-        <param index="1">Empty.</param>
-        <param index="2">Empty.</param>
-        <param index="3">Empty.</param>
-        <param index="4">Empty.</param>
-        <param index="5">Empty.</param>
-        <param index="6">Empty.</param>
-        <param index="7">Empty.</param>
       </entry>
       <!-- MAV_CMD_SOLO_BTN_* are here to provide vendor-specific support for 3DR Solo until a better solution is found to atomically make multiple commands with control flow -->
       <entry value="42001" name="MAV_CMD_SOLO_BTN_FLY_CLICK" hasLocation="false" isDestination="false">
         <description>FLY button has been clicked.</description>
-        <param index="1">Empty.</param>
-        <param index="2">Empty.</param>
-        <param index="3">Empty.</param>
-        <param index="4">Empty.</param>
-        <param index="5">Empty.</param>
-        <param index="6">Empty.</param>
-        <param index="7">Empty.</param>
       </entry>
       <entry value="42002" name="MAV_CMD_SOLO_BTN_FLY_HOLD" hasLocation="false" isDestination="false">
         <description>FLY button has been held for 1.5 seconds.</description>
         <param index="1" label="Takeoff Altitude" units="m">Takeoff altitude.</param>
-        <param index="2">Empty.</param>
-        <param index="3">Empty.</param>
-        <param index="4">Empty.</param>
-        <param index="5">Empty.</param>
-        <param index="6">Empty.</param>
-        <param index="7">Empty.</param>
       </entry>
       <entry value="42003" name="MAV_CMD_SOLO_BTN_PAUSE_CLICK" hasLocation="false" isDestination="false">
         <description>PAUSE button has been clicked.</description>
         <param index="1" label="Shot Mode" minValue="0" maxValue="1" increment="1">1 if Solo is in a shot mode, 0 otherwise.</param>
-        <param index="2">Empty.</param>
-        <param index="3">Empty.</param>
-        <param index="4">Empty.</param>
-        <param index="5">Empty.</param>
-        <param index="6">Empty.</param>
-        <param index="7">Empty.</param>
       </entry>
       <entry value="42004" name="MAV_CMD_FIXED_MAG_CAL" hasLocation="false" isDestination="false">
         <description>Magnetometer calibration based on fixed position
@@ -126,30 +76,17 @@
         <param index="2" label="Inclination" units="deg">Magnetic inclination.</param>
         <param index="3" label="Intensity" units="mgauss">Magnetic intensity.</param>
         <param index="4" label="Yaw" units="deg">Yaw.</param>
-        <param index="5">Empty.</param>
-        <param index="6">Empty.</param>
-        <param index="7">Empty.</param>
       </entry>
       <entry value="42005" name="MAV_CMD_FIXED_MAG_CAL_FIELD" hasLocation="false" isDestination="false">
         <description>Magnetometer calibration based on fixed expected field values.</description>
         <param index="1" label="Field X" units="mgauss">Field strength X.</param>
         <param index="2" label="Field Y" units="mgauss">Field strength Y.</param>
         <param index="3" label="Field Z" units="mgauss">Field strength Z.</param>
-        <param index="4">Empty.</param>
-        <param index="5">Empty.</param>
-        <param index="6">Empty.</param>
-        <param index="7">Empty.</param>
       </entry>
       <!-- 42006 MAV_CMD_FIXED_MAG_CAL_YAW moved to common.xml -->
       <entry value="42007" name="MAV_CMD_SET_EKF_SOURCE_SET" hasLocation="false" isDestination="false">
         <description>Set EKF sensor source set.</description>
         <param index="1" label="SourceSetId" minValue="1" maxValue="3" increment="1">Source Set Id.</param>
-        <param index="2">Empty.</param>
-        <param index="3">Empty.</param>
-        <param index="4">Empty.</param>
-        <param index="5">Empty.</param>
-        <param index="6">Empty.</param>
-        <param index="7">Empty.</param>
       </entry>
       <entry value="42424" name="MAV_CMD_DO_START_MAG_CAL" hasLocation="false" isDestination="false">
         <description>Initiate a magnetometer calibration.</description>
@@ -158,109 +95,45 @@
         <param index="3" label="Autosave" minValue="0" maxValue="1" increment="1">Save without user input (0=require input, 1=autosave).</param>
         <param index="4" label="Delay" units="s">Delay.</param>
         <param index="5" label="Autoreboot" minValue="0" maxValue="1" increment="1">Autoreboot (0=user reboot, 1=autoreboot).</param>
-        <param index="6">Empty.</param>
-        <param index="7">Empty.</param>
       </entry>
       <entry value="42425" name="MAV_CMD_DO_ACCEPT_MAG_CAL" hasLocation="false" isDestination="false">
         <description>Accept a magnetometer calibration.</description>
         <param index="1" label="Magnetometers Bitmask" minValue="0" maxValue="255" increment="1">Bitmask of magnetometers that calibration is accepted (0 means all).</param>
-        <param index="2">Empty.</param>
-        <param index="3">Empty.</param>
-        <param index="4">Empty.</param>
-        <param index="5">Empty.</param>
-        <param index="6">Empty.</param>
-        <param index="7">Empty.</param>
       </entry>
       <entry value="42426" name="MAV_CMD_DO_CANCEL_MAG_CAL" hasLocation="false" isDestination="false">
         <description>Cancel a running magnetometer calibration.</description>
         <param index="1" label="Magnetometers Bitmask" minValue="0" maxValue="255" increment="1">Bitmask of magnetometers to cancel a running calibration (0 means all).</param>
-        <param index="2">Empty.</param>
-        <param index="3">Empty.</param>
-        <param index="4">Empty.</param>
-        <param index="5">Empty.</param>
-        <param index="6">Empty.</param>
-        <param index="7">Empty.</param>
       </entry>
       <entry value="42429" name="MAV_CMD_ACCELCAL_VEHICLE_POS" hasLocation="false" isDestination="false">
         <description>Used when doing accelerometer calibration. When sent to the GCS tells it what position to put the vehicle in. When sent to the vehicle says what position the vehicle is in.</description>
         <param index="1" label="Position" enum="ACCELCAL_VEHICLE_POS">Position.</param>
-        <param index="2">Empty.</param>
-        <param index="3">Empty.</param>
-        <param index="4">Empty.</param>
-        <param index="5">Empty.</param>
-        <param index="6">Empty.</param>
-        <param index="7">Empty.</param>
       </entry>
       <entry value="42428" name="MAV_CMD_DO_SEND_BANNER" hasLocation="false" isDestination="false">
         <description>Reply with the version banner.</description>
-        <param index="1">Empty.</param>
-        <param index="2">Empty.</param>
-        <param index="3">Empty.</param>
-        <param index="4">Empty.</param>
-        <param index="5">Empty.</param>
-        <param index="6">Empty.</param>
-        <param index="7">Empty.</param>
       </entry>
       <entry value="42427" name="MAV_CMD_SET_FACTORY_TEST_MODE" hasLocation="false" isDestination="false">
         <description>Command autopilot to get into factory test/diagnostic mode.</description>
         <param index="1" label="Test Mode" minValue="0" maxValue="1" increment="1">0: activate test mode, 1: exit test mode.</param>
-        <param index="2">Empty.</param>
-        <param index="3">Empty.</param>
-        <param index="4">Empty.</param>
-        <param index="5">Empty.</param>
-        <param index="6">Empty.</param>
-        <param index="7">Empty.</param>
       </entry>
       <entry value="42501" name="MAV_CMD_GIMBAL_RESET" hasLocation="false" isDestination="false">
         <description>Causes the gimbal to reset and boot as if it was just powered on.</description>
-        <param index="1">Empty.</param>
-        <param index="2">Empty.</param>
-        <param index="3">Empty.</param>
-        <param index="4">Empty.</param>
-        <param index="5">Empty.</param>
-        <param index="6">Empty.</param>
-        <param index="7">Empty.</param>
       </entry>
       <entry value="42502" name="MAV_CMD_GIMBAL_AXIS_CALIBRATION_STATUS" hasLocation="false" isDestination="false">
         <description>Reports progress and success or failure of gimbal axis calibration procedure.</description>
         <param index="1" label="Axis" enum="GIMBAL_AXIS">Gimbal axis we're reporting calibration progress for.</param>
         <param index="2" label="Progress" units="%" minValue="0" maxValue="100">Current calibration progress for this axis.</param>
         <param index="3" label="Status" enum="GIMBAL_AXIS_CALIBRATION_STATUS">Status of the calibration.</param>
-        <param index="4">Empty.</param>
-        <param index="5">Empty.</param>
-        <param index="6">Empty.</param>
-        <param index="7">Empty.</param>
       </entry>
       <entry value="42503" name="MAV_CMD_GIMBAL_REQUEST_AXIS_CALIBRATION" hasLocation="false" isDestination="false">
         <description>Starts commutation calibration on the gimbal.</description>
-        <param index="1">Empty.</param>
-        <param index="2">Empty.</param>
-        <param index="3">Empty.</param>
-        <param index="4">Empty.</param>
-        <param index="5">Empty.</param>
-        <param index="6">Empty.</param>
-        <param index="7">Empty.</param>
       </entry>
       <entry value="42505" name="MAV_CMD_GIMBAL_FULL_RESET" hasLocation="false" isDestination="false">
         <description>Erases gimbal application and parameters.</description>
-        <param index="1">Magic number.</param>
-        <param index="2">Magic number.</param>
-        <param index="3">Magic number.</param>
-        <param index="4">Magic number.</param>
-        <param index="5">Magic number.</param>
-        <param index="6">Magic number.</param>
-        <param index="7">Magic number.</param>
       </entry>
       <!-- 42600 used by common.xml -->
       <entry value="42650" name="MAV_CMD_FLASH_BOOTLOADER" hasLocation="false" isDestination="false">
         <description>Update the bootloader</description>
-        <param index="1">Empty</param>
-        <param index="2">Empty</param>
-        <param index="3">Empty</param>
-        <param index="4">Empty</param>
         <param index="5" label="Magic Number" increment="1">Magic number - set to 290876 to actually flash</param>
-        <param index="6">Empty</param>
-        <param index="7">Empty</param>
       </entry>
       <entry value="42651" name="MAV_CMD_BATTERY_RESET" hasLocation="false" isDestination="false">
         <description>Reset battery capacity for batteries that accumulate consumed battery via integration.</description>
@@ -270,12 +143,6 @@
       <entry value="42700" name="MAV_CMD_DEBUG_TRAP" hasLocation="false" isDestination="false">
         <description>Issue a trap signal to the autopilot process, presumably to enter the debugger.</description>
         <param index="1">Magic number - set to 32451 to actually trap.</param>
-        <param index="2">Empty.</param>
-        <param index="3">Empty.</param>
-        <param index="4">Empty.</param>
-        <param index="5">Empty.</param>
-        <param index="6">Empty.</param>
-        <param index="7">Empty.</param>
       </entry>
       <entry value="42701" name="MAV_CMD_SCRIPTING" hasLocation="false" isDestination="false">
         <description>Control onboard scripting.</description>
@@ -289,7 +156,6 @@
         <param index="4" label="arg2">argument2.</param>
         <param index="5" label="arg3">argument3.</param>
         <param index="6" label="arg4">argument4.</param>
-        <param index="7">Empty</param>
       </entry>
       <entry value="42703" name="MAV_CMD_NAV_ATTITUDE_TIME" hasLocation="false" isDestination="false">
         <description>Maintain an attitude for a specified time.</description>
@@ -298,27 +164,16 @@
         <param index="3" label="pitch" units="deg">Pitch angle in degrees (positive is lean back, negative is lean forward)</param>
         <param index="4" label="yaw" units="deg">Yaw angle</param>
         <param index="5" label="climb_rate" units="m/s">Climb rate</param>
-        <param index="6">Empty</param>
-        <param index="7">Empty</param>
       </entry>
       <entry value="43000" name="MAV_CMD_GUIDED_CHANGE_SPEED" hasLocation="false" isDestination="false">
         <description>Change flight speed at a given rate. This slews the vehicle at a controllable rate between it's previous speed and the new one. (affects GUIDED only. Outside GUIDED, aircraft ignores these commands. Designed for onboard companion-computer command-and-control, not normally operator/GCS control.)</description>
         <param index="1" label="speed type" enum="SPEED_TYPE">Airspeed or groundspeed.</param>
         <param index="2" label="speed target" units="m/s">Target Speed</param>
         <param index="3" label="speed rate-of-change" units="m/s/s">Acceleration rate, 0 to take effect instantly</param>
-        <param index="4">Empty</param>
-        <param index="5">Empty</param>
-        <param index="6">Empty</param>
-        <param index="7">Empty</param>
       </entry>
       <entry value="43001" name="MAV_CMD_GUIDED_CHANGE_ALTITUDE" hasLocation="false" isDestination="false">
         <description>Change target altitude at a given rate. This slews the vehicle at a controllable rate between it's previous altitude and the new one. (affects GUIDED only. Outside GUIDED, aircraft ignores these commands. Designed for onboard companion-computer command-and-control, not normally operator/GCS control.)</description>
-        <param index="1">Empty</param>
-        <param index="2">Empty</param>
         <param index="3" label="alt rate-of-change" units="m/s" minValue="0">Rate of change, toward new altitude. 0 for maximum rate change. Positive numbers only, as negative numbers will not converge on the new target alt.</param>
-        <param index="4">Empty</param>
-        <param index="5">Empty</param>
-        <param index="6">Empty</param>
         <param index="7" label="target alt" units="m">Target Altitude</param>
       </entry>
       <entry value="43002" name="MAV_CMD_GUIDED_CHANGE_HEADING" hasLocation="false" isDestination="false">
@@ -326,20 +181,12 @@
         <param index="1" label="heading type" enum="HEADING_TYPE">course-over-ground or raw vehicle heading.</param>
         <param index="2" label="heading target" units="deg" minValue="0" maxValue="359.99">Target heading.</param>
         <param index="3" label="heading rate-of-change" units="m/s/s">Maximum centripetal accelearation, ie rate of change,  toward new heading.</param>
-        <param index="4">Empty</param>
-        <param index="5">Empty</param>
-        <param index="6">Empty</param>
-        <param index="7">Empty</param>
       </entry>
       <entry value="43005" name="MAV_CMD_SET_HAGL" hasLocation="false" isDestination="false">
         <description>Provide a value for height above ground level. This can be used for things like fixed wing and VTOL landing.</description>
         <param index="1" label="hagl" units="m">Height above ground level.</param>
         <param index="2" label="accuracy" units="m">estimated one standard deviation accuracy of the measurement. Set to NaN if not known.</param>
         <param index="3" label="timeout" units="s">Timeout for this data. The flight controller should only consider this data valid within the timeout window.</param>
-        <param index="4">Empty</param>
-        <param index="5">Empty</param>
-        <param index="6">Empty</param>
-        <param index="7">Empty</param>
       </entry>
       <!-- 43003 MAV_CMD_EXTERNAL_POSITION_ESTIMATE moved to common.xml -->
     </enum>
