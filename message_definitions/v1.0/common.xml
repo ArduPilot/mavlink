@@ -380,9 +380,6 @@
     </enum>
     <!-- enum of fence types to enable or disable as a bitmask -->
     <enum name="FENCE_TYPE" bitmask="true">
-      <entry value="0" name="FENCE_TYPE_ALL">
-        <description>All fence types</description>
-      </entry>
       <entry value="1" name="FENCE_TYPE_ALT_MAX">
         <description>Maximum altitude fence</description>
       </entry>
@@ -755,9 +752,6 @@
     </enum>
     <enum name="AUTOTUNE_AXIS" bitmask="true">
       <description>Enable axes that will be tuned via autotuning. Used in MAV_CMD_DO_AUTOTUNE_ENABLE.</description>
-      <entry value="0" name="AUTOTUNE_AXIS_DEFAULT">
-        <description>Flight stack tunes axis according to its default settings.</description>
-      </entry>
       <entry value="1" name="AUTOTUNE_AXIS_ROLL">
         <description>Autotune roll axis.</description>
       </entry>
@@ -3406,9 +3400,6 @@
     </enum>
     <enum name="CAMERA_TRACKING_TARGET_DATA" bitmask="true">
       <description>Camera tracking target data (shows where tracked target is within image)</description>
-      <entry value="0" name="CAMERA_TRACKING_TARGET_DATA_NONE">
-        <description>No target data</description>
-      </entry>
       <entry value="1" name="CAMERA_TRACKING_TARGET_DATA_EMBEDDED">
         <description>Target data embedded in image data (proprietary)</description>
       </entry>
