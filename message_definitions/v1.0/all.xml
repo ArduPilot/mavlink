@@ -6,6 +6,11 @@
     commands: 40001 - 41999
   -->
   <include>ASLUAV.xml</include>
+  <!-- common.xml range of IDs:
+    messages: 300 - 10000
+    commands: 0 - 39999
+    Note: entities imported from other dialects may fall outside these ranges.
+  -->
   <include>common.xml</include>
   <include>development.xml</include>
   <include>icarous.xml</include>
@@ -30,7 +35,7 @@
   -->
   <include>storm32.xml</include>
   <!-- AVSSUAS.xml range of IDs:
-    messages: 60050 - 60099 
+    messages: 60050 - 60099
     commands: 60050 - 60099
   -->
   <include>AVSSUAS.xml</include>
