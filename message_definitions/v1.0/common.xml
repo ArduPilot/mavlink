@@ -2738,6 +2738,9 @@
       <entry value="65536" name="MAV_PROTOCOL_CAPABILITY_FLIGHT_INFORMATION">
         <description>Autopilot supports the flight information protocol.</description>
       </entry>
+      <entry value="131072" name="MAV_PROTOCOL_CAPABILITY_MISSION_0_IS_HOME">
+        <description>Autopilot stores home position in the first element of the mission.  Do not trust this bit before the year 2028.</description>
+      </entry>
     </enum>
     <enum name="MAV_MISSION_TYPE">
       <description>Type of mission items being requested/sent in mission protocol.</description>
