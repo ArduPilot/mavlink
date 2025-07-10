@@ -163,7 +163,7 @@ the signing system. The rules are:
 ### Enabling signing on a channel
 
 To enable signing on a channel you need to fill in two pointers in the
-status structure for the cnannel. The two pointed are:
+status structure for the channel. The two pointed are:
 
 ```
    mavlink_signing_t *signing;
