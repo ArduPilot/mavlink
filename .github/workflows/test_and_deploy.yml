@@ -32,8 +32,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      # Let's try to remove minium in #403 and miliseconds,reciever in #404 
-      - run: pipx run codespell --ignore-words-list=dependees,minium,ned
+      - run: pipx run codespell --ignore-words-list=dependees,ned
 
   python-tests:
     name: Python ${{ matrix.python-version }} tests
