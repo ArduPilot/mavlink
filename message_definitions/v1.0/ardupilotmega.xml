@@ -1123,6 +1123,7 @@
       <entry value="25" name="COPTER_MODE_SYSTEMID"/>
       <entry value="26" name="COPTER_MODE_AUTOROTATE"/>
       <entry value="27" name="COPTER_MODE_AUTO_RTL"/>
+      <entry value="29" name="COPTER_MODE_SLOW"/>
     </enum>
     <enum name="SUB_MODE">
       <description>A mapping of sub flight modes for custom_mode field of heartbeat.</description>
