@@ -1339,7 +1339,7 @@
         <param index="7">Empty</param>
       </entry>
       <entry value="208" name="MAV_CMD_DO_PARACHUTE" hasLocation="false" isDestination="false">
-        <description>Mission item/command to release a parachute or enable/disable auto release.</description>
+        <description>Mission item/command to release a parachute or enable/disable auto release.  Note that to release a parachute it must first be enabled, so a PARACHUTE_RELEASE must be preceeded by a PARACHUTE_ENABLE</description>
         <param index="1" label="Action" enum="PARACHUTE_ACTION">Action</param>
         <param index="2">Empty</param>
         <param index="3">Empty</param>
