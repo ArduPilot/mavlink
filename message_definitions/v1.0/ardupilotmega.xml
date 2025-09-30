@@ -997,6 +997,17 @@
         <description>Set if EKF has never been healthy.</description>
       </entry>
     </enum>
+    <enum name="ESTIMATOR_TYPE">
+        <entry value="0" name="ESTIMATOR_TYPE_UNKNOWN"/>
+        <!-- for consistency, remember we had an EKF1 -->
+        <entry value="1" name="ESTIMATOR_TYPE_EKF1"/>
+        <entry value="2" name="ESTIMATOR_TYPE_EKF2"/>
+        <entry value="3" name="ESTIMATOR_TYPE_EKF3"/>
+        <!-- -->
+        <entry value="10" name="ESTIMATOR_TYPE_EXTERNAL"/>
+        <!-- -->
+        <entry value="100" name="ESTIMATOR_TYPE_SIM"/>
+    </enum>
     <enum name="PID_TUNING_AXIS">
       <entry value="1" name="PID_TUNING_ROLL"/>
       <entry value="2" name="PID_TUNING_PITCH"/>
@@ -1723,8 +1734,9 @@
       <field type="float" name="terrain_alt_variance">Terrain Altitude variance.</field>
       <extensions/>
       <field type="float" name="airspeed_variance">Airspeed variance.</field>
+      <field type="uint8_t" enum="ESTIMATOR_TYPE" name="type">Estimator type that produced the report.</field>
+      <field type="uint8_t" name="active_lane_id" minValue="1" maxValue="6">Estimator lane (core) that produced the report.</field>
       <field type="uint8_t" name="active_srcset_id" minValue="1" maxValue="3">Currently active source set.</field>
-      <field type="uint8_t" name="active_lane_id" minValue="1" maxValue="6">Currently estimator lane (core).</field>
     </message>
     <!-- realtime PID tuning message -->
     <message id="194" name="PID_TUNING">
