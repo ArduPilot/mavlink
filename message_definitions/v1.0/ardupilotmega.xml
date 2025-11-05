@@ -158,8 +158,8 @@
         <param index="3" label="Autosave" minValue="0" maxValue="1" increment="1">Save without user input (0=require input, 1=autosave).</param>
         <param index="4" label="Delay" units="s">Delay.</param>
         <param index="5" label="Autoreboot" minValue="0" maxValue="1" increment="1">Autoreboot (0=user reboot, 1=autoreboot).</param>
-        <param index="6">Empty.</param>
-        <param index="7">Empty.</param>
+        <param index="6" label="Latitude" units="deg">Latitude where calibration is happening, for vehicles with no GPS (0 means ignore).</param>
+        <param index="7" label="Longitude" units="deg">Longitude where calibration is happening, for vehicles with no GPS (0 means ignore).</param>
       </entry>
       <entry value="42425" name="MAV_CMD_DO_ACCEPT_MAG_CAL" hasLocation="false" isDestination="false">
         <description>Accept a magnetometer calibration.</description>
