@@ -3884,7 +3884,7 @@
     </enum>
     <enum name="MAV_ODID_DESC_TYPE">
       <entry value="0" name="MAV_ODID_DESC_TYPE_TEXT">
-        <description>Free-form text description of the purpose of the flight.</description>
+        <description>Optional free-form text description of the purpose of the flight.</description>
       </entry>
       <entry value="1" name="MAV_ODID_DESC_TYPE_EMERGENCY">
         <description>Optional additional clarification when status == MAV_ODID_STATUS_EMERGENCY.</description>
