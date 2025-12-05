@@ -3286,6 +3286,10 @@
       <entry value="4096" name="CAMERA_CAP_FLAGS_HAS_THERMAL_RANGE">
         <description>Camera supports absolute thermal range (request CAMERA_THERMAL_RANGE with MAV_CMD_REQUEST_MESSAGE).</description>
       </entry>
+      <entry value="8192" name="CAMERA_CAP_FLAGS_HAS_MTI">
+        <wip/>
+        <description>Camera supports Moving Target Indicators (MTI) on the camera view (using MAV_CMD_CAMERA_START_MTI).</description>
+      </entry>
     </enum>
     <enum name="VIDEO_STREAM_STATUS_FLAGS" bitmask="true">
       <description>Stream status flags (Bitmap)</description>
