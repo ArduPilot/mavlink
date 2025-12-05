@@ -5,15 +5,6 @@
   <version>0</version>
   <dialect>0</dialect>
   <enums>
-    <enum name="AIRSPEED_SENSOR_FLAGS" bitmask="true">
-      <description>Airspeed sensor flags</description>
-      <entry value="1" name="AIRSPEED_SENSOR_UNHEALTHY">
-        <description>Airspeed sensor is unhealthy</description>
-      </entry>
-      <entry value="2" name="AIRSPEED_SENSOR_USING">
-        <description>True if the data from this sensor is being actively used by the flight controller for guidance, navigation or control.</description>
-      </entry>
-    </enum>
     <enum name="RADIO_RC_CHANNELS_FLAGS" bitmask="true">
       <description>RADIO_RC_CHANNELS flags (bitmask).</description>
       <entry value="1" name="RADIO_RC_CHANNELS_FLAGS_FAILSAFE">
@@ -299,14 +290,6 @@
       </description>
       <field type="uint8_t" name="mission_type" enum="MAV_MISSION_TYPE">Mission type.</field>
       <field type="uint32_t" name="checksum">CRC32 checksum of current plan for specified type.</field>
-    </message>
-    <message id="295" name="AIRSPEED">
-      <description>Airspeed information from a sensor.</description>
-      <field type="uint8_t" name="id" instance="true">Sensor ID.</field>
-      <field type="float" name="airspeed" units="m/s">Calibrated airspeed (CAS).</field>
-      <field type="int16_t" name="temperature" units="cdegC">Temperature. INT16_MAX for value unknown/not supplied.</field>
-      <field type="float" name="raw_press" units="hPa">Raw differential pressure. NaN for value unknown/not supplied.</field>
-      <field type="uint8_t" name="flags" enum="AIRSPEED_SENSOR_FLAGS">Airspeed sensor flags.</field>
     </message>
     <message id="420" name="RADIO_RC_CHANNELS">
       <description>RC channel outputs from a MAVLink RC receiver for input to a flight controller or other components (allows an RC receiver to connect via MAVLink instead of some other protocol such as PPM-Sum or S.BUS).

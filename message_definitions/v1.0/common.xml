@@ -4197,6 +4197,15 @@
         <description>Safety switch is NOT engaged and motors, propellers and other actuators should be considered active.</description>
       </entry>
     </enum>
+    <enum name="AIRSPEED_SENSOR_FLAGS" bitmask="true">
+      <description>Airspeed sensor flags</description>
+      <entry value="1" name="AIRSPEED_SENSOR_UNHEALTHY">
+        <description>Airspeed sensor is unhealthy</description>
+      </entry>
+      <entry value="2" name="AIRSPEED_SENSOR_USING">
+        <description>True if the data from this sensor is being actively used by the flight controller for guidance, navigation or control.</description>
+      </entry>
+    </enum>
   </enums>
   <messages>
     <message id="1" name="SYS_STATUS">
@@ -6192,6 +6201,14 @@
       <field type="float" name="yaw" invalid="NaN">Yaw angle unitless (-1..1, positive: to the right, negative: to the left, NaN to be ignored).</field>
       <field type="float" name="pitch_rate" invalid="NaN">Pitch angular rate unitless (-1..1, positive: up, negative: down, NaN to be ignored).</field>
       <field type="float" name="yaw_rate" invalid="NaN">Yaw angular rate unitless (-1..1, positive: to the right, negative: to the left, NaN to be ignored).</field>
+    </message>
+    <message id="295" name="AIRSPEED">
+      <description>Airspeed information from a sensor.</description>
+      <field type="uint8_t" name="id" instance="true">Sensor ID.</field>
+      <field type="float" name="airspeed" units="m/s">Calibrated airspeed (CAS).</field>
+      <field type="int16_t" name="temperature" units="cdegC">Temperature. INT16_MAX for value unknown/not supplied.</field>
+      <field type="float" name="raw_press" units="hPa">Raw differential pressure. NaN for value unknown/not supplied.</field>
+      <field type="uint8_t" name="flags" enum="AIRSPEED_SENSOR_FLAGS">Airspeed sensor flags.</field>
     </message>
     <message id="299" name="WIFI_CONFIG_AP">
       <description>Configure WiFi AP SSID, password, and mode. This message is re-emitted as an acknowledgement by the AP. The message may also be explicitly requested using MAV_CMD_REQUEST_MESSAGE</description>
