@@ -4330,7 +4330,11 @@
       <field type="uint16_t" name="errors_count4">Autopilot-specific errors</field>
     </message>
     <message id="2" name="SYSTEM_TIME">
-      <description>The system time is the time of the master clock, typically the computer clock of the main onboard computer.</description>
+      <description>The system time is the time of the sender's master clock.
+        This can be emitted by flight controllers, onboard computers, or other components in the MAVLink network.
+        Components that are using a less reliable time source, such as a battery-backed real time clock, can choose to match their system clock to that of a system that indicates a more recent time.
+        This allows more broadly accurate date stamping of logs, and so on.
+        If precise time synchronization is needed then use TIMESYNC instead.</description>
       <field type="uint64_t" name="time_unix_usec" units="us">Timestamp (UNIX epoch time).</field>
       <field type="uint32_t" name="time_boot_ms" units="ms">Timestamp (time since system boot).</field>
     </message>
