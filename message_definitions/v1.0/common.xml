@@ -4090,7 +4090,6 @@
       </entry>
     </enum>
     <enum name="AIS_FLAGS" bitmask="true">
-      <!-- This enum is work-in-progress and it can therefore change. It should NOT be used in stable production environments. -->
       <description>These flags are used in the AIS_VESSEL.fields bitmask to indicate validity of data in the other message fields. When set, the data is valid.</description>
       <entry value="1" name="AIS_FLAGS_POSITION_ACCURACY">
         <description>1 = Position accuracy less than 10m, 0 = position accuracy greater than 10m.</description>
