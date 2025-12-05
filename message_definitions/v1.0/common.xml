@@ -1454,7 +1454,6 @@
         <param index="3" label="Height Delay" units="m" minValue="0">Height delay. This is for commanding engine start only after the vehicle has gained the specified height. Used in VTOL vehicles during takeoff to start engine after the aircraft is off the ground. Zero for no delay.</param>
         <param index="4" label="Options" enum="ENGINE_CONTROL_OPTIONS">A bitmask of options for engine control</param>
         <param index="5">Empty</param>
-        <param index="5">Empty</param>
         <param index="6">Empty</param>
         <param index="7">Empty</param>
       </entry>
