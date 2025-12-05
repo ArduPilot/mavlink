@@ -6719,11 +6719,6 @@
       <field type="uint8_t" name="operator_id_type" enum="MAV_ODID_OPERATOR_ID_TYPE">Indicates the type of the operator_id field.</field>
       <field type="char[20]" name="operator_id">Text description or numeric value expressed as ASCII characters. Shall be filled with nulls in the unused portion of the field.</field>
     </message>
-    <message id="12918" name="OPEN_DRONE_ID_ARM_STATUS">
-      <description>Status from the transmitter telling the flight controller if the remote ID system is ready for arming.</description>
-      <field type="uint8_t" name="status" enum="MAV_ODID_ARM_STATUS">Status level indicating if arming is allowed.</field>
-      <field type="char[50]" name="error">Text error message, should be empty if status is good to arm. Fill with nulls in unused portion.</field>
-    </message>
     <!-- The message ids 12906 - 12914 are reserved for OpenDroneID. -->
     <message id="12915" name="OPEN_DRONE_ID_MESSAGE_PACK">
       <description>An OpenDroneID message pack is a container for multiple encoded OpenDroneID messages (i.e. not in the format given for the above message descriptions but after encoding into the compressed OpenDroneID byte format). Used e.g. when transmitting on Bluetooth 5.0 Long Range/Extended Advertising or on WiFi Neighbor Aware Networking or on WiFi Beacon.</description>
@@ -6733,6 +6728,11 @@
       <field type="uint8_t" name="single_message_size" units="bytes">This field must currently always be equal to 25 (bytes), since all encoded OpenDroneID messages are specified to have this length.</field>
       <field type="uint8_t" name="msg_pack_size">Number of encoded messages in the pack (not the number of bytes). Allowed range is 1 - 9.</field>
       <field type="uint8_t[225]" name="messages">Concatenation of encoded OpenDroneID messages. Shall be filled with nulls in the unused portion of the field.</field>
+    </message>
+    <message id="12918" name="OPEN_DRONE_ID_ARM_STATUS">
+      <description>Status from the transmitter telling the flight controller if the remote ID system is ready for arming.</description>
+      <field type="uint8_t" name="status" enum="MAV_ODID_ARM_STATUS">Status level indicating if arming is allowed.</field>
+      <field type="char[50]" name="error">Text error message, should be empty if status is good to arm. Fill with nulls in unused portion.</field>
     </message>
     <message id="12919" name="OPEN_DRONE_ID_SYSTEM_UPDATE">
       <description>Update the data in the OPEN_DRONE_ID_SYSTEM message with new location information. This can be sent to update the location information for the operator when no other information in the SYSTEM message has changed. This message allows for efficient operation on radio links which have limited uplink bandwidth while meeting requirements for update frequency of the operator location.</description>
