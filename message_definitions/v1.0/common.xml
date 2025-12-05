@@ -3895,13 +3895,13 @@
     </enum>
     <enum name="MAV_ODID_OPERATOR_LOCATION_TYPE">
       <entry value="0" name="MAV_ODID_OPERATOR_LOCATION_TYPE_TAKEOFF">
-        <description>The location of the operator is the same as the take-off location.</description>
+        <description>The location/altitude of the operator is the same as the take-off location.</description>
       </entry>
       <entry value="1" name="MAV_ODID_OPERATOR_LOCATION_TYPE_LIVE_GNSS">
-        <description>The location of the operator is based on live GNSS data.</description>
+        <description>The location/altitude of the operator is dynamic. E.g. based on live GNSS data.</description>
       </entry>
       <entry value="2" name="MAV_ODID_OPERATOR_LOCATION_TYPE_FIXED">
-        <description>The location of the operator is a fixed location.</description>
+        <description>The location/altitude of the operator are fixed values.</description>
       </entry>
     </enum>
     <enum name="MAV_ODID_CLASSIFICATION_TYPE">
