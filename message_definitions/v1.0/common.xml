@@ -4384,7 +4384,7 @@
       <field type="uint8_t" name="target_system">System ID</field>
       <field type="uint8_t" name="target_component">Component ID</field>
       <field type="char[16]" name="param_id">Onboard parameter id, terminated by NULL if the length is less than 16 human-readable chars and WITHOUT null termination (NULL) byte if the length is exactly 16 chars - applications have to provide 16+1 bytes storage if the ID is stored as string</field>
-      <field type="int16_t" name="param_index">Parameter index. Send -1 to use the param ID field as identifier (else the param id will be ignored)</field>
+      <field type="int16_t" name="param_index" invalid="-1">Parameter index. Send -1 to use the param ID field as identifier (else the param id will be ignored)</field>
     </message>
     <message id="21" name="PARAM_REQUEST_LIST">
       <description>Request all parameters of this component. After this request, all parameters are emitted. The parameter microservice is documented at https://mavlink.io/en/services/parameter.html</description>
