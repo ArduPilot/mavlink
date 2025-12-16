@@ -1937,6 +1937,52 @@
         <param index="6" label="Longitude">Longitude</param>
         <param index="7">Reserved</param>
       </entry>
+
+      <entry value="5005" name="MAV_CMD_NAV_FENCE_POLYGON_VERTEX_INCLUSION_WITH_ALTITUDES" hasLocation="true" isDestination="false">
+        <description>Fence vertex for an inclusion polygon (the polygon must not be self-intersecting). The vehicle must stay within this area. Minimum of 3 vertices required.  Altitudes supplied.
+        </description>
+        <param index="1" label="Vertex Count" minValue="3" increment="1">Polygon vertex count</param>
+        <param index="2" label="Inclusion Group" minValue="0" increment="1">Vehicle must be inside ALL inclusion zones in a single group, vehicle must be inside at least one group, must be the same for all points in each polygon</param>
+        <param index="3" label="Minimum Altitude"></param>
+        <param index="4" label="Maximum Altitude"></param>
+        <param index="5" label="Latitude">Latitude</param>
+        <param index="6" label="Longitude">Longitude</param>
+        <param index="7" label="Altitude Frames"></param> <!-- (param7&0b11111) bits give frame for mimimum altitude, ((param7>>5)&0b11111) gives frame for maximum altitude -->
+      </entry>
+      <entry value="5006" name="MAV_CMD_NAV_FENCE_POLYGON_VERTEX_EXCLUSION_WITH_ALTITUDES" hasLocation="true" isDestination="false">
+        <description>Fence vertex for an exclusion polygon (the polygon must not be self-intersecting). The vehicle must stay outside this area. Minimum of 3 vertices required.
+        </description>
+        <param index="1" label="Vertex Count" minValue="3" increment="1">Polygon vertex count</param>
+        <param index="2">Reserved</param>
+        <param index="3" label="Minimum Altitude"></param>
+        <param index="4" label="Maximum Altitude"></param>
+        <param index="5" label="Latitude">Latitude</param>
+        <param index="6" label="Longitude">Longitude</param>
+        <param index="7" label="Altitude Frames"></param> <!-- (param7&0b11111) bits give frame for mimimum altitude, ((param7>>5)&0b11111) gives frame for maximum altitude -->
+      </entry>
+      <entry value="5007" name="MAV_CMD_NAV_FENCE_CIRCLE_INCLUSION_WITH_ALTITUDES" hasLocation="true" isDestination="false">
+        <description>Circular fence area. The vehicle must stay inside this area.
+        </description>
+        <param index="1" label="Radius" units="m">Radius.</param>
+        <param index="2" label="Inclusion Group" minValue="0" increment="1">Vehicle must be inside ALL inclusion zones in a single group, vehicle must be inside at least one group</param>
+        <param index="3" label="Minimum Altitude"></param>
+        <param index="4" label="Maximum Altitude"></param>
+        <param index="5" label="Latitude">Latitude</param>
+        <param index="6" label="Longitude">Longitude</param>
+        <param index="7" label="Altitude Frames"></param> <!-- (param7&0b11111) bits give frame for mimimum altitude, ((param7>>5)&0b11111) gives frame for maximum altitude -->
+      </entry>
+      <entry value="5008" name="MAV_CMD_NAV_FENCE_CIRCLE_EXCLUSION_WITH_ALTITUDES" hasLocation="true" isDestination="false">
+        <description>Circular fence area. The vehicle must stay outside this area.
+        </description>
+        <param index="1" label="Radius" units="m">Radius.</param>
+        <param index="2">Reserved</param>
+        <param index="3" label="Minimum Altitude"></param>
+        <param index="4" label="Maximum Altitude"></param>
+        <param index="5" label="Latitude">Latitude</param>
+        <param index="6" label="Longitude">Longitude</param>
+        <param index="7" label="Altitude Frames"></param> <!-- (param7&0b11111) bits give frame for mimimum altitude, ((param7>>5)&0b11111) gives frame for maximum altitude -->
+      </entry>
+
       <entry value="5100" name="MAV_CMD_NAV_RALLY_POINT" hasLocation="true" isDestination="false">
         <description>Rally point. You can have multiple rally points defined.
         </description>
