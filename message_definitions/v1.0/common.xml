@@ -5864,7 +5864,7 @@
       <description>Control vehicle tone generation (buzzer).</description>
       <field type="uint8_t" name="target_system">System ID</field>
       <field type="uint8_t" name="target_component">Component ID</field>
-      <field type="char[30]" name="tune">tune in board specific format</field>
+      <field type="char[30]" name="tune">Format is Modern Music Markup Language (MML): https://en.wikipedia.org/wiki/Music_Macro_Language#Modern_MML.</field>
       <extensions/>
       <field type="char[200]" name="tune2">tune extension (appended to tune)</field>
     </message>
