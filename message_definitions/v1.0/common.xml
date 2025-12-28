@@ -4737,6 +4737,7 @@
       <field type="uint8_t" name="rssi">Receive signal strength indicator in device-dependent units/scale. Values: [0-254], 255: invalid/unknown.</field>
     </message>
     <message id="66" name="REQUEST_DATA_STREAM">
+      <deprecated since="2015-08" replaced_by="SET_MESSAGE_INTERVAL"/>
       <description>Request a data stream.</description>
       <field type="uint8_t" name="target_system">The target requested to send the message stream.</field>
       <field type="uint8_t" name="target_component">The target requested to send the message stream.</field>
@@ -4745,6 +4746,7 @@
       <field type="uint8_t" name="start_stop">1 to start sending, 0 to stop sending.</field>
     </message>
     <message id="67" name="DATA_STREAM">
+      <deprecated since="2015-08" replaced_by="MESSAGE_INTERVAL"/>
       <description>Data stream status information.</description>
       <field type="uint8_t" name="stream_id">The ID of the requested data stream</field>
       <field type="uint16_t" name="message_rate" units="Hz">The message rate</field>
