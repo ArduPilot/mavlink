@@ -2700,6 +2700,9 @@
       <entry value="2" name="MAV_MISSION_TYPE_RALLY">
         <description>Specifies the rally points for the vehicle. Rally points are alternative RTL points. Items are MAV_CMD_NAV_RALLY_POINT rally point items.</description>
       </entry>
+      <entry value="3" name="MAV_MISSION_TYPE_PATH_PLANNING">
+        <description>Items defining the plath planning route caculated by the vehicle, readonly.</description>
+      </entry>
       <entry value="255" name="MAV_MISSION_TYPE_ALL">
         <description>Only used in MISSION_CLEAR_ALL to clear all mission types.</description>
       </entry>
