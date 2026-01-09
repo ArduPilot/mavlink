@@ -1160,17 +1160,23 @@
         <param index="7" label="Altitude" units="m">Altitudee. 0: not used.</param>
       </entry>
       <entry value="189" name="MAV_CMD_DO_LAND_START" hasLocation="true" isDestination="false">
-        <description>Mission command to perform a landing. This is used as a marker in a mission to tell the autopilot where a sequence of mission items that represents a landing starts.
-	  It may also be sent via a COMMAND_LONG to trigger a landing, in which case the nearest (geographically) landing sequence in the mission will be used.
-	  The Latitude/Longitude/Altitude is optional, and may be set to 0 if not needed. If specified then it will be used to help find the closest landing sequence.
+        <description>Mission item to mark the start of a mission landing pattern, or a command to land with a mission landing pattern.
+
+        When used in a mission, this is a marker for the start of a sequence of mission items that represent a landing pattern.
+        It should be followed by a navigation item that defines the first waypoint of the landing sequence.
+        The start marker positional params are used only for selecting what landing pattern to use if several are defined in the mission (the selected pattern will be the one with the marker position that is closest to the vehicle when a landing is commanded).
+        If the marker item position has zero-values for latitude, longitude, and altitude, then landing pattern selection is instead based on the position of the first waypoint in the landing sequence.
+
+	      When sent as a command it triggers a landing using a mission landing pattern.
+	      The location parameters are not used in this case, and should be set to 0.
 	</description>
         <param index="1">Empty</param>
         <param index="2">Empty</param>
         <param index="3">Empty</param>
         <param index="4">Empty</param>
-        <param index="5" label="Latitude">Latitude</param>
-        <param index="6" label="Longitude">Longitude</param>
-        <param index="7" label="Altitude" units="m">Altitude</param>
+        <param index="5" label="Latitude">Latitude for landing sequence selection, or 0 (see description). Ignored in commands (set 0).</param>
+        <param index="6" label="Longitude">Longitude for landing sequence selection, or 0 (see description). Ignored in commands (set 0).</param>
+        <param index="7" label="Altitude" units="m">Altitude for landing sequence selection, or 0 (see description). Ignored in commands (set 0).</param>
       </entry>
       <entry value="190" name="MAV_CMD_DO_RALLY_LAND" hasLocation="false" isDestination="false">
         <description>Mission command to perform a landing from a rally point.</description>
@@ -1559,7 +1565,12 @@
         <param index="2" label="Force" minValue="0" maxValue="21196" increment="21196">0: arm-disarm unless prevented by safety checks (i.e. when landed), 21196: force arming/disarming (e.g. allow arming to override preflight checks and disarming in flight)</param>
       </entry>
       <entry value="401" name="MAV_CMD_RUN_PREARM_CHECKS" hasLocation="false" isDestination="false">
-        <description>Instructs system to run pre-arm checks.  This command should return MAV_RESULT_TEMPORARILY_REJECTED in the case the system is armed, otherwise MAV_RESULT_ACCEPTED.  Note that the return value from executing this command does not indicate whether the vehicle is armable or not, just whether the system has successfully run/is currently running the checks.  The result of the checks is reflected in the SYS_STATUS message.</description>
+        <description>Instructs a target system to run pre-arm checks.
+          This allows preflight checks to be run on demand, which may be useful on systems that normally run them at low rate, or which do not trigger checks when the armable state might have changed.
+          This command should return MAV_RESULT_ACCEPTED if it will run the checks.
+          The results of the checks are usually then reported in SYS_STATUS messages (this is system-specific).
+          The command should return MAV_RESULT_TEMPORARILY_REJECTED if the system is already armed.
+        </description>
       </entry>
       <entry value="410" name="MAV_CMD_GET_HOME_POSITION" hasLocation="false" isDestination="false">
         <description>Request the home position from the vehicle.</description>
@@ -1872,7 +1883,9 @@
         <param index="1" label="State" enum="MAV_VTOL_STATE">The target VTOL state. Only MAV_VTOL_STATE_MC and MAV_VTOL_STATE_FW can be used.</param>
       </entry>
       <entry value="3001" name="MAV_CMD_ARM_AUTHORIZATION_REQUEST" hasLocation="false" isDestination="false">
-        <description>Request authorization to arm the vehicle to a external entity, the arm authorizer is responsible to request all data that is needs from the vehicle before authorize or deny the request. If approved the progress of command_ack message should be set with period of time that this authorization is valid in seconds or in case it was denied it should be set with one of the reasons in ARM_AUTH_DENIED_REASON.
+        <description>Request authorization to arm the vehicle to a external entity, the arm authorizer is responsible to request all data that is needs from the vehicle before authorize or deny the request.
+		If approved the COMMAND_ACK message progress field should be set with period of time that this authorization is valid in seconds.
+		If the authorization is denied COMMAND_ACK.result_param2 should be set with one of the reasons in ARM_AUTH_DENIED_REASON.
         </description>
         <param index="1" label="System ID" minValue="0" maxValue="255" increment="1">Vehicle system id, this way ground station can request arm authorization on behalf of any vehicle</param>
       </entry>
@@ -1902,8 +1915,9 @@
       </entry>
       <entry value="5001" name="MAV_CMD_NAV_FENCE_POLYGON_VERTEX_INCLUSION" hasLocation="true" isDestination="false">
         <description>Fence vertex for an inclusion polygon (the polygon must not be self-intersecting). The vehicle must stay within this area. Minimum of 3 vertices required.
+          The vertices for a polygon must be sent sequentially, each with param1 set to the total number of vertices in the polygon.
         </description>
-        <param index="1" label="Vertex Count" minValue="3" increment="1">Polygon vertex count</param>
+        <param index="1" label="Vertex Count" minValue="3" increment="1">Polygon vertex count. This is the number of vertices in the current polygon (all vertices will have the same number).</param>
         <param index="2" label="Inclusion Group" minValue="0" increment="1">Vehicle must be inside ALL inclusion zones in a single group, vehicle must be inside at least one group, must be the same for all points in each polygon</param>
         <param index="3">Reserved</param>
         <param index="4">Reserved</param>
@@ -1913,8 +1927,9 @@
       </entry>
       <entry value="5002" name="MAV_CMD_NAV_FENCE_POLYGON_VERTEX_EXCLUSION" hasLocation="true" isDestination="false">
         <description>Fence vertex for an exclusion polygon (the polygon must not be self-intersecting). The vehicle must stay outside this area. Minimum of 3 vertices required.
+          The vertices for a polygon must be sent sequentially, each with param1 set to the total number of vertices in the polygon.
         </description>
-        <param index="1" label="Vertex Count" minValue="3" increment="1">Polygon vertex count</param>
+        <param index="1" label="Vertex Count" minValue="3" increment="1">Polygon vertex count. This is the number of vertices in the current polygon (all vertices will have the same number).</param>
         <param index="2">Reserved</param>
         <param index="3">Reserved</param>
         <param index="4">Reserved</param>
@@ -2199,7 +2214,7 @@
       </entry>
       <!-- END of user range (31000 to 31999) -->
       <entry value="32000" name="MAV_CMD_CAN_FORWARD" hasLocation="false" isDestination="false">
-        <description>Request forwarding of CAN packets from the given CAN bus to this interface. CAN Frames are sent using CAN_FRAME and CANFD_FRAME messages</description>
+        <description>Request forwarding of CAN packets from the given CAN bus to this component via this mavlink channel. CAN Frames are sent using CAN_FRAME and CANFD_FRAME messages</description>
         <param index="1" label="bus">Bus number (0 to disable forwarding, 1 for first bus, 2 for 2nd bus, 3 for 3rd bus).</param>
         <param index="2">Empty.</param>
         <param index="3">Empty.</param>
@@ -3353,7 +3368,7 @@
         <description>Zoom one step increment (-1 for wide, 1 for tele)</description>
       </entry>
       <entry value="1" name="ZOOM_TYPE_CONTINUOUS">
-        <description>Continuous zoom up/down until stopped (-1 for wide, 1 for tele, 0 to stop zooming)</description>
+        <description>Continuous normalized zoom in/out rate until stopped. Range -1..1, negative: wide, positive: narrow/tele, 0 to stop zooming. Other values should be clipped to the range.</description>
       </entry>
       <entry value="2" name="ZOOM_TYPE_RANGE">
         <description>Zoom value as proportion of full camera range (a percentage value between 0.0 and 100.0)</description>
@@ -3368,7 +3383,7 @@
         <description>Focus one step increment (-1 for focusing in, 1 for focusing out towards infinity).</description>
       </entry>
       <entry value="1" name="FOCUS_TYPE_CONTINUOUS">
-        <description>Continuous focus up/down until stopped (-1 for focusing in, 1 for focusing out towards infinity, 0 to stop focusing)</description>
+        <description>Continuous normalized focus in/out rate until stopped. Range -1..1, negative: in, positive: out towards infinity, 0 to stop focusing. Other values should be clipped to the range.</description>
       </entry>
       <entry value="2" name="FOCUS_TYPE_RANGE">
         <description>Focus value as proportion of full camera focus range (a value between 0.0 and 100.0)</description>
@@ -4324,7 +4339,11 @@
       <field type="uint16_t" name="errors_count4">Autopilot-specific errors</field>
     </message>
     <message id="2" name="SYSTEM_TIME">
-      <description>The system time is the time of the master clock, typically the computer clock of the main onboard computer.</description>
+      <description>The system time is the time of the sender's master clock.
+        This can be emitted by flight controllers, onboard computers, or other components in the MAVLink network.
+        Components that are using a less reliable time source, such as a battery-backed real time clock, can choose to match their system clock to that of a system that indicates a more recent time.
+        This allows more broadly accurate date stamping of logs, and so on.
+        If precise time synchronization is needed then use TIMESYNC instead.</description>
       <field type="uint64_t" name="time_unix_usec" units="us">Timestamp (UNIX epoch time).</field>
       <field type="uint32_t" name="time_boot_ms" units="ms">Timestamp (time since system boot).</field>
     </message>
@@ -4581,7 +4600,7 @@
       <field type="uint8_t" name="frame" enum="MAV_FRAME">The coordinate system of the waypoint.</field>
       <field type="uint16_t" name="command" enum="MAV_CMD">The scheduled action for the waypoint.</field>
       <field type="uint8_t" name="current">false:0, true:1</field>
-      <field type="uint8_t" name="autocontinue">Autocontinue to next waypoint</field>
+      <field type="uint8_t" name="autocontinue">Autocontinue to next waypoint. 0: false, 1: true. Set false to pause mission after the item completes.</field>
       <field type="float" name="param1">PARAM1, see MAV_CMD enum</field>
       <field type="float" name="param2">PARAM2, see MAV_CMD enum</field>
       <field type="float" name="param3">PARAM3, see MAV_CMD enum</field>
@@ -4608,7 +4627,11 @@
       <field type="uint16_t" name="seq">Sequence</field>
     </message>
     <message id="42" name="MISSION_CURRENT">
-      <description>Message that announces the sequence number of the current active mission item. The MAV will fly towards this mission item.</description>
+      <description>
+        Message that announces the sequence number of the current target mission item (that the system will fly towards/execute when the mission is running).
+        This message should be streamed all the time (nominally at 1Hz).
+        This message should be emitted following a call to MAV_CMD_DO_SET_MISSION_CURRENT or MISSION_SET_CURRENT.
+      </description>
       <field type="uint16_t" name="seq">Sequence</field>
       <extensions/>
       <field type="uint16_t" name="total" invalid="UINT16_MAX">Total number of mission items on vehicle (on last item, sequence == total). If the autopilot stores its home location as part of the mission this will be excluded from the total. 0: Not supported, UINT16_MAX if no mission is present on the vehicle.</field>
@@ -4849,7 +4872,7 @@
       <field type="uint8_t" name="frame" enum="MAV_FRAME">The coordinate system of the waypoint.</field>
       <field type="uint16_t" name="command" enum="MAV_CMD">The scheduled action for the waypoint.</field>
       <field type="uint8_t" name="current">false:0, true:1</field>
-      <field type="uint8_t" name="autocontinue">Autocontinue to next waypoint</field>
+      <field type="uint8_t" name="autocontinue">Autocontinue to next waypoint. 0: false, 1: true. Set false to pause mission after the item completes.</field>
       <field type="float" name="param1">PARAM1, see MAV_CMD enum</field>
       <field type="float" name="param2">PARAM2, see MAV_CMD enum</field>
       <field type="float" name="param3">PARAM3, see MAV_CMD enum</field>
