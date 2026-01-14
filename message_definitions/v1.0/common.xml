@@ -1745,8 +1745,8 @@
         <param index="2" label="Interval" units="s" minValue="0">Desired elapsed time between two consecutive pictures (in seconds). Minimum values depend on hardware (typically greater than 2 seconds).</param>
         <param index="3" label="Total Images" minValue="0" increment="1">Total number of images to capture. 0 to capture forever/until MAV_CMD_IMAGE_STOP_CAPTURE.</param>
         <param index="4" label="Sequence Number" minValue="1" increment="1">Capture sequence number starting from 1. This is only valid for single-capture (param3 == 1), otherwise set to 0. Increment the capture ID for each capture command to prevent double captures when a command is re-transmitted.</param>
-        <param index="5" reserved="true" default="NaN"/>
-        <param index="6" reserved="true" default="NaN"/>
+        <param index="5" reserved="true"/>
+        <param index="6" reserved="true"/>
         <param index="7" reserved="true" default="NaN"/>
       </entry>
       <entry value="2001" name="MAV_CMD_IMAGE_STOP_CAPTURE" hasLocation="false" isDestination="false">
@@ -3285,6 +3285,10 @@
       <entry value="4096" name="CAMERA_CAP_FLAGS_HAS_THERMAL_RANGE">
         <description>Camera supports absolute thermal range (request CAMERA_THERMAL_RANGE with MAV_CMD_REQUEST_MESSAGE).</description>
       </entry>
+      <entry value="8192" name="CAMERA_CAP_FLAGS_HAS_MTI">
+        <wip/>
+        <description>Camera supports Moving Target Indicators (MTI) on the camera view (using MAV_CMD_CAMERA_START_MTI).</description>
+      </entry>
     </enum>
     <enum name="VIDEO_STREAM_STATUS_FLAGS" bitmask="true">
       <description>Stream status flags (Bitmap)</description>
@@ -3325,7 +3329,7 @@
         <description>Stream encoding is H.265</description>
       </entry>
     </enum>
-    <enum name="CAMERA_TRACKING_STATUS_FLAGS">
+    <enum name="CAMERA_TRACKING_STATUS_FLAGS" bitmask="true">
       <description>Camera tracking status flags</description>
       <entry value="0" name="CAMERA_TRACKING_STATUS_FLAGS_IDLE">
         <description>Camera is not tracking</description>
@@ -3335,6 +3339,14 @@
       </entry>
       <entry value="2" name="CAMERA_TRACKING_STATUS_FLAGS_ERROR">
         <description>Camera tracking in error state</description>
+      </entry>
+      <entry value="4" name="CAMERA_TRACKING_STATUS_FLAGS_MTI">
+        <wip/>
+        <description>Camera Moving Target Indicators (MTI) are active</description>
+      </entry>
+      <entry value="8" name="CAMERA_TRACKING_STATUS_FLAGS_COASTING">
+        <wip/>
+        <description>Camera tracking target is obscured and is being predicted</description>
       </entry>
     </enum>
     <enum name="CAMERA_TRACKING_MODE">
@@ -3374,6 +3386,9 @@
       </entry>
       <entry value="3" name="ZOOM_TYPE_FOCAL_LENGTH">
         <description>Zoom value/variable focal length in millimetres. Note that there is no message to get the valid zoom range of the camera, so this can type can only be used for cameras where the zoom range is known (implying that this cannot reliably be used in a GCS for an arbitrary camera)</description>
+      </entry>
+      <entry value="4" name="ZOOM_TYPE_HORIZONTAL_FOV">
+        <description>Zoom value as horizontal field of view in degrees.</description>
       </entry>
     </enum>
     <enum name="SET_FOCUS_TYPE">
