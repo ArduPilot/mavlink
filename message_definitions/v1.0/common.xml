@@ -232,29 +232,29 @@
         <description>ENU local tangent frame (x: East, y: North, z: Up) with origin fixed relative to earth.</description>
       </entry>
       <entry value="5" name="MAV_FRAME_GLOBAL_INT">
-        <deprecated since="2024-03" replaced_by="MAV_FRAME_GLOBAL">Use MAV_FRAME_GLOBAL in COMMAND_INT (and elsewhere) as a synonymous replacement.</deprecated>
+        <superseded since="2024-03" replaced_by="MAV_FRAME_GLOBAL">Use MAV_FRAME_GLOBAL in COMMAND_INT (and elsewhere) as a synonymous replacement.</superseded>
         <description>Global (WGS84) coordinate frame (scaled) + altitude relative to mean sea level (MSL).</description>
       </entry>
       <entry value="6" name="MAV_FRAME_GLOBAL_RELATIVE_ALT_INT">
-        <deprecated since="2024-03" replaced_by="MAV_FRAME_GLOBAL_RELATIVE_ALT">Use MAV_FRAME_GLOBAL_RELATIVE_ALT in COMMAND_INT (and elsewhere) as a synonymous replacement.</deprecated>
+        <superseded since="2024-03" replaced_by="MAV_FRAME_GLOBAL_RELATIVE_ALT">Use MAV_FRAME_GLOBAL_RELATIVE_ALT in COMMAND_INT (and elsewhere) as a synonymous replacement.</superseded>
         <description>Global (WGS84) coordinate frame (scaled) + altitude relative to the home position. </description>
       </entry>
       <entry value="7" name="MAV_FRAME_LOCAL_OFFSET_NED">
         <description>NED local tangent frame (x: North, y: East, z: Down) with origin that travels with the vehicle.</description>
       </entry>
       <entry value="8" name="MAV_FRAME_BODY_NED">
-        <deprecated since="2019-08" replaced_by="MAV_FRAME_BODY_FRD"/>
+        <superseded since="2019-08" replaced_by="MAV_FRAME_BODY_FRD"/>
         <description>Same as MAV_FRAME_LOCAL_NED when used to represent position values. Same as MAV_FRAME_BODY_FRD when used with velocity/acceleration values.</description>
       </entry>
       <entry value="9" name="MAV_FRAME_BODY_OFFSET_NED">
-        <deprecated since="2019-08" replaced_by="MAV_FRAME_BODY_FRD"/>
+        <superseded since="2019-08" replaced_by="MAV_FRAME_BODY_FRD"/>
         <description>This is the same as MAV_FRAME_BODY_FRD.</description>
       </entry>
       <entry value="10" name="MAV_FRAME_GLOBAL_TERRAIN_ALT">
         <description>Global (WGS84) coordinate frame with AGL altitude (altitude at ground level).</description>
       </entry>
       <entry value="11" name="MAV_FRAME_GLOBAL_TERRAIN_ALT_INT">
-        <deprecated since="2024-03" replaced_by="MAV_FRAME_GLOBAL_TERRAIN_ALT">Use MAV_FRAME_GLOBAL_TERRAIN_ALT in COMMAND_INT (and elsewhere) as a synonymous replacement.</deprecated>
+        <superseded since="2024-03" replaced_by="MAV_FRAME_GLOBAL_TERRAIN_ALT">Use MAV_FRAME_GLOBAL_TERRAIN_ALT in COMMAND_INT (and elsewhere) as a synonymous replacement.</superseded>
         <description>Global (WGS84) coordinate frame (scaled) with AGL altitude (altitude at ground level).</description>
       </entry>
       <entry value="12" name="MAV_FRAME_BODY_FRD">
@@ -1056,7 +1056,7 @@
         INT32_MAX or NaN: Use current vehicle altitude.</param>
       </entry>
       <entry value="80" name="MAV_CMD_NAV_ROI" hasLocation="true" isDestination="false">
-        <deprecated since="2018-01" replaced_by="MAV_CMD_DO_SET_ROI_*"/>
+        <superseded since="2018-01" replaced_by="`MAV_CMD_DO_SET_ROI_*`"/>
         <description>Sets the region of interest (ROI) for a sensor set or the vehicle itself. This can then be used by the vehicle's control system to control the vehicle attitude and the attitude of various sensors such as cameras.</description>
         <param index="1" label="ROI Mode" enum="MAV_ROI">Region of interest mode.</param>
         <param index="2" label="WP Index" minValue="0" increment="1">Waypoint index/ target ID. (see MAV_ROI enum)</param>
@@ -1461,7 +1461,7 @@
         <param index="7">Empty</param>
       </entry>
       <entry value="201" name="MAV_CMD_DO_SET_ROI" hasLocation="true" isDestination="false">
-        <deprecated since="2018-01" replaced_by="MAV_CMD_DO_SET_ROI_*"/>
+        <superseded since="2018-01" replaced_by="`MAV_CMD_DO_SET_ROI_*`"/>
         <description>Sets the region of interest (ROI) for a sensor set or the vehicle itself. This can then be used by the vehicle's control system to control the vehicle attitude and the attitude of various sensors such as cameras.</description>
         <param index="1" label="ROI Mode" enum="MAV_ROI">Region of interest mode.</param>
         <param index="2" label="WP Index" minValue="0" increment="1">Waypoint index/ target ID (depends on param 1).</param>
@@ -1611,7 +1611,7 @@
         <param index="7">Empty</param>
       </entry>
       <entry value="220" name="MAV_CMD_DO_MOUNT_CONTROL_QUAT" hasLocation="false" isDestination="false">
-        <deprecated since="2020-01" replaced_by="MAV_CMD_DO_GIMBAL_MANAGER_PITCHYAW"/>
+        <superseded since="2020-01" replaced_by="MAV_CMD_DO_GIMBAL_MANAGER_PITCHYAW"/>
         <description>Mission command to control a camera or antenna mount, using a quaternion as reference.</description>
         <param index="1" label="Q1">quaternion param q1, w (1 in null-rotation)</param>
         <param index="2" label="Q2">quaternion param q2, x (0 in null-rotation)</param>
@@ -1846,31 +1846,31 @@
         <param index="7" label="Response Target" minValue="0" maxValue="2" increment="1">Target address for requested message (if message has target address fields). 0: Flight-stack default, 1: address of requester, 2: broadcast.</param>
       </entry>
       <entry value="519" name="MAV_CMD_REQUEST_PROTOCOL_VERSION" hasLocation="false" isDestination="false">
-        <deprecated since="2019-08" replaced_by="MAV_CMD_REQUEST_MESSAGE"/>
+        <deprecated since="2025-11" replaced_by="MAV_CMD_REQUEST_MESSAGE"/>
         <description>Request MAVLink protocol version compatibility. All receivers should ACK the command and then emit their capabilities in an PROTOCOL_VERSION message</description>
         <param index="1" label="Protocol" enum="MAV_BOOL">Request supported protocol versions by all nodes on the network (MAV_BOOL_TRUE). Values not equal to 0 or 1 are invalid.</param>
         <param index="2">Reserved (all remaining params)</param>
       </entry>
       <entry value="520" name="MAV_CMD_REQUEST_AUTOPILOT_CAPABILITIES" hasLocation="false" isDestination="false">
-        <deprecated since="2019-08" replaced_by="MAV_CMD_REQUEST_MESSAGE"/>
+        <superseded since="2019-08" replaced_by="MAV_CMD_REQUEST_MESSAGE"/>
         <description>Request autopilot capabilities. The receiver should ACK the command and then emit its capabilities in an AUTOPILOT_VERSION message</description>
         <param index="1" label="Version" enum="MAV_BOOL">Request autopilot version (MAV_BOOL_TRUE). Values not equal to 0 or 1 are invalid.</param>
         <param index="2">Reserved (all remaining params)</param>
       </entry>
       <entry value="521" name="MAV_CMD_REQUEST_CAMERA_INFORMATION" hasLocation="false" isDestination="false">
-        <deprecated since="2019-08" replaced_by="MAV_CMD_REQUEST_MESSAGE"/>
+        <superseded since="2019-08" replaced_by="MAV_CMD_REQUEST_MESSAGE"/>
         <description>Request camera information (CAMERA_INFORMATION).</description>
         <param index="1" label="Capabilities" enum="MAV_BOOL">Request camera capabilities (MAV_BOOL_TRUE). Values not equal to 0 or 1 are invalid.</param>
         <param index="2">Reserved (all remaining params)</param>
       </entry>
       <entry value="522" name="MAV_CMD_REQUEST_CAMERA_SETTINGS" hasLocation="false" isDestination="false">
-        <deprecated since="2019-08" replaced_by="MAV_CMD_REQUEST_MESSAGE"/>
+        <superseded since="2019-08" replaced_by="MAV_CMD_REQUEST_MESSAGE"/>
         <description>Request camera settings (CAMERA_SETTINGS).</description>
         <param index="1" label="Settings" enum="MAV_BOOL">Request camera settings (MAV_BOOL_TRUE). Values not equal to 0 or 1 are invalid.</param>
         <param index="2">Reserved (all remaining params)</param>
       </entry>
       <entry value="525" name="MAV_CMD_REQUEST_STORAGE_INFORMATION" hasLocation="false" isDestination="false">
-        <deprecated since="2019-08" replaced_by="MAV_CMD_REQUEST_MESSAGE"/>
+        <superseded since="2019-08" replaced_by="MAV_CMD_REQUEST_MESSAGE"/>
         <description>Request storage information (STORAGE_INFORMATION). Use the command's target_component to target a specific component's storage.</description>
         <param index="1" label="Storage ID" minValue="0" increment="1">Storage ID (0 for all, 1 for first, 2 for second, etc.)</param>
         <param index="2" label="Information" enum="MAV_BOOL">Request storage information (MAV_BOOL_TRUE). Values not equal to 0 or 1 are invalid.</param>
@@ -1883,13 +1883,13 @@
         <param index="3">Reserved (all remaining params)</param>
       </entry>
       <entry value="527" name="MAV_CMD_REQUEST_CAMERA_CAPTURE_STATUS" hasLocation="false" isDestination="false">
-        <deprecated since="2019-08" replaced_by="MAV_CMD_REQUEST_MESSAGE"/>
+        <superseded since="2019-08" replaced_by="MAV_CMD_REQUEST_MESSAGE"/>
         <description>Request camera capture status (CAMERA_CAPTURE_STATUS)</description>
         <param index="1" label="Capture Status" enum="MAV_BOOL">Request camera capture status (MAV_BOOL_TRUE). Values not equal to 0 or 1 are invalid.</param>
         <param index="2">Reserved (all remaining params)</param>
       </entry>
       <entry value="528" name="MAV_CMD_REQUEST_FLIGHT_INFORMATION" hasLocation="false" isDestination="false">
-        <deprecated since="2019-08" replaced_by="MAV_CMD_REQUEST_MESSAGE"/>
+        <superseded since="2019-08" replaced_by="MAV_CMD_REQUEST_MESSAGE"/>
         <description>Request flight information (FLIGHT_INFORMATION)</description>
         <param index="1" label="Flight Information" enum="MAV_BOOL">Request flight information (MAV_BOOL_TRUE). Values not equal to 0 or 1 are invalid.</param>
         <param index="2">Reserved (all remaining params)</param>
@@ -2070,12 +2070,12 @@
         <param index="1" label="Stream ID" minValue="0" increment="1">Video Stream ID (0 for all streams, 1 for first, 2 for second, etc.)</param>
       </entry>
       <entry value="2504" name="MAV_CMD_REQUEST_VIDEO_STREAM_INFORMATION" hasLocation="false" isDestination="false">
-        <deprecated since="2019-08" replaced_by="MAV_CMD_REQUEST_MESSAGE"/>
+        <superseded since="2019-08" replaced_by="MAV_CMD_REQUEST_MESSAGE"/>
         <description>Request video stream information (VIDEO_STREAM_INFORMATION)</description>
         <param index="1" label="Stream ID" minValue="0" increment="1">Video Stream ID (0 for all streams, 1 for first, 2 for second, etc.)</param>
       </entry>
       <entry value="2505" name="MAV_CMD_REQUEST_VIDEO_STREAM_STATUS" hasLocation="false" isDestination="false">
-        <deprecated since="2019-08" replaced_by="MAV_CMD_REQUEST_MESSAGE"/>
+        <superseded since="2019-08" replaced_by="MAV_CMD_REQUEST_MESSAGE"/>
         <description>Request video stream status (VIDEO_STREAM_STATUS)</description>
         <param index="1" label="Stream ID" minValue="0" increment="1">Video Stream ID (0 for all streams, 1 for first, 2 for second, etc.)</param>
       </entry>
@@ -2267,7 +2267,7 @@
       <!-- VALUES FROM 0-40000 are reserved for the common message set. Values from 40000 to UINT16_MAX are available for dialects -->
       <!-- BEGIN of payload range (30000 to 30999) -->
       <entry value="30001" name="MAV_CMD_PAYLOAD_PREPARE_DEPLOY" hasLocation="true" isDestination="true">
-        <deprecated since="2021-06" replaced_by=""/>
+        <superseded since="2021-06" replaced_by=""/>
         <description>Deploy payload on a Lat / Lon / Alt position. This includes the navigation to reach the required release position and velocity.</description>
         <param index="1" label="Operation Mode" minValue="0" maxValue="2" increment="1">Operation mode. 0: prepare single payload deploy (overwriting previous requests), but do not execute it. 1: execute payload deploy immediately (rejecting further deploy commands during execution, but allowing abort). 2: add payload deploy to existing deployment list.</param>
         <param index="2" label="Approach Vector" units="deg" minValue="-1" maxValue="360">Desired approach vector in compass heading. A negative value indicates the system can define the approach vector at will.</param>
@@ -2278,7 +2278,7 @@
         <param index="7" label="Altitude" units="m">Altitude (MSL)</param>
       </entry>
       <entry value="30002" name="MAV_CMD_PAYLOAD_CONTROL_DEPLOY" hasLocation="false" isDestination="false">
-        <deprecated since="2021-06" replaced_by=""/>
+        <superseded since="2021-06" replaced_by=""/>
         <description>Control the payload deployment.</description>
         <param index="1" label="Operation Mode" minValue="0" maxValue="101" increment="1">Operation mode. 0: Abort deployment, continue normal mission. 1: switch to payload deployment mode. 100: delete first payload deployment request. 101: delete all payload deployment requests.</param>
         <param index="2">Reserved</param>
@@ -2517,7 +2517,7 @@
       </entry>
     </enum>
     <enum name="MAV_ROI">
-      <deprecated since="2018-01" replaced_by="MAV_CMD_DO_SET_ROI_*"/>
+      <superseded since="2018-01" replaced_by="`MAV_CMD_DO_SET_ROI_*`"/>
       <description>The ROI (region of interest) for the vehicle. This can be
                 be used by the vehicle for camera/vehicle attitude alignment (see
                 MAV_CMD_NAV_ROI).</description>
@@ -4784,7 +4784,7 @@
       <field type="uint32_t" name="time_boot_ms" units="ms">Timestamp (time since system boot).</field>
     </message>
     <message id="4" name="PING">
-      <deprecated since="2011-08" replaced_by="TIMESYNC">To be removed / merged with TIMESYNC</deprecated>
+      <superseded since="2011-08" replaced_by="TIMESYNC">To be removed / merged with TIMESYNC</superseded>
       <description>A ping message either requesting or responding to a ping. This allows to measure the system latencies, including serial port, radio modem and UDP connections. The ping microservice is documented at https://mavlink.io/en/services/ping.html</description>
       <field type="uint64_t" name="time_usec" units="us">Timestamp (UNIX Epoch time or time since system boot). The receiving end can infer timestamp format (since 1.1.1970 or since system boot) by checking for the magnitude of the number.</field>
       <field type="uint32_t" name="seq">PING sequence</field>
@@ -4809,7 +4809,7 @@
       <field type="char[32]" name="key">key</field>
     </message>
     <message id="11" name="SET_MODE">
-      <deprecated since="2015-12" replaced_by="MAV_CMD_DO_SET_MODE">Use COMMAND_LONG with MAV_CMD_DO_SET_MODE instead</deprecated>
+      <superseded since="2015-12" replaced_by="MAV_CMD_DO_SET_MODE">Use COMMAND_LONG with MAV_CMD_DO_SET_MODE instead</superseded>
       <description>Set the system mode, as defined by enum MAV_MODE. There is no target component id as the mode is by definition for the overall aircraft, not only for one component.</description>
       <field type="uint8_t" name="target_system">The system setting the mode</field>
       <field type="uint8_t" name="base_mode" enum="MAV_MODE">The new base mode.</field>
@@ -5108,7 +5108,7 @@
       <field type="uint8_t" name="mission_type" enum="MAV_MISSION_TYPE">Mission type.</field>
     </message>
     <message id="48" name="SET_GPS_GLOBAL_ORIGIN">
-      <deprecated since="2025-04" replaced_by="MAV_CMD_SET_GLOBAL_ORIGIN"/>
+      <superseded since="2025-04" replaced_by="MAV_CMD_DO_SET_GLOBAL_ORIGIN"/>
       <description>Sets the GPS coordinates of the vehicle local origin (0,0,0) position. Vehicle should emit GPS_GLOBAL_ORIGIN irrespective of whether the origin is changed. This enables transform between the local coordinate frame and the global (GPS) coordinate frame, which may be necessary when (for example) indoor and outdoor settings are connected and the MAV should move from in- to outdoor.</description>
       <field type="uint8_t" name="target_system">System ID</field>
       <field type="int32_t" name="latitude" units="degE7">Latitude (WGS84)</field>
@@ -5482,7 +5482,7 @@
       <field type="float" name="yaw" units="rad">Yaw</field>
     </message>
     <message id="90" name="HIL_STATE">
-      <deprecated since="2013-07" replaced_by="HIL_STATE_QUATERNION">Suffers from missing airspeed fields and singularities due to Euler angles</deprecated>
+      <superseded since="2013-07" replaced_by="HIL_STATE_QUATERNION">Suffers from missing airspeed fields and singularities due to Euler angles</superseded>
       <description>Sent from simulation to autopilot. This packet is useful for high throughput applications such as hardware in the loop simulations.</description>
       <field type="uint64_t" name="time_usec" units="us">Timestamp (UNIX Epoch time or time since system boot). The receiving end can infer timestamp format (since 1.1.1970 or since system boot) by checking for the magnitude of the number.</field>
       <field type="float" name="roll" units="rad">Roll angle</field>
@@ -6226,7 +6226,7 @@
       <field type="uint8_t[180]" name="data">RTCM message (may be fragmented)</field>
     </message>
     <message id="234" name="HIGH_LATENCY">
-      <deprecated since="2020-10" replaced_by="HIGH_LATENCY2"/>
+      <superseded since="2020-10" replaced_by="HIGH_LATENCY2"/>
       <description>Message appropriate for high latency connections like Iridium</description>
       <field type="uint8_t" name="base_mode" enum="MAV_MODE_FLAG">Bitmap of enabled system modes.</field>
       <field type="uint32_t" name="custom_mode" display="bitmask">A bitfield for use for autopilot-specific flags.</field>
