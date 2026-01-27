@@ -721,6 +721,150 @@
         <description>Storage for saving logs.</description>
       </entry>
     </enum>
+    <enum name="ORBIT_YAW_BEHAVIOUR">
+      <description>Yaw behaviour during orbit flight.</description>
+      <entry value="0" name="ORBIT_YAW_BEHAVIOUR_HOLD_FRONT_TO_CIRCLE_CENTER">
+        <description>Vehicle front points to the center (default).</description>
+      </entry>
+      <entry value="1" name="ORBIT_YAW_BEHAVIOUR_HOLD_INITIAL_HEADING">
+        <description>Vehicle front holds heading when message received.</description>
+      </entry>
+      <entry value="2" name="ORBIT_YAW_BEHAVIOUR_UNCONTROLLED">
+        <description>Yaw uncontrolled.</description>
+      </entry>
+      <entry value="3" name="ORBIT_YAW_BEHAVIOUR_HOLD_FRONT_TANGENT_TO_CIRCLE">
+        <description>Vehicle front follows flight path (tangential to circle).</description>
+      </entry>
+      <entry value="4" name="ORBIT_YAW_BEHAVIOUR_RC_CONTROLLED">
+        <description>Yaw controlled by RC input.</description>
+      </entry>
+      <entry value="5" name="ORBIT_YAW_BEHAVIOUR_UNCHANGED">
+        <description>Vehicle uses current yaw behaviour (unchanged). The vehicle-default yaw behaviour is used if this value is specified when orbit is first commanded.</description>
+      </entry>
+    </enum>
+    <enum name="ACTUATOR_CONFIGURATION">
+      <description>Actuator configuration, used to change a setting on an actuator. Component information metadata can be used to know which outputs support which commands.</description>
+      <entry value="0" name="ACTUATOR_CONFIGURATION_NONE">
+        <description>Do nothing.</description>
+      </entry>
+      <entry value="1" name="ACTUATOR_CONFIGURATION_BEEP">
+        <description>Command the actuator to beep now.</description>
+      </entry>
+      <entry value="2" name="ACTUATOR_CONFIGURATION_3D_MODE_ON">
+        <description>Permanently set the actuator (ESC) to 3D mode (reversible thrust).</description>
+      </entry>
+      <entry value="3" name="ACTUATOR_CONFIGURATION_3D_MODE_OFF">
+        <description>Permanently set the actuator (ESC) to non 3D mode (non-reversible thrust).</description>
+      </entry>
+      <entry value="4" name="ACTUATOR_CONFIGURATION_SPIN_DIRECTION1">
+        <description>Permanently set the actuator (ESC) to spin direction 1 (which can be clockwise or counter-clockwise).</description>
+      </entry>
+      <entry value="5" name="ACTUATOR_CONFIGURATION_SPIN_DIRECTION2">
+        <description>Permanently set the actuator (ESC) to spin direction 2 (opposite of direction 1).</description>
+      </entry>
+    </enum>
+    <enum name="ACTUATOR_OUTPUT_FUNCTION">
+      <description>Actuator output function. Values greater or equal to 1000 are autopilot-specific.</description>
+      <entry value="0" name="ACTUATOR_OUTPUT_FUNCTION_NONE">
+        <description>No function (disabled).</description>
+      </entry>
+      <entry value="1" name="ACTUATOR_OUTPUT_FUNCTION_MOTOR1">
+        <description>Motor 1</description>
+      </entry>
+      <entry value="2" name="ACTUATOR_OUTPUT_FUNCTION_MOTOR2">
+        <description>Motor 2</description>
+      </entry>
+      <entry value="3" name="ACTUATOR_OUTPUT_FUNCTION_MOTOR3">
+        <description>Motor 3</description>
+      </entry>
+      <entry value="4" name="ACTUATOR_OUTPUT_FUNCTION_MOTOR4">
+        <description>Motor 4</description>
+      </entry>
+      <entry value="5" name="ACTUATOR_OUTPUT_FUNCTION_MOTOR5">
+        <description>Motor 5</description>
+      </entry>
+      <entry value="6" name="ACTUATOR_OUTPUT_FUNCTION_MOTOR6">
+        <description>Motor 6</description>
+      </entry>
+      <entry value="7" name="ACTUATOR_OUTPUT_FUNCTION_MOTOR7">
+        <description>Motor 7</description>
+      </entry>
+      <entry value="8" name="ACTUATOR_OUTPUT_FUNCTION_MOTOR8">
+        <description>Motor 8</description>
+      </entry>
+      <entry value="9" name="ACTUATOR_OUTPUT_FUNCTION_MOTOR9">
+        <description>Motor 9</description>
+      </entry>
+      <entry value="10" name="ACTUATOR_OUTPUT_FUNCTION_MOTOR10">
+        <description>Motor 10</description>
+      </entry>
+      <entry value="11" name="ACTUATOR_OUTPUT_FUNCTION_MOTOR11">
+        <description>Motor 11</description>
+      </entry>
+      <entry value="12" name="ACTUATOR_OUTPUT_FUNCTION_MOTOR12">
+        <description>Motor 12</description>
+      </entry>
+      <entry value="13" name="ACTUATOR_OUTPUT_FUNCTION_MOTOR13">
+        <description>Motor 13</description>
+      </entry>
+      <entry value="14" name="ACTUATOR_OUTPUT_FUNCTION_MOTOR14">
+        <description>Motor 14</description>
+      </entry>
+      <entry value="15" name="ACTUATOR_OUTPUT_FUNCTION_MOTOR15">
+        <description>Motor 15</description>
+      </entry>
+      <entry value="16" name="ACTUATOR_OUTPUT_FUNCTION_MOTOR16">
+        <description>Motor 16</description>
+      </entry>
+      <entry value="33" name="ACTUATOR_OUTPUT_FUNCTION_SERVO1">
+        <description>Servo 1</description>
+      </entry>
+      <entry value="34" name="ACTUATOR_OUTPUT_FUNCTION_SERVO2">
+        <description>Servo 2</description>
+      </entry>
+      <entry value="35" name="ACTUATOR_OUTPUT_FUNCTION_SERVO3">
+        <description>Servo 3</description>
+      </entry>
+      <entry value="36" name="ACTUATOR_OUTPUT_FUNCTION_SERVO4">
+        <description>Servo 4</description>
+      </entry>
+      <entry value="37" name="ACTUATOR_OUTPUT_FUNCTION_SERVO5">
+        <description>Servo 5</description>
+      </entry>
+      <entry value="38" name="ACTUATOR_OUTPUT_FUNCTION_SERVO6">
+        <description>Servo 6</description>
+      </entry>
+      <entry value="39" name="ACTUATOR_OUTPUT_FUNCTION_SERVO7">
+        <description>Servo 7</description>
+      </entry>
+      <entry value="40" name="ACTUATOR_OUTPUT_FUNCTION_SERVO8">
+        <description>Servo 8</description>
+      </entry>
+      <entry value="41" name="ACTUATOR_OUTPUT_FUNCTION_SERVO9">
+        <description>Servo 9</description>
+      </entry>
+      <entry value="42" name="ACTUATOR_OUTPUT_FUNCTION_SERVO10">
+        <description>Servo 10</description>
+      </entry>
+      <entry value="43" name="ACTUATOR_OUTPUT_FUNCTION_SERVO11">
+        <description>Servo 11</description>
+      </entry>
+      <entry value="44" name="ACTUATOR_OUTPUT_FUNCTION_SERVO12">
+        <description>Servo 12</description>
+      </entry>
+      <entry value="45" name="ACTUATOR_OUTPUT_FUNCTION_SERVO13">
+        <description>Servo 13</description>
+      </entry>
+      <entry value="46" name="ACTUATOR_OUTPUT_FUNCTION_SERVO14">
+        <description>Servo 14</description>
+      </entry>
+      <entry value="47" name="ACTUATOR_OUTPUT_FUNCTION_SERVO15">
+        <description>Servo 15</description>
+      </entry>
+      <entry value="48" name="ACTUATOR_OUTPUT_FUNCTION_SERVO16">
+        <description>Servo 16</description>
+      </entry>
+    </enum>
     <enum name="AUTOTUNE_AXIS" bitmask="true">
       <description>Axes that will be autotuned by MAV_CMD_DO_AUTOTUNE_ENABLE.
         Note that at least one flag must be set in MAV_CMD_DO_AUTOTUNE_ENABLE.param2: if none are set, the flight stack will tune its default set of axes.</description>
@@ -879,6 +1023,37 @@
         <param index="5" label="Altitude Offset" units="m">altitude offset from target</param>
         <param index="6" label="X Offset" units="m">X offset from target</param>
         <param index="7" label="Y Offset" units="m">Y offset from target</param>
+      </entry>
+      <entry value="34" name="MAV_CMD_DO_ORBIT" hasLocation="true" isDestination="true">
+        <description>Start orbiting on the circumference of a circle defined by the parameters. Setting values to NaN/INT32_MAX (as appropriate) results in using defaults.</description>
+        <param index="1" label="Radius" units="m">Radius of the circle. Positive: orbit clockwise. Negative: orbit counter-clockwise. NaN: Use vehicle default radius, or current radius if already orbiting.</param>
+        <param index="2" label="Velocity" units="m/s">Tangential Velocity. NaN: Use vehicle default velocity, or current velocity if already orbiting.</param>
+        <param index="3" label="Yaw Behavior" enum="ORBIT_YAW_BEHAVIOUR">Yaw behavior of the vehicle.</param>
+        <param index="4" label="Orbits" units="rad" minValue="0" default="0">Orbit around the centre point for this many radians (i.e. for a three-quarter orbit set 270*Pi/180). 0: Orbit forever. NaN: Use vehicle default, or current value if already orbiting.</param>
+        <param index="5" label="Latitude/X">Center point latitude (if no MAV_FRAME specified) / X coordinate according to MAV_FRAME. INT32_MAX (or NaN if sent in COMMAND_LONG): Use current vehicle position, or current center if already orbiting.</param>
+        <param index="6" label="Longitude/Y">Center point longitude (if no MAV_FRAME specified) / Y coordinate according to MAV_FRAME. INT32_MAX (or NaN if sent in COMMAND_LONG): Use current vehicle position, or current center if already orbiting.</param>
+        <param index="7" label="Altitude/Z">Center point altitude (MSL) (if no MAV_FRAME specified) / Z coordinate according to MAV_FRAME. NaN: Use current vehicle altitude.</param>
+      </entry>
+      <entry value="35" name="MAV_CMD_DO_FIGURE_EIGHT" hasLocation="true" isDestination="true">
+        <description>Fly a figure eight path as defined by the parameters.
+          Set parameters to NaN/INT32_MAX (as appropriate) to use system-default values.
+          The command is intended for fixed wing vehicles (and VTOL hybrids flying in fixed-wing mode), allowing POI tracking for gimbals that don't support infinite rotation.
+          This command only defines the flight path. Speed should be set independently (use e.g. MAV_CMD_DO_CHANGE_SPEED).
+          Yaw and other degrees of freedom are not specified, and will be flight-stack specific (on vehicles where they can be controlled independent of the heading).
+        </description>
+        <param index="1" label="Major Radius" units="m">Major axis radius of the figure eight. Positive: orbit the north circle clockwise. Negative: orbit the north circle counter-clockwise.
+        NaN: The radius will be set to 2.5 times the minor radius and direction is clockwise.
+        Must be greater or equal to two times the minor radius for feasible values.</param>
+        <param index="2" label="Minor Radius" units="m">Minor axis radius of the figure eight. Defines the radius of the two circles that make up the figure. Negative value has no effect.
+        NaN: The radius will be set to the default loiter radius.</param>
+        <param index="3" reserved="true" default="NaN"/>
+        <param index="4" label="Orientation" units="rad">Orientation of the figure eight major axis with respect to true north (range: [-pi,pi]). NaN: use default orientation aligned to true north.</param>
+        <param index="5" label="Latitude/X">Center point latitude/X coordinate according to MAV_FRAME. If no MAV_FRAME specified, MAV_FRAME_GLOBAL is assumed.
+        INT32_MAX or NaN: Use current vehicle position, or current center if already loitering.</param>
+        <param index="6" label="Longitude/Y">Center point longitude/Y coordinate according to MAV_FRAME. If no MAV_FRAME specified, MAV_FRAME_GLOBAL is assumed.
+        INT32_MAX or NaN: Use current vehicle position, or current center if already loitering.</param>
+        <param index="7" label="Altitude/Z">Center point altitude MSL/Z coordinate according to MAV_FRAME. If no MAV_FRAME specified, MAV_FRAME_GLOBAL is assumed.
+        INT32_MAX or NaN: Use current vehicle altitude.</param>
       </entry>
       <entry value="80" name="MAV_CMD_NAV_ROI" hasLocation="true" isDestination="false">
         <deprecated since="2018-01" replaced_by="MAV_CMD_DO_SET_ROI_*"/>
@@ -1140,6 +1315,16 @@
         <param index="5">Empty</param>
         <param index="6">Empty</param>
         <param index="7">Empty</param>
+      </entry>
+      <entry value="187" name="MAV_CMD_DO_SET_ACTUATOR" hasLocation="false" isDestination="false">
+        <description>Sets actuators (e.g. servos) to a desired value. The actuator numbers are mapped to specific outputs (e.g. on any MAIN or AUX PWM or UAVCAN) using a flight-stack specific mechanism (i.e. a parameter).</description>
+        <param index="1" label="Actuator 1" minValue="-1" maxValue="1">Actuator 1 value, scaled from [-1 to 1]. NaN to ignore.</param>
+        <param index="2" label="Actuator 2" minValue="-1" maxValue="1">Actuator 2 value, scaled from [-1 to 1]. NaN to ignore.</param>
+        <param index="3" label="Actuator 3" minValue="-1" maxValue="1">Actuator 3 value, scaled from [-1 to 1]. NaN to ignore.</param>
+        <param index="4" label="Actuator 4" minValue="-1" maxValue="1">Actuator 4 value, scaled from [-1 to 1]. NaN to ignore.</param>
+        <param index="5" label="Actuator 5" minValue="-1" maxValue="1">Actuator 5 value, scaled from [-1 to 1]. NaN to ignore.</param>
+        <param index="6" label="Actuator 6" minValue="-1" maxValue="1">Actuator 6 value, scaled from [-1 to 1]. NaN to ignore.</param>
+        <param index="7" label="Index" minValue="0" increment="1">Index of actuator set (i.e if set to 1, Actuator 1 becomes Actuator 7)</param>
       </entry>
       <entry value="188" name="MAV_CMD_DO_RETURN_PATH_START" hasLocation="true" isDestination="false">
         <wip/>
@@ -1557,10 +1742,43 @@
         <param index="6" label="Pitch Angle" units="deg" minValue="-180" maxValue="180" default="0">Fixed pitch angle that the camera will hold in oblique mode if the mount is actuated in the pitch axis.</param>
         <param index="7">Empty</param>
       </entry>
+      <entry value="262" name="MAV_CMD_DO_SET_STANDARD_MODE" hasLocation="false" isDestination="false">
+        <description>Enable the specified standard MAVLink mode.
+          If the specified mode is not supported, the vehicle should ACK with MAV_RESULT_FAILED.
+          See https://mavlink.io/en/services/standard_modes.html
+        </description>
+        <param index="1" label="Standard Mode" enum="MAV_STANDARD_MODE">The mode to set.</param>
+        <param index="2" reserved="true" default="0"/>
+        <param index="3" reserved="true" default="0"/>
+        <param index="4" reserved="true" default="0"/>
+        <param index="5" reserved="true" default="0"/>
+        <param index="6" reserved="true" default="0"/>
+        <param index="7" reserved="true" default="NaN"/>
+      </entry>
       <entry value="300" name="MAV_CMD_MISSION_START" hasLocation="false" isDestination="false">
         <description>start running a mission</description>
         <param index="1" label="First Item" minValue="0" increment="1">first_item: the first mission item to run</param>
         <param index="2" label="Last Item" minValue="0" increment="1">last_item:  the last mission item to run (after this item is run, the mission ends)</param>
+      </entry>
+      <entry value="310" name="MAV_CMD_ACTUATOR_TEST" hasLocation="false" isDestination="false">
+        <description>Actuator testing command. This is similar to MAV_CMD_DO_MOTOR_TEST but operates on the level of output functions, i.e. it is possible to test Motor1 independent from which output it is configured on. Autopilots must NACK this command with MAV_RESULT_TEMPORARILY_REJECTED while armed.</description>
+        <param index="1" label="Value" minValue="-1" maxValue="1">Output value: 1 means maximum positive output, 0 to center servos or minimum motor thrust (expected to spin), -1 for maximum negative (if not supported by the motors, i.e. motor is not reversible, smaller than 0 maps to NaN). And NaN maps to disarmed (stop the motors).</param>
+        <param index="2" label="Timeout" units="s" minValue="0" maxValue="3">Timeout after which the test command expires and the output is restored to the previous value. A timeout has to be set for safety reasons. A timeout of 0 means to restore the previous value immediately.</param>
+        <param index="3" reserved="true" default="0"/>
+        <param index="4" reserved="true" default="0"/>
+        <param index="5" label="Output Function" enum="ACTUATOR_OUTPUT_FUNCTION">Actuator Output function</param>
+        <param index="6" reserved="true" default="0"/>
+        <param index="7" reserved="true" default="0"/>
+      </entry>
+      <entry value="311" name="MAV_CMD_CONFIGURE_ACTUATOR" hasLocation="false" isDestination="false">
+        <description>Actuator configuration command.</description>
+        <param index="1" label="Configuration" enum="ACTUATOR_CONFIGURATION">Actuator configuration action</param>
+        <param index="2" reserved="true" default="0"/>
+        <param index="3" reserved="true" default="0"/>
+        <param index="4" reserved="true" default="0"/>
+        <param index="5" label="Output Function" enum="ACTUATOR_OUTPUT_FUNCTION">Actuator Output function</param>
+        <param index="6" reserved="true" default="0"/>
+        <param index="7" reserved="true" default="0"/>
       </entry>
       <entry value="400" name="MAV_CMD_COMPONENT_ARM_DISARM" hasLocation="false" isDestination="false">
         <description>Arms / Disarms a component</description>
@@ -1575,6 +1793,17 @@
           The command should return MAV_RESULT_TEMPORARILY_REJECTED if the system is already armed.
         </description>
       </entry>
+      <entry value="405" name="MAV_CMD_ILLUMINATOR_ON_OFF" hasLocation="false" isDestination="false">
+        <description>Turns illuminators ON/OFF. An illuminator is a light source that is used for lighting up dark areas external to the system: e.g. a torch or searchlight (as opposed to a light source for illuminating the system itself, e.g. an indicator light).</description>
+        <param index="1" label="Enable" enum="MAV_BOOL">Illuminators on/off (MAV_BOOL_TRUE: illuminators on). Values not equal to 0 or 1 are invalid.</param>
+      </entry>
+      <entry value="406" name="MAV_CMD_DO_ILLUMINATOR_CONFIGURE" hasLocation="false" isDestination="false">
+        <description>Configures illuminator settings. An illuminator is a light source that is used for lighting up dark areas external to the system: e.g. a torch or searchlight (as opposed to a light source for illuminating the system itself, e.g. an indicator light).</description>
+        <param index="1" label="Mode" enum="ILLUMINATOR_MODE">Mode</param>
+        <param index="2" label="Brightness" units="%" minValue="0" maxValue="100">0%: Off, 100%: Max Brightness</param>
+        <param index="3" label="Strobe Period" units="s" minValue="0">Strobe period in seconds where 0 means strobing is not used</param>
+        <param index="4" label="Strobe Duty" units="%" minValue="0" maxValue="100">Strobe duty cycle where 100% means it is on constantly and 0 means strobing is not used</param>
+      </entry>
       <entry value="410" name="MAV_CMD_GET_HOME_POSITION" hasLocation="false" isDestination="false">
         <description>Request the home position from the vehicle.</description>
         <param index="1">Reserved</param>
@@ -1584,6 +1813,12 @@
         <param index="5">Reserved</param>
         <param index="6">Reserved</param>
         <param index="7">Reserved</param>
+      </entry>
+      <entry value="420" name="MAV_CMD_INJECT_FAILURE">
+        <description>Inject artificial failure for testing purposes. Note that autopilots should implement an additional protection before accepting this command such as a specific param setting.</description>
+        <param index="1" label="Failure unit" enum="FAILURE_UNIT">The unit which is affected by the failure.</param>
+        <param index="2" label="Failure type" enum="FAILURE_TYPE">The type how the failure manifests itself.</param>
+        <param index="3" label="Instance">Instance affected by failure (0 to signal all).</param>
       </entry>
       <entry value="500" name="MAV_CMD_START_RX_PAIR" hasLocation="false" isDestination="false">
         <description>Starts receiver pairing.</description>
@@ -1773,6 +2008,17 @@
         <param index="4" reserved="true" default="NaN"/>
         <param index="7" reserved="true" default="NaN"/>
       </entry>
+      <entry value="2002" name="MAV_CMD_REQUEST_CAMERA_IMAGE_CAPTURE" hasLocation="false" isDestination="false">
+        <superseded since="2019-08" replaced_by="MAV_CMD_REQUEST_MESSAGE"/>
+        <description>Re-request a CAMERA_IMAGE_CAPTURED message.</description>
+        <param index="1" label="Number" minValue="0" increment="1">Sequence number for missing CAMERA_IMAGE_CAPTURED message</param>
+        <param index="2" reserved="true" default="NaN"/>
+        <param index="3" reserved="true" default="NaN"/>
+        <param index="4" reserved="true" default="NaN"/>
+        <param index="5" reserved="true"/>
+        <param index="6" reserved="true"/>
+        <param index="7" reserved="true" default="NaN"/>
+      </entry>
       <entry value="2003" name="MAV_CMD_DO_TRIGGER_CONTROL" hasLocation="false" isDestination="false">
         <description>Enable or disable on-board camera triggering system.</description>
         <param index="1" label="Enable" minValue="-1" maxValue="1" increment="1">Trigger enable/disable (0 for disable, 1 for start), -1 to ignore</param>
@@ -1904,6 +2150,18 @@
         <param index="4">User defined</param>
         <param index="5" label="Latitude">Target latitude of center of circle in CIRCLE_MODE</param>
         <param index="6" label="Longitude">Target longitude of center of circle in CIRCLE_MODE</param>
+      </entry>
+      <entry value="4501" name="MAV_CMD_CONDITION_GATE" hasLocation="true" isDestination="true">
+        <wip/>
+        <!-- This message is work-in-progress and it can therefore change. It should NOT be used in stable production environments. -->
+        <description>Delay mission state machine until gate has been reached.</description>
+        <param index="1" label="Geometry" minValue="0" increment="1">Geometry: 0: orthogonal to path between previous and next waypoint.</param>
+        <param index="2" label="UseAltitude" enum="MAV_BOOL">Use altitude (MAV_BOOL_FALSE: ignore altitude). Values not equal to 0 or 1 are invalid.</param>
+        <param index="3">Empty</param>
+        <param index="4">Empty</param>
+        <param index="5" label="Latitude">Latitude</param>
+        <param index="6" label="Longitude">Longitude</param>
+        <param index="7" label="Altitude" units="m">Altitude</param>
       </entry>
       <entry value="5000" name="MAV_CMD_NAV_FENCE_RETURN_POINT" hasLocation="true" isDestination="true">
         <description>Fence return point (there can only be one such point in a geofence definition). If rally points are supported they should be used instead.</description>
@@ -4167,6 +4425,53 @@
       <entry value="2048" name="AIS_FLAGS_VALID_CALLSIGN"/>
       <entry value="4096" name="AIS_FLAGS_VALID_NAME"/>
     </enum>
+    <enum name="FAILURE_UNIT">
+      <!-- This enum is work-in-progress and it can therefore change. It should NOT be used in stable production environments. -->
+      <description>List of possible units where failures can be injected.</description>
+      <entry value="0" name="FAILURE_UNIT_SENSOR_GYRO"/>
+      <entry value="1" name="FAILURE_UNIT_SENSOR_ACCEL"/>
+      <entry value="2" name="FAILURE_UNIT_SENSOR_MAG"/>
+      <entry value="3" name="FAILURE_UNIT_SENSOR_BARO"/>
+      <entry value="4" name="FAILURE_UNIT_SENSOR_GPS"/>
+      <entry value="5" name="FAILURE_UNIT_SENSOR_OPTICAL_FLOW"/>
+      <entry value="6" name="FAILURE_UNIT_SENSOR_VIO"/>
+      <entry value="7" name="FAILURE_UNIT_SENSOR_DISTANCE_SENSOR"/>
+      <entry value="8" name="FAILURE_UNIT_SENSOR_AIRSPEED"/>
+      <entry value="100" name="FAILURE_UNIT_SYSTEM_BATTERY"/>
+      <entry value="101" name="FAILURE_UNIT_SYSTEM_MOTOR"/>
+      <entry value="102" name="FAILURE_UNIT_SYSTEM_SERVO"/>
+      <entry value="103" name="FAILURE_UNIT_SYSTEM_AVOIDANCE"/>
+      <entry value="104" name="FAILURE_UNIT_SYSTEM_RC_SIGNAL"/>
+      <entry value="105" name="FAILURE_UNIT_SYSTEM_MAVLINK_SIGNAL"/>
+    </enum>
+    <enum name="FAILURE_TYPE">
+      <!-- This enum is work-in-progress and it can therefore change. It should NOT be used in stable production environments. -->
+      <description>List of possible failure type to inject.</description>
+      <entry value="0" name="FAILURE_TYPE_OK">
+        <description>No failure injected, used to reset a previous failure.</description>
+      </entry>
+      <entry value="1" name="FAILURE_TYPE_OFF">
+        <description>Sets unit off, so completely non-responsive.</description>
+      </entry>
+      <entry value="2" name="FAILURE_TYPE_STUCK">
+        <description>Unit is stuck e.g. keeps reporting the same value.</description>
+      </entry>
+      <entry value="3" name="FAILURE_TYPE_GARBAGE">
+        <description>Unit is reporting complete garbage.</description>
+      </entry>
+      <entry value="4" name="FAILURE_TYPE_WRONG">
+        <description>Unit is consistently wrong.</description>
+      </entry>
+      <entry value="5" name="FAILURE_TYPE_SLOW">
+        <description>Unit is slow, so e.g. reporting at slower than expected rate.</description>
+      </entry>
+      <entry value="6" name="FAILURE_TYPE_DELAYED">
+        <description>Data of unit is delayed in time.</description>
+      </entry>
+      <entry value="7" name="FAILURE_TYPE_INTERMITTENT">
+        <description>Unit is sometimes working, sometimes not.</description>
+      </entry>
+    </enum>
     <enum name="NAV_VTOL_LAND_OPTIONS">
       <entry value="0" name="NAV_VTOL_LAND_OPTIONS_DEFAULT">
         <description>Default autopilot landing behaviour.</description>
@@ -4329,6 +4634,111 @@
       </entry>
       <entry value="1" name="SAFETY_SWITCH_STATE_DANGEROUS">
         <description>Safety switch is NOT engaged and motors, propellers and other actuators should be considered active.</description>
+      </entry>
+    </enum>
+    <enum name="ILLUMINATOR_MODE">
+      <description>Modes of illuminator</description>
+      <entry value="0" name="ILLUMINATOR_MODE_UNKNOWN">
+        <description>Illuminator mode is not specified/unknown</description>
+      </entry>
+      <entry value="1" name="ILLUMINATOR_MODE_INTERNAL_CONTROL">
+        <description>Illuminator behavior is controlled by MAV_CMD_DO_ILLUMINATOR_CONFIGURE settings</description>
+      </entry>
+      <entry value="2" name="ILLUMINATOR_MODE_EXTERNAL_SYNC">
+        <description>Illuminator behavior is controlled by external factors: e.g. an external hardware signal</description>
+      </entry>
+    </enum>
+    <enum name="ILLUMINATOR_ERROR_FLAGS" bitmask="true">
+      <description>Illuminator module error flags (bitmap, 0 means no error)</description>
+      <entry value="1" name="ILLUMINATOR_ERROR_FLAGS_THERMAL_THROTTLING">
+        <description>Illuminator thermal throttling error.</description>
+      </entry>
+      <entry value="2" name="ILLUMINATOR_ERROR_FLAGS_OVER_TEMPERATURE_SHUTDOWN">
+        <description>Illuminator over temperature shutdown error.</description>
+      </entry>
+      <entry value="4" name="ILLUMINATOR_ERROR_FLAGS_THERMISTOR_FAILURE">
+        <description>Illuminator thermistor failure.</description>
+      </entry>
+    </enum>
+    <enum name="MAV_STANDARD_MODE">
+      <description>Standard modes with a well understood meaning across flight stacks and vehicle types.
+        For example, most flight stack have the concept of a "return" or "RTL" mode that takes a vehicle to safety, even though the precise mechanics of this mode may differ.
+        The modes supported by a flight stack can be queried using AVAILABLE_MODES and set using MAV_CMD_DO_SET_STANDARD_MODE.
+        The current mode is streamed in CURRENT_MODE.
+        See https://mavlink.io/en/services/standard_modes.html
+      </description>
+      <entry value="0" name="MAV_STANDARD_MODE_NON_STANDARD">
+        <description>Non standard mode.
+          This may be used when reporting the mode if the current flight mode is not a standard mode.
+        </description>
+      </entry>
+      <entry value="1" name="MAV_STANDARD_MODE_POSITION_HOLD">
+        <description>Position mode (manual).
+          Position-controlled and stabilized manual mode.
+          When sticks are released vehicles return to their level-flight orientation and hold both position and altitude against wind and external forces.
+          This mode can only be set by vehicles that can hold a fixed position.
+          Multicopter (MC) vehicles actively brake and hold both position and altitude against wind and external forces.
+          Hybrid MC/FW ("VTOL") vehicles first transition to multicopter mode (if needed) but otherwise behave in the same way as MC vehicles.
+          Fixed-wing (FW) vehicles must not support this mode.
+          Other vehicle types must not support this mode (this may be revisited through the PR process).
+        </description>
+      </entry>
+      <entry value="2" name="MAV_STANDARD_MODE_ORBIT">
+        <description>Orbit (manual).
+          Position-controlled and stabilized manual mode.
+          The vehicle circles around a fixed setpoint in the horizontal plane at a particular radius, altitude, and direction.
+          Flight stacks may further allow manual control over the setpoint position, radius, direction, speed, and/or altitude of the circle, but this is not mandated.
+          Flight stacks may support the [MAV_CMD_DO_ORBIT](https://mavlink.io/en/messages/common.html#MAV_CMD_DO_ORBIT) for changing the orbit parameters.
+          MC and FW vehicles may support this mode.
+          Hybrid MC/FW ("VTOL") vehicles may support this mode in MC/FW or both modes; if the mode is not supported by the current configuration the vehicle should transition to the supported configuration.
+          Other vehicle types must not support this mode (this may be revisited through the PR process).
+        </description>
+      </entry>
+      <entry value="3" name="MAV_STANDARD_MODE_CRUISE">
+        <description>Cruise mode (manual).
+          Position-controlled and stabilized manual mode.
+          When sticks are released vehicles return to their level-flight orientation and hold their original track against wind and external forces.
+          Fixed-wing (FW) vehicles level orientation and maintain current track and altitude against wind and external forces.
+          Hybrid MC/FW ("VTOL") vehicles first transition to FW mode (if needed) but otherwise behave in the same way as MC vehicles.
+          Multicopter (MC) vehicles must not support this mode.
+          Other vehicle types must not support this mode (this may be revisited through the PR process).
+        </description>
+      </entry>
+      <entry value="4" name="MAV_STANDARD_MODE_ALTITUDE_HOLD">
+        <description>Altitude hold (manual).
+          Altitude-controlled and stabilized manual mode.
+          When sticks are released vehicles return to their level-flight orientation and hold their altitude.
+          MC vehicles continue with existing momentum and may move with wind (or other external forces).
+          FW vehicles continue with current heading, but may be moved off-track by wind.
+          Hybrid MC/FW ("VTOL") vehicles behave according to their current configuration/mode (FW or MC).
+          Other vehicle types must not support this mode (this may be revisited through the PR process).
+        </description>
+      </entry>
+      <entry value="5" name="MAV_STANDARD_MODE_SAFE_RECOVERY">
+        <description>Safe recovery mode (auto).
+          Automatic mode that takes vehicle to a predefined safe location via a safe flight path, and may also automatically land the vehicle.
+          This mode is more commonly referred to as RTL and/or or Smart RTL.
+          The precise return location, flight path, and landing behaviour depend on vehicle configuration and type.
+          For example, the vehicle might return to the home/launch location, a rally point, or the start of a mission landing, it might follow a direct path, mission path, or breadcrumb path, and land using a mission landing pattern or some other kind of descent.
+        </description>
+      </entry>
+      <entry value="6" name="MAV_STANDARD_MODE_MISSION">
+        <description>Mission mode (automatic).
+          Automatic mode that executes MAVLink missions.
+          Missions are executed from the current waypoint as soon as the mode is enabled.
+        </description>
+      </entry>
+      <entry value="7" name="MAV_STANDARD_MODE_LAND">
+        <description>Land mode (auto).
+          Automatic mode that lands the vehicle at the current location.
+          The precise landing behaviour depends on vehicle configuration and type.
+        </description>
+      </entry>
+      <entry value="8" name="MAV_STANDARD_MODE_TAKEOFF">
+        <description>Takeoff mode (auto).
+          Automatic takeoff mode.
+          The precise takeoff behaviour depends on vehicle configuration and type.
+        </description>
       </entry>
     </enum>
     <enum name="HIL_ACTUATOR_CONTROLS_FLAGS" bitmask="true">
