@@ -2109,6 +2109,16 @@
         <param index="6" reserved="true"/>
         <param index="7" reserved="true" default="NaN"/>
       </entry>
+      <entry value="2530" name="MAV_CMD_ALIGN_VISION_POSITION_LOCAL_NED" hasLocation="false" isDestination="false">
+        <description>Request to align the vision position estimate with the given position and yaw given in a local north-east-down coordinate frame</description>
+        <param index="1" label="x" units="m">X Position in NED frame</param>
+        <param index="2" label="y" units="m">Y Position in NED frame</param>
+        <param index="3" label="z" units="m">Z Position in NED frame</param>
+        <param index="4" reserved="true" default="NaN"/>
+        <param index="5" reserved="true" default="NaN"/>
+        <param index="6" label="yaw" units="rad">Yaw</param>
+        <param index="7" reserved="true" default="NaN"/>
+      </entry>
       <entry value="2600" name="MAV_CMD_CONTROL_HIGH_LATENCY" hasLocation="false" isDestination="false">
         <description>Request to start/stop transmitting over the high latency telemetry</description>
         <param index="1" label="Enable" enum="MAV_BOOL">Start transmission over high latency telemetry (MAV_BOOL_FALSE: stop transmission). Values not equal to 0 or 1 are invalid.</param>
