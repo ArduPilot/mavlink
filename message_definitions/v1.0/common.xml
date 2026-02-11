@@ -1807,7 +1807,9 @@
         <param index="4" label="Strobe Duty" units="%" minValue="0" maxValue="100">Strobe duty cycle where 100% means it is on constantly and 0 means strobing is not used</param>
       </entry>
       <entry value="410" name="MAV_CMD_GET_HOME_POSITION" hasLocation="false" isDestination="false">
-        <description>Request the home position from the vehicle.</description>
+        <superseded since="2022-04" replaced_by="MAV_CMD_REQUEST_MESSAGE"/>
+        <description>Request the home position from the vehicle.
+          The vehicle will ACK the command and emit the HOME_POSITION message.</description>
         <param index="1">Reserved</param>
         <param index="2">Reserved</param>
         <param index="3">Reserved</param>
