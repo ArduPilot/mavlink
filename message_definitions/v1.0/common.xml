@@ -1494,6 +1494,7 @@
       </entry>
       <!-- Camera Mount Mission Commands Enumeration -->
       <entry value="204" name="MAV_CMD_DO_MOUNT_CONFIGURE" hasLocation="false" isDestination="false">
+        <superseded since="2020-01" replaced_by="MAV_CMD_DO_GIMBAL_MANAGER_CONFIGURE">The message can still be used to communicate with legacy gimbals implementing it.</superseded>
         <description>Mission command to configure a camera or antenna mount</description>
         <param index="1" label="Mode" enum="MAV_MOUNT_MODE">Mount operation mode</param>
         <param index="2" label="Stabilize Roll" enum="MAV_BOOL">Stabilize roll (MAV_BOOL_TRUE). Values not equal to 0 or 1 are invalid.</param>
@@ -1505,6 +1506,7 @@
       </entry>
       <!-- this one is messed up! altitude should be param 7, not param4 -->
       <entry value="205" name="MAV_CMD_DO_MOUNT_CONTROL" hasLocation="false" isDestination="false">
+        <superseded since="2020-01" replaced_by="MAV_CMD_DO_GIMBAL_MANAGER_PITCHYAW">This message is ambiguous and inconsistent. It has been superseded by MAV_CMD_DO_GIMBAL_MANAGER_PITCHYAW and `MAV_CMD_DO_SET_ROI_*` variants. The message can still be used to communicate with legacy gimbals implementing it.</superseded>
         <description>Mission command to control a camera or antenna mount</description>
         <param index="1">pitch (WIP: DEPRECATED: or lat in degrees) depending on mount mode.</param>
         <param index="2">roll (WIP: DEPRECATED: or lon in degrees) depending on mount mode.</param>
