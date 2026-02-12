@@ -6632,13 +6632,14 @@
       <field type="uint64_t" name="flight_uuid">Universally unique identifier (UUID) of flight, should correspond to name of log files</field>
     </message>
     <message id="265" name="MOUNT_ORIENTATION">
+      <superseded since="2020-01" replaced_by="MAV_CMD_DO_GIMBAL_MANAGER_PITCHYAW">This message is being superseded by MAV_CMD_DO_GIMBAL_MANAGER_PITCHYAW. The message can still be used to communicate with legacy gimbals implementing it.</superseded>
       <description>Orientation of a mount</description>
       <field type="uint32_t" name="time_boot_ms" units="ms">Timestamp (time since system boot).</field>
-      <field type="float" name="roll" units="deg">Roll in global frame (set to NaN for invalid).</field>
-      <field type="float" name="pitch" units="deg">Pitch in global frame (set to NaN for invalid).</field>
-      <field type="float" name="yaw" units="deg">Yaw relative to vehicle (set to NaN for invalid).</field>
+      <field type="float" name="roll" units="deg" invalid="NaN">Roll in global frame (set to NaN for invalid).</field>
+      <field type="float" name="pitch" units="deg" invalid="NaN">Pitch in global frame (set to NaN for invalid).</field>
+      <field type="float" name="yaw" units="deg" invalid="NaN">Yaw relative to vehicle (set to NaN for invalid).</field>
       <extensions/>
-      <field type="float" name="yaw_absolute" units="deg">Yaw in absolute frame relative to Earth's North, north is 0 (set to NaN for invalid).</field>
+      <field type="float" name="yaw_absolute" units="deg" invalid="NaN">Yaw in absolute frame relative to Earth's North, north is 0 (set to NaN for invalid).</field>
     </message>
     <message id="266" name="LOGGING_DATA">
       <description>A message containing logged data (see also MAV_CMD_LOGGING_START)</description>
