@@ -907,19 +907,19 @@
       <entry value="18" name="MAV_CMD_NAV_LOITER_TURNS" hasLocation="true" isDestination="true">
         <description>Loiter around this waypoint for X turns</description>
         <param index="1" label="Turns" minValue="0">Number of turns.</param>
-        <param index="2">Empty</param>
-        <param index="3" label="Radius" units="m">Radius around waypoint. If positive loiter clockwise, else counter-clockwise</param>
-        <param index="4">Forward moving aircraft this sets exit xtrack location: 0 for center of loiter wp, 1 for exit location. Else, this is desired yaw angle. NaN to use the current system yaw heading mode (e.g. yaw towards next waypoint, yaw to home, etc.).</param>
+        <param index="2" label="Heading Required" enum="MAV_BOOL">Leave loiter circle only when track heads towards the next waypoint (MAV_BOOL_FALSE: Leave when turns complete). Values not equal to 0 or 1 are invalid.</param>
+        <param index="3" label="Radius" units="m">Loiter radius around waypoint for forward-only moving vehicles (not multicopters). If positive loiter clockwise, else counter-clockwise</param>
+        <param index="4" label="Xtrack Location">Loiter circle exit location and/or path to next waypoint ("xtrack") for forward-only moving vehicles (not multicopters). 0 for the vehicle to converge towards the center xtrack when it leaves the loiter (the line between the centers of the current and next waypoint), 1 to converge to the direct line between the location that the vehicle exits the loiter radius and the next waypoint. Otherwise the angle (in degrees) between the tangent of the loiter circle and the center xtrack at which the vehicle must leave the loiter (and converge to the center xtrack). NaN to use the current system default xtrack behaviour.</param>
         <param index="5" label="Latitude">Latitude</param>
         <param index="6" label="Longitude">Longitude</param>
         <param index="7" label="Altitude" units="m">Altitude</param>
       </entry>
       <entry value="19" name="MAV_CMD_NAV_LOITER_TIME" hasLocation="true" isDestination="true">
-        <description>Loiter around this waypoint for X seconds</description>
-        <param index="1" label="Time" units="s" minValue="0">Loiter time.</param>
-        <param index="2">Empty</param>
-        <param index="3" label="Radius" units="m">Radius around waypoint. If positive loiter clockwise, else counter-clockwise.</param>
-        <param index="4">Forward moving aircraft this sets exit xtrack location: 0 for center of loiter wp, 1 for exit location. Else, this is desired yaw angle.  NaN to use the current system yaw heading mode (e.g. yaw towards next waypoint, yaw to home, etc.).</param>
+        <description>Loiter at the specified latitude, longitude and altitude for a certain amount of time. Multicopter vehicles stop at the point (within a vehicle-specific acceptance radius). Forward-only moving vehicles (e.g. fixed-wing) circle the point with the specified radius/direction. If the Heading Required parameter (2) is non-zero forward moving aircraft will only leave the loiter circle once heading towards the next waypoint.</description>
+        <param index="1" label="Time" units="s" minValue="0">Loiter time (only starts once Lat, Lon and Alt is reached).</param>
+        <param index="2" label="Heading Required" enum="MAV_BOOL">Leave loiter circle only when track heading towards the next waypoint (MAV_BOOL_FALSE: Leave on time expiry). Values not equal to 0 or 1 are invalid.</param>
+        <param index="3" label="Radius" units="m">Loiter radius around waypoint for forward-only moving vehicles (not multicopters). If positive loiter clockwise, else counter-clockwise.</param>
+        <param index="4" label="Xtrack Location">Loiter circle exit location and/or path to next waypoint ("xtrack") for forward-only moving vehicles (not multicopters). 0 for the vehicle to converge towards the center xtrack when it leaves the loiter (the line between the centers of the current and next waypoint), 1 to converge to the direct line between the location that the vehicle exits the loiter radius and the next waypoint. Otherwise the angle (in degrees) between the tangent of the loiter circle and the center xtrack at which the vehicle must leave the loiter (and converge to the center xtrack). NaN to use the current system default xtrack behaviour.</param>
         <param index="5" label="Latitude">Latitude</param>
         <param index="6" label="Longitude">Longitude</param>
         <param index="7" label="Altitude" units="m">Altitude</param>
@@ -1238,9 +1238,9 @@
           Note: the current home position may be emitted in a HOME_POSITION message on request (using MAV_CMD_REQUEST_MESSAGE with param1=242).
         </description>
         <param index="1" label="Use Current" enum="MAV_BOOL">Use current location (MAV_BOOL_FALSE: use specified location). Values not equal to 0 or 1 are invalid.</param>
-        <param index="2">Empty</param>
-        <param index="3">Empty</param>
-        <param index="4">Empty</param>
+        <param index="2" label="Roll" units="deg" minValue="-180" maxValue="180">Roll angle (of surface). Range: -180..180 degrees. NAN or 0 means value not set. 0.01 indicates zero roll.</param>
+        <param index="3" label="Pitch" units="deg" minValue="-90" maxValue="90">Pitch angle (of surface). Range: -90..90 degrees. NAN or 0 means value not set. 0.01 means zero pitch.</param>
+        <param index="4" label="Yaw" units="deg" minValue="-180" maxValue="180">Yaw angle. NaN to use default heading. Range: -180..180 degrees.</param>
         <param index="5" label="Latitude">Latitude</param>
         <param index="6" label="Longitude">Longitude</param>
         <param index="7" label="Altitude" units="m">Altitude</param>
@@ -1499,9 +1499,9 @@
         <param index="2" label="Stabilize Roll" enum="MAV_BOOL">Stabilize roll (MAV_BOOL_TRUE). Values not equal to 0 or 1 are invalid.</param>
         <param index="3" label="Stabilize Pitch" enum="MAV_BOOL">Stabilize pitch (MAV_BOOL_TRUE). Values not equal to 0 or 1 are invalid.</param>
         <param index="4" label="Stabilize Yaw" enum="MAV_BOOL">Stabilize yaw (MAV_BOOL_TRUE). Values not equal to 0 or 1 are invalid.</param>
-        <param index="5">Empty</param>
-        <param index="6">Empty</param>
-        <param index="7">Empty</param>
+        <param index="5" label="Roll Input Mode">Roll input (0 = angle body frame, 1 = angular rate, 2 = angle absolute frame)</param>
+        <param index="6" label="Pitch Input Mode">Pitch input (0 = angle body frame, 1 = angular rate, 2 = angle absolute frame)</param>
+        <param index="7" label="Yaw Input Mode">Yaw input (0 = angle body frame, 1 = angular rate, 2 = angle absolute frame)</param>
       </entry>
       <!-- this one is messed up! altitude should be param 7, not param4 -->
       <entry value="205" name="MAV_CMD_DO_MOUNT_CONTROL" hasLocation="false" isDestination="false">
@@ -1519,7 +1519,7 @@
         <param index="1" label="Distance" units="m" minValue="0">Camera trigger distance. 0 to stop triggering.</param>
         <param index="2" label="Shutter" units="ms" minValue="-1" increment="1">Camera shutter integration time. -1 or 0 to ignore</param>
         <param index="3" label="Trigger" enum="MAV_BOOL">Trigger camera once, immediately (MAV_BOOL_TRUE). Values not equal to 0 or 1 are invalid.</param>
-        <param index="4">Empty</param>
+        <param index="4" label="Target Camera ID" minValue="0" maxValue="255" increment="1">Target camera ID. 7 to 255: MAVLink camera component id. 1 to 6 for cameras attached to the autopilot, which don't have a distinct component id. 0: all cameras. This is used to target specific autopilot-connected cameras. It is also used to target specific cameras when the MAV_CMD is used in a mission.</param>
         <param index="5">Empty</param>
         <param index="6">Empty</param>
         <param index="7">Empty</param>
@@ -1652,9 +1652,23 @@
         <param index="7">Empty</param>
       </entry>
       <entry value="224" name="MAV_CMD_DO_SET_MISSION_CURRENT" hasLocation="false" isDestination="false">
-        <description>Set the mission item with sequence number seq as current item. This means that the MAV will continue to this mission item on the shortest path (not following the mission items in-between).</description>
-        <param index="1" label="Number" minValue="0" increment="1">Mission sequence value to set</param>
-        <param index="2">Empty</param>
+        <description>
+          Set the mission item with sequence number seq as the current item and emit MISSION_CURRENT (whether or not the mission number changed).
+          If a mission is currently being executed, the system will continue to this new mission item on the shortest path, skipping any intermediate mission items.
+          Note that mission jump repeat counters are not reset unless param2 is set (see MAV_CMD_DO_JUMP param2).
+
+          This command may trigger a mission state-machine change on some systems: for example from MISSION_STATE_NOT_STARTED or MISSION_STATE_PAUSED to MISSION_STATE_ACTIVE.
+          If the system is in mission mode, on those systems this command might therefore start, restart or resume the mission.
+          If the system is not in mission mode this command must not trigger a switch to mission mode.
+
+          The mission may be "reset" using param2.
+          Resetting sets jump counters to initial values (to reset counters without changing the current mission item set the param1 to `-1`).
+          Resetting also explicitly changes a mission state of MISSION_STATE_COMPLETE to MISSION_STATE_PAUSED or MISSION_STATE_ACTIVE, potentially allowing it to resume when it is (next) in a mission mode.
+
+          The command will ACK with MAV_RESULT_FAILED if the sequence number is out of range (including if there is no mission item).
+        </description>
+        <param index="1" label="Number" minValue="-1" increment="1">Mission sequence value to set. -1 for the current mission item (use to reset mission without changing current mission item).</param>
+        <param index="2" label="Reset Mission" enum="MAV_BOOL">Reset mission (MAV_BOOL_TRUE). Values not equal to 0 or 1 are invalid. Resets jump counters to initial values and changes mission state "completed" to be "active" or "paused".</param>
         <param index="3">Empty</param>
         <param index="4">Empty</param>
         <param index="5">Empty</param>
@@ -1880,7 +1894,8 @@
         <description>Format a storage medium. Once format is complete, a STORAGE_INFORMATION message is sent. Use the command's target_component to target a specific component's storage.</description>
         <param index="1" label="Storage ID" minValue="0" increment="1">Storage ID (1 for first, 2 for second, etc.)</param>
         <param index="2" label="Format" enum="MAV_BOOL">Format storage (and reset image log). Values not equal to 0 or 1 are invalid.</param>
-        <param index="3">Reserved (all remaining params)</param>
+        <param index="3" label="Reset Image Log" enum="MAV_BOOL">Reset Image Log (without formatting storage medium). This will reset CAMERA_CAPTURE_STATUS.image_count and CAMERA_IMAGE_CAPTURED.image_index. Values not equal to 0 or 1 are invalid.</param>
+        <param index="4">Reserved (all remaining params)</param>
       </entry>
       <entry value="527" name="MAV_CMD_REQUEST_CAMERA_CAPTURE_STATUS" hasLocation="false" isDestination="false">
         <superseded since="2019-08" replaced_by="MAV_CMD_REQUEST_MESSAGE"/>
@@ -1897,7 +1912,7 @@
       <entry value="529" name="MAV_CMD_RESET_CAMERA_SETTINGS" hasLocation="false" isDestination="false">
         <description>Reset all camera settings to Factory Default</description>
         <param index="1" label="Reset" enum="MAV_BOOL">Reset all settings (MAV_BOOL_TRUE). Values not equal to 0 or 1 are invalid.</param>
-        <param index="2">Reserved (all remaining params)</param>
+        <param index="2" label="Target Camera ID" minValue="0" maxValue="255" increment="1">Target camera ID. 7 to 255: MAVLink camera component id. 1 to 6 for cameras attached to the autopilot, which don't have a distinct component id. 0: all cameras. This is used to target specific autopilot-connected cameras. It is also used to target specific cameras when the MAV_CMD is used in a mission.</param>
       </entry>
       <entry value="530" name="MAV_CMD_SET_CAMERA_MODE" hasLocation="false" isDestination="false">
         <description>Set camera running mode. Use NaN for reserved values. GCS will send a MAV_CMD_REQUEST_VIDEO_STREAM_STATUS command after a mode change if the camera supports video streaming.</description>
@@ -2148,8 +2163,8 @@
         <param index="2">User defined</param>
         <param index="3">User defined</param>
         <param index="4">User defined</param>
-        <param index="5" label="Latitude">Target latitude of center of circle in CIRCLE_MODE</param>
-        <param index="6" label="Longitude">Target longitude of center of circle in CIRCLE_MODE</param>
+        <param index="5" label="Latitude" units="degE7">Target latitude of center of circle in CIRCLE_MODE</param>
+        <param index="6" label="Longitude" units="degE7">Target longitude of center of circle in CIRCLE_MODE</param>
       </entry>
       <entry value="4501" name="MAV_CMD_CONDITION_GATE" hasLocation="true" isDestination="true">
         <wip/>
