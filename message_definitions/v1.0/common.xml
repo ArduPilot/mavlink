@@ -2740,7 +2740,7 @@
         <description>main brick power supply valid</description>
       </entry>
       <entry value="2" name="MAV_POWER_STATUS_SERVO_VALID">
-        <description>main servo power supply valid for FMU</description>
+        <description>main servo power (pix 1) Aux Power (cube) supply valid for FMU</description>
       </entry>
       <entry value="4" name="MAV_POWER_STATUS_USB_CONNECTED">
         <description>USB power is connected</description>
