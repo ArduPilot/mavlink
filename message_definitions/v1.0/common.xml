@@ -196,6 +196,9 @@
       <entry value="1073741824" name="MAV_SYS_STATUS_SENSOR_PROPULSION">
         <description>0x40000000 propulsion (actuator, esc, motor or propellor)</description>
       </entry>
+      <entry value="2147483648" name="MAV_SYS_STATUS_TERRAIN_FOLLOW">
+        <description>0x80000000 State terrain following feature</description>
+      </entry>
     </enum>
     <enum name="MAV_FRAME">
       <description>Coordinate frames used by MAVLink. Not all frames are supported by all commands, messages, or vehicles.
