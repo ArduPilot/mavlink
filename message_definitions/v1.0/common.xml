@@ -625,6 +625,9 @@
       <entry value="8" name="WINCH_ABANDON_LINE">
         <description>Spool out the entire length of the line. Only action and instance command parameters are used, others are ignored.</description>
       </entry>
+      <entry value="9" name="WINCH_LOAD_PAYLOAD">
+        <description>Spools out just enough to present the hook to the user to load the payload. Only action and instance command parameters are used, others are ignored</description>
+      </entry>
     </enum>
     <!-- UAVCAN node health enumeration -->
     <enum name="UAVCAN_NODE_HEALTH">
