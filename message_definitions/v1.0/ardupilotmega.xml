@@ -1004,6 +1004,21 @@
       <entry value="4" name="PID_TUNING_ACCZ"/>
       <entry value="5" name="PID_TUNING_STEER"/>
       <entry value="6" name="PID_TUNING_LANDING"/>
+      <entry value="7" name="PID_TUNING_WHEEL_LEFT">
+        <description>Left wheel rate.</description>
+      </entry>
+      <entry value="8" name="PID_TUNING_WHEEL_RIGHT">
+        <description>Right wheel rate.</description>
+      </entry>
+      <entry value="9" name="PID_TUNING_SAIL_HEEL">
+        <description>Sailboat heel to mainsail.</description>
+      </entry>
+      <entry value="10" name="PID_TUNING_VEL_NORTH">
+        <description>Velocity north.</description>
+      </entry>
+      <entry value="11" name="PID_TUNING_VEL_EAST">
+        <description>Velocity east.</description>
+      </entry>
     </enum>
     <enum name="MAV_REMOTE_LOG_DATA_BLOCK_COMMANDS">
       <description>Special ACK block numbers control activation of dataflash log streaming.</description>
