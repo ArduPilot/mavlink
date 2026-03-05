@@ -1019,6 +1019,21 @@
       <entry value="11" name="PID_TUNING_VEL_EAST">
         <description>Velocity east.</description>
       </entry>
+      <entry value="12" name="PID_TUNING_VEL_DOWN">
+        <description>Velocity down.</description>
+      </entry>
+      <entry value="13" name="PID_TUNING_POS_NORTH">
+        <description>Position north.</description>
+      </entry>
+      <entry value="14" name="PID_TUNING_POS_EAST">
+        <description>Position east.</description>
+      </entry>
+      <entry value="15" name="PID_TUNING_POS_DOWN">
+        <description>Position down.</description>
+      </entry>
+      <entry value="16" name="PID_TUNING_YAW_ANGLE">
+        <description>Yaw angle.</description>
+      </entry>
     </enum>
     <enum name="MAV_REMOTE_LOG_DATA_BLOCK_COMMANDS">
       <description>Special ACK block numbers control activation of dataflash log streaming.</description>
