@@ -1564,9 +1564,9 @@
         <param index="2">Empty</param>
         <param index="3">Empty</param>
         <param index="4">Empty</param>
-        <param index="5" label="Pitch Offset">Pitch offset from next waypoint, positive pitching up</param>
-        <param index="6" label="Roll Offset">Roll offset from next waypoint, positive rolling to the right</param>
-        <param index="7" label="Yaw Offset">Yaw offset from next waypoint, positive yawing to the right</param>
+        <param index="5" label="Pitch Offset" units="deg">Pitch offset from next waypoint, positive pitching up</param>
+        <param index="6" label="Roll Offset" units="deg">Roll offset from next waypoint, positive rolling to the right</param>
+        <param index="7" label="Yaw Offset" units="deg">Yaw offset from next waypoint, positive yawing to the right</param>
       </entry>
       <entry value="197" name="MAV_CMD_DO_SET_ROI_NONE" hasLocation="false" isDestination="false">
         <description>Cancels any previous ROI command returning the vehicle/sensors to default flight characteristics. This can then be used by the vehicle's control system to control the vehicle attitude and the attitude of various sensors such as cameras.</description>
@@ -2285,7 +2285,7 @@
       <entry value="3001" name="MAV_CMD_ARM_AUTHORIZATION_REQUEST" hasLocation="false" isDestination="false">
         <description>Request authorization to arm the vehicle to a external entity, the arm authorizer is responsible to request all data that is needs from the vehicle before authorize or deny the request.
 		If approved the COMMAND_ACK message progress field should be set with period of time that this authorization is valid in seconds.
-		If the authorization is denied COMMAND_ACK.result_param2 should be set with one of the reasons in ARM_AUTH_DENIED_REASON.
+		If the authorization is denied COMMAND_ACK.result_param2 should be set with one of the reasons in MAV_ARM_AUTH_DENIED_REASON.
         </description>
         <param index="1" label="System ID" minValue="0" maxValue="255" increment="1">Vehicle system id, this way ground station can request arm authorization on behalf of any vehicle</param>
       </entry>
@@ -2626,7 +2626,7 @@
       </entry>
       <!-- END of user range (31000 to 31999) -->
       <entry value="32000" name="MAV_CMD_CAN_FORWARD" hasLocation="false" isDestination="false">
-        <description>Request forwarding of CAN packets from the given CAN bus to this component via this mavlink channel. CAN Frames are sent using CAN_FRAME and CANFD_FRAME messages</description>
+        <description>Request forwarding of CAN packets from the given CAN bus to this component via this MAVLink channel. CAN Frames are sent using CAN_FRAME and CANFD_FRAME messages</description>
         <param index="1" label="bus">Bus number (0 to disable forwarding, 1 for first bus, 2 for 2nd bus, 3 for 3rd bus).</param>
         <param index="2">Empty.</param>
         <param index="3">Empty.</param>
@@ -3874,6 +3874,7 @@
       </entry>
     </enum>
     <enum name="MAV_ARM_AUTH_DENIED_REASON">
+      <description>Reasons for denying an authorization request made with MAV_CMD_ARM_AUTHORIZATION_REQUEST. If the COMMAND_ACK result is MAV_RESULT_DENIED, this is used to set the reason in the result_param2 field.</description>
       <entry value="0" name="MAV_ARM_AUTH_DENIED_REASON_GENERIC">
         <description>Not a specific reason</description>
       </entry>
@@ -4768,7 +4769,7 @@
       <entry value="2" name="CAN_FILTER_REMOVE"/>
     </enum>
     <enum name="MAV_FTP_ERR">
-      <description>MAV FTP error codes (https://mavlink.io/en/services/ftp.html)</description>
+      <description>MAV FTP error codes (may be used in FILE_TRANSFER_PROTOCOL). See https://mavlink.io/en/services/ftp.html.</description>
       <entry value="0" name="MAV_FTP_ERR_NONE">
         <description>None: No error</description>
       </entry>
@@ -4805,7 +4806,7 @@
       </entry>
     </enum>
     <enum name="MAV_FTP_OPCODE">
-      <description>MAV FTP opcodes: https://mavlink.io/en/services/ftp.html</description>
+      <description>MAV FTP opcodes (may be used in FILE_TRANSFER_PROTOCOL). See https://mavlink.io/en/services/ftp.html.</description>
       <entry value="0" name="MAV_FTP_OPCODE_NONE">
         <description>None. Ignored, always ACKed</description>
       </entry>
@@ -5040,7 +5041,7 @@
       <field type="uint32_t" name="onboard_control_sensors_enabled" enum="MAV_SYS_STATUS_SENSOR" print_format="0x%04x">Bitmap showing which onboard controllers and sensors are enabled:  Value of 0: not enabled. Value of 1: enabled.</field>
       <field type="uint32_t" name="onboard_control_sensors_health" enum="MAV_SYS_STATUS_SENSOR" print_format="0x%04x">Bitmap showing which onboard controllers and sensors have an error (or are operational). Value of 0: error. Value of 1: healthy.</field>
       <field type="uint16_t" name="load" units="d%">Maximum usage in percent of the mainloop time. Values: [0-1000] - should always be below 1000</field>
-      <field type="uint16_t" name="voltage_battery" units="mV">Battery voltage, UINT16_MAX: Voltage not sent by autopilot</field>
+      <field type="uint16_t" name="voltage_battery" units="mV" invalid="UINT16_MAX">Battery voltage, UINT16_MAX: Voltage not sent by autopilot</field>
       <field type="int16_t" name="current_battery" units="cA" invalid="-1">Battery current, -1: Current not sent by autopilot</field>
       <field type="int8_t" name="battery_remaining" units="%" invalid="-1">Battery energy remaining, -1: Battery remaining energy not sent by autopilot</field>
       <field type="uint16_t" name="drop_rate_comm" units="c%">Communication drop rate, (UART, I2C, SPI, CAN), dropped packets on all links (packets that were corrupted on reception on the MAV)</field>
