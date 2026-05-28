@@ -34,7 +34,6 @@
         <param index="1" label="System ID" minValue="1" maxValue="255" increment="1">New system ID for target component(s). 0: ignore and reject command (broadcast system ID not allowed).</param>
         <param index="2" label="Component ID" minValue="0" maxValue="255" increment="1">New component ID for target component(s). 0: ignore (component IDs don't change).</param>
         <param index="3" label="Reboot">Reboot components after ID change. Any non-zero value triggers the reboot.</param>
-        <param index="4" reserved="true" default="NaN"/>
       </entry>
       <entry value="2020" name="MAV_CMD_CAMERA_START_MTI" hasLocation="false" isDestination="false" command="true">
         <wip/>
