@@ -403,22 +403,6 @@
         <description>Checking limits.</description>
       </entry>
     </enum>
-    <!-- RALLY flags - power of 2 (1,2,4,8,16,32,64,128) so we can send as a bitfield -->
-    <enum name="RALLY_FLAGS">
-      <description>Flags in RALLY_POINT message.</description>
-      <entry value="1" name="FAVORABLE_WIND">
-        <description>Flag set when requiring favorable winds for landing.</description>
-      </entry>
-      <entry value="2" name="LAND_IMMEDIATELY">
-        <description>Flag set when plane is to immediately descend to break altitude and land without GCS intervention. Flag not set when plane is to loiter at Rally point until commanded to land.</description>
-      </entry>
-      <entry value="4" name="ALT_FRAME_VALID">
-        <description>True if the following altitude frame value is valid.</description>
-      </entry>
-      <entry value="24" name="ALT_FRAME">
-        <description>2 bit value representing altitude frame. 0: absolute, 1: relative home, 2: relative origin, 3: relative terrain</description>
-      </entry>
-    </enum>
     <!-- Camera event types -->
     <enum name="CAMERA_STATUS_TYPES">
       <entry value="0" name="CAMERA_STATUS_TYPE_HEARTBEAT">
@@ -1466,22 +1450,6 @@
       <extensions/>
       <field type="uint8_t" name="mount_mode" enum="MAV_MOUNT_MODE">Mount operating mode.</field>
     </message>
-    <!-- geo-fence messages -->
-    <message id="160" name="FENCE_POINT">
-      <description>A fence point. Used to set a point when from GCS -&gt; MAV. Also used to return a point from MAV -&gt; GCS.</description>
-      <field type="uint8_t" name="target_system">System ID.</field>
-      <field type="uint8_t" name="target_component">Component ID.</field>
-      <field type="uint8_t" name="idx">Point index (first point is 1, 0 is for return point).</field>
-      <field type="uint8_t" name="count">Total number of points (for sanity checking).</field>
-      <field type="float" name="lat" units="deg">Latitude of point.</field>
-      <field type="float" name="lng" units="deg">Longitude of point.</field>
-    </message>
-    <message id="161" name="FENCE_FETCH_POINT">
-      <description>Request a current fence point from MAV.</description>
-      <field type="uint8_t" name="target_system">System ID.</field>
-      <field type="uint8_t" name="target_component">Component ID.</field>
-      <field type="uint8_t" name="idx">Point index (first point is 1, 0 is for return point).</field>
-    </message>
     <message id="163" name="AHRS">
       <description>Status of DCM attitude estimator.</description>
       <field type="float" name="omegaIx" units="rad/s">X gyro drift estimate.</field>
@@ -1585,27 +1553,6 @@
       <field type="float" name="Pax">EKF Pax.</field>
       <field type="float" name="Pby">EKF Pby.</field>
       <field type="float" name="Pcz">EKF Pcz.</field>
-    </message>
-    <!-- Rally point messages -->
-    <message id="175" name="RALLY_POINT">
-      <description>A rally point. Used to set a point when from GCS -&gt; MAV. Also used to return a point from MAV -&gt; GCS.</description>
-      <field type="uint8_t" name="target_system">System ID.</field>
-      <field type="uint8_t" name="target_component">Component ID.</field>
-      <field type="uint8_t" name="idx">Point index (first point is 0).</field>
-      <field type="uint8_t" name="count">Total number of points (for sanity checking).</field>
-      <field type="int32_t" name="lat" units="degE7">Latitude of point.</field>
-      <field type="int32_t" name="lng" units="degE7">Longitude of point.</field>
-      <field type="int16_t" name="alt" units="m">Transit / loiter altitude relative to home.</field>
-      <!-- Path planned landings are still in the future, but we want these fields ready: -->
-      <field type="int16_t" name="break_alt" units="m">Break altitude relative to home.</field>
-      <field type="uint16_t" name="land_dir" units="cdeg">Heading to aim for when landing.</field>
-      <field type="uint8_t" name="flags" enum="RALLY_FLAGS">Configuration flags.</field>
-    </message>
-    <message id="176" name="RALLY_FETCH_POINT">
-      <description>Request a current rally point from MAV. MAV should respond with a RALLY_POINT message. MAV should not respond if the request is invalid.</description>
-      <field type="uint8_t" name="target_system">System ID.</field>
-      <field type="uint8_t" name="target_component">Component ID.</field>
-      <field type="uint8_t" name="idx">Point index (first point is 0).</field>
     </message>
     <message id="177" name="COMPASSMOT_STATUS">
       <description>Status of compassmot calibration.</description>
