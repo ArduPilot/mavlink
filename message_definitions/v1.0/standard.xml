@@ -90,6 +90,9 @@
         <wip/>
         <description>Autopilot has a connected gripper. MAVLink Grippers would set MAV_TYPE_GRIPPER instead.</description>
       </entry>
+      <entry value="2097152" name="MAV_PROTOCOL_CAPABILITY_PARAM_UNION_INT32">
+        <description>Component accepts PARAM_SET and emits PARAM_VALUE with the byte-wise MAV_PARAM_TYPE_UNION_INT32/MAV_PARAM_TYPE_UNION_UINT32 types for lossless transport of 32-bit integer parameter values that are not exactly representable as a 32-bit float. Only meaningful in combination with MAV_PROTOCOL_CAPABILITY_PARAM_ENCODE_C_CAST: byte-wise encoded systems are already lossless. Ground stations should should send the union types to a component that does not advertise this capability.</description>
+      </entry>
     </enum>
     <enum name="FIRMWARE_VERSION_TYPE">
       <description>These values define the type of firmware release.  These values indicate the first version or release of this type.  For example the first alpha release would be 64, the second would be 65.</description>

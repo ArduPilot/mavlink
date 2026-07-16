@@ -2747,6 +2747,12 @@
       <entry value="10" name="MAV_PARAM_TYPE_REAL64">
         <description>64-bit floating-point</description>
       </entry>
+      <entry value="11" name="MAV_PARAM_TYPE_UNION_INT32">
+        <description>32-bit signed integer carried byte-wise in the param_value field.</description>
+      </entry>
+      <entry value="12" name="MAV_PARAM_TYPE_UNION_UINT32">
+        <description>32-bit unsigned integer carried byte-wise in the param_value field.</description>
+      </entry>
     </enum>
     <enum name="MAV_PARAM_ERROR">
       <wip/>
@@ -2769,6 +2775,12 @@
       </entry>
       <entry value="5" name="MAV_PARAM_ERROR_READ_ONLY">
         <description>Parameter is read-only</description>
+      </entry>
+      <entry value="6" name="MAV_PARAM_ERROR_TYPE_UNSUPPORTED">
+        <description>Parameter data type (MAV_PARAM_TYPE) is not supported by flight stack (at all)</description>
+      </entry>
+      <entry value="7" name="MAV_PARAM_ERROR_TYPE_MISMATCH">
+        <description>Parameter type does not match expected type</description>
       </entry>
     </enum>
     <enum name="MAV_PARAM_EXT_TYPE">
