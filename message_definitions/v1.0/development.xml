@@ -36,14 +36,14 @@
         <param index="3" label="Reboot">Reboot components after ID change. Any non-zero value triggers the reboot.</param>
         <param index="4" reserved="true" default="NaN"/>
       </entry>
-      <entry value="2020" name="MAV_CMD_CAMERA_START_MTI" hasLocation="false" isDestination="false">
+      <entry value="2020" name="MAV_CMD_CAMERA_START_MTI" hasLocation="false" isDestination="false" command="true">
         <wip/>
         <!-- This message is work-in-progress and it can therefore change. It should NOT be used in stable production environments. -->
         <description>Enable Moving Target Indicators (MTI) on streamed video.
           Support for feature can be checked with CAMERA_CAP_FLAGS_HAS_MTI, and disabled with MAV_CMD_CAMERA_STOP_MTI.</description>
         <param index="1" label="Target Camera ID" minValue="0" maxValue="255" increment="1">Target camera ID. 7 to 255: MAVLink camera component id. 1 to 6 for cameras attached to the autopilot, which don't have a distinct component id. 0: all cameras. This is used to target specific autopilot-connected cameras. It is also used to target specific cameras when the MAV_CMD is used in a mission.</param>
       </entry>
-      <entry value="2021" name="MAV_CMD_CAMERA_STOP_MTI" hasLocation="false" isDestination="false">
+      <entry value="2021" name="MAV_CMD_CAMERA_STOP_MTI" hasLocation="false" isDestination="false" command="true">
         <wip/>
         <!-- This message is work-in-progress and it can therefore change. It should NOT be used in stable production environments. -->
         <description>Disable Moving Target Indicators (MTI) on streamed video.</description>
