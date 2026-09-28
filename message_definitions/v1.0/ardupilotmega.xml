@@ -2064,5 +2064,12 @@
       <field type="char[10]" name="name" instance="true">Name of the debug variable</field>
       <field type="char[64]" name="value">Value of the debug variable</field>
     </message>
+    <message id="11061" name="LOG_STREAM_NAMED_VALUE">
+      <description>Request a field of an onboard log message be streamed to the GCS as a NAMED_VALUE_FLOAT, NAMED_VALUE_INT or NAMED_VALUE_STRING message, the message being chosen based on the field's type.  The value is streamed on the link this request was received on.  The named value's name is "message.field", truncated to 10 characters.  A limited number of fields may be streamed simultaneously.</description>
+      <field type="uint8_t" name="target_system">System ID.</field>
+      <field type="uint8_t" name="target_component">Component ID.</field>
+      <field type="char[4]" name="msg_name">Log message name, eg "ATT".</field>
+      <field type="char[16]" name="field_name">Log message field name, eg "Roll".</field>
+    </message>
   </messages>
 </mavlink>
