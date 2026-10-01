@@ -67,6 +67,9 @@
       <entry value="20" name="MAV_AUTOPILOT_REFLEX">
         <description>Fusion Reflex - https://fusion.engineering</description>
       </entry>
+      <entry value="21" name="MAV_AUTOPILOT_FLIX">
+        <description>Flix quadcopter - https://quadcopter.dev</description>
+      </entry>
     </enum>
     <enum name="MAV_TYPE">
       <description>MAVLINK component type reported in HEARTBEAT message. Flight controllers must report the type of the vehicle on which they are mounted (e.g. MAV_TYPE_OCTOROTOR). All other components must report a value appropriate for their type (e.g. a camera must use MAV_TYPE_CAMERA).</description>
@@ -127,25 +130,25 @@
       <entry value="18" name="MAV_TYPE_ONBOARD_CONTROLLER">
         <description>Onboard companion controller</description>
       </entry>
-      <entry value="19" name="MAV_TYPE_VTOL_DUOROTOR">
-        <description>Two-rotor VTOL using control surfaces in vertical operation in addition. Tailsitter.</description>
+      <entry value="19" name="MAV_TYPE_VTOL_TAILSITTER_DUOROTOR">
+        <description>Two-rotor Tailsitter VTOL that additionally uses control surfaces in vertical operation. Note, value previously named MAV_TYPE_VTOL_DUOROTOR.</description>
       </entry>
-      <entry value="20" name="MAV_TYPE_VTOL_QUADROTOR">
-        <description>Quad-rotor VTOL using a V-shaped quad config in vertical operation. Tailsitter.</description>
+      <entry value="20" name="MAV_TYPE_VTOL_TAILSITTER_QUADROTOR">
+        <description>Quad-rotor Tailsitter VTOL using a V-shaped quad config in vertical operation. Note: value previously named MAV_TYPE_VTOL_QUADROTOR.</description>
       </entry>
       <entry value="21" name="MAV_TYPE_VTOL_TILTROTOR">
-        <description>Tiltrotor VTOL</description>
+        <description>Tiltrotor VTOL. Fuselage and wings stay (nominally) horizontal in all flight phases. It able to tilt (some) rotors to provide thrust in cruise flight.</description>
       </entry>
-      <!-- Entries up to 25 reserved for other VTOL airframes -->
-      <entry value="22" name="MAV_TYPE_VTOL_RESERVED2">
-        <description>VTOL reserved 2</description>
+      <entry value="22" name="MAV_TYPE_VTOL_FIXEDROTOR">
+        <description>VTOL with separate fixed rotors for hover and cruise flight. Fuselage and wings stay (nominally) horizontal in all flight phases.</description>
       </entry>
-      <entry value="23" name="MAV_TYPE_VTOL_RESERVED3">
-        <description>VTOL reserved 3</description>
+      <entry value="23" name="MAV_TYPE_VTOL_TAILSITTER">
+        <description>Tailsitter VTOL. Fuselage and wings orientation changes depending on flight phase: vertical for hover, horizontal for cruise. Use more specific VTOL MAV_TYPE_VTOL_TAILSITTER_DUOROTOR or MAV_TYPE_VTOL_TAILSITTER_QUADROTOR if appropriate.</description>
       </entry>
-      <entry value="24" name="MAV_TYPE_VTOL_RESERVED4">
-        <description>VTOL reserved 4</description>
+      <entry value="24" name="MAV_TYPE_VTOL_TILTWING">
+        <description>Tiltwing VTOL. Fuselage stays horizontal in all flight phases. The whole wing, along with any attached engine, can tilt between vertical and horizontal mode.</description>
       </entry>
+      <!-- Entry 25 reserved for other VTOL airframe -->
       <entry value="25" name="MAV_TYPE_VTOL_RESERVED5">
         <description>VTOL reserved 5</description>
       </entry>
@@ -218,11 +221,14 @@
       <entry value="48" name="MAV_TYPE_GRIPPER">
         <description>Gripper</description>
       </entry>
+      <entry value="49" name="MAV_TYPE_RADIO">
+        <description>Radio</description>
+      </entry>
     </enum>
     <enum name="MAV_MODE_FLAG" bitmask="true">
       <description>These flags encode the MAV mode, see MAV_MODE enum for useful combinations.</description>
       <entry value="128" name="MAV_MODE_FLAG_SAFETY_ARMED">
-        <description>0b10000000 MAV safety set to armed. Motors are enabled / running / can start. Ready to fly. Additional note: this flag is to be ignore when sent in the command MAV_CMD_DO_SET_MODE and MAV_CMD_COMPONENT_ARM_DISARM shall be used instead. The flag can still be used to report the armed state.</description>
+        <description>0b10000000 MAV safety set to armed. Motors are enabled / running / can start. Ready to fly. Additional note: this flag is to be ignored when sent in the command MAV_CMD_DO_SET_MODE and MAV_CMD_COMPONENT_ARM_DISARM shall be used instead. The flag can still be used to report the armed state.</description>
       </entry>
       <entry value="64" name="MAV_MODE_FLAG_MANUAL_INPUT_ENABLED">
         <description>0b01000000 remote control input is enabled.</description>
@@ -243,7 +249,7 @@
         <description>0b00000010 system has a test mode enabled. This flag is intended for temporary system tests and should not be used for stable implementations.</description>
       </entry>
       <entry value="1" name="MAV_MODE_FLAG_CUSTOM_MODE_ENABLED">
-        <description>0b00000001 Reserved for future use.</description>
+        <description>0b00000001 system-specific custom mode is enabled. When using this flag to enable a custom mode all other flags should be ignored.</description>
       </entry>
     </enum>
     <enum name="MAV_MODE_FLAG_DECODE_POSITION" bitmask="true">
@@ -303,9 +309,18 @@
       </entry>
     </enum>
     <enum name="MAV_COMPONENT">
-      <description>Component ids (values) for the different types and instances of onboard hardware/software that might make up a MAVLink system (autopilot, cameras, servos, GPS systems, avoidance systems etc.).
-      Components must use the appropriate ID in their source address when sending messages. Components can also use IDs to determine if they are the intended recipient of an incoming message. The MAV_COMP_ID_ALL value is used to indicate messages that must be processed by all components.
-      When creating new entries, components that can have multiple instances (e.g. cameras, servos etc.) should be allocated sequential values. An appropriate number of values should be left free after these components to allow the number of instances to be expanded.</description>
+      <description>Legacy component ID values for particular types of hardware/software that might make up a MAVLink system (autopilot, cameras, servos, avoidance systems etc.).
+
+        Components are not required or expected to use IDs with names that correspond to their type or function, but may choose to do so.
+        Using an ID that matches the type may slightly reduce the chances of component id clashes, as, for historical reasons, it is less likely to be used by some other type of component.
+        System integration will still need to ensure that all components have unique IDs.
+
+        Component IDs are used for addressing messages to a particular component within a system.
+        A component can use any unique ID between 1 and 255 (MAV_COMP_ID_ALL value is the broadcast address, used to send to all components).
+
+        Historically component ID were also used for identifying the type of component.
+        New code must not use component IDs to infer the component type, but instead check the MAV_TYPE in the HEARTBEAT message!
+      </description>
       <entry value="0" name="MAV_COMP_ID_ALL">
         <description>Target id (target_component) used to broadcast messages to all components of the receiving system. Components should attempt to process messages with this component ID and forward to components on any other interfaces. Note: This is not a valid *source* component id for a message.</description>
       </entry>
@@ -555,6 +570,15 @@
       </entry>
       <entry value="105" name="MAV_COMP_ID_CAMERA6">
         <description>Camera #6.</description>
+      </entry>
+      <entry value="110" name="MAV_COMP_ID_RADIO">
+        <description>Radio #1.</description>
+      </entry>
+      <entry value="111" name="MAV_COMP_ID_RADIO2">
+        <description>Radio #2.</description>
+      </entry>
+      <entry value="112" name="MAV_COMP_ID_RADIO3">
+        <description>Radio #3.</description>
       </entry>
       <entry value="140" name="MAV_COMP_ID_SERVO1">
         <description>Servo #1.</description>

@@ -21,7 +21,7 @@ Released under GNU GPL version 3 or later
 
 """
 import os
-import re   
+import re
 import sys
 
 from tkinter import *
