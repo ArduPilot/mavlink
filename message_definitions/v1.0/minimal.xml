@@ -310,7 +310,19 @@
         <description>Target id (target_component) used to broadcast messages to all components of the receiving system. Components should attempt to process messages with this component ID and forward to components on any other interfaces. Note: This is not a valid *source* component id for a message.</description>
       </entry>
       <entry value="1" name="MAV_COMP_ID_AUTOPILOT1">
-        <description>System flight controller component ("autopilot"). Only one autopilot is expected in a particular system.</description>
+        <description>System flight controller component ("autopilot"). This is the primary autopilot in a system.</description>
+      </entry>
+      <entry value="2" name="MAV_COMP_ID_AUTOPILOT2">
+        <description>Additional flight controller component. Used by a system with redundant or auxiliary autopilots (e.g. a co-processor or a separate MCU running another flight controller instance) so that all autopilots can share a system id.</description>
+      </entry>
+      <entry value="3" name="MAV_COMP_ID_AUTOPILOT3">
+        <description>Additional flight controller component. Used by a system with redundant or auxiliary autopilots (e.g. a co-processor or a separate MCU running another flight controller instance) so that all autopilots can share a system id.</description>
+      </entry>
+      <entry value="4" name="MAV_COMP_ID_AUTOPILOT4">
+        <description>Additional flight controller component. Used by a system with redundant or auxiliary autopilots (e.g. a co-processor or a separate MCU running another flight controller instance) so that all autopilots can share a system id.</description>
+      </entry>
+      <entry value="5" name="MAV_COMP_ID_AUTOPILOT5">
+        <description>Additional flight controller component. Used by a system with redundant or auxiliary autopilots (e.g. a co-processor or a separate MCU running another flight controller instance) so that all autopilots can share a system id.</description>
       </entry>
       <!-- Component ids from 25-99 are reserved for private OEM component definitions (and may be incompatible with other private components). Note that if this range is later reduced, higher ids will be reallocated first. -->
       <entry value="25" name="MAV_COMP_ID_USER1">
