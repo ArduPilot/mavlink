@@ -2064,5 +2064,15 @@
       <field type="char[10]" name="name" instance="true">Name of the debug variable</field>
       <field type="char[64]" name="value">Value of the debug variable</field>
     </message>
+    <message id="11061" name="LOG_STREAM_NAMED_VALUE">
+      <description>Request a field of an onboard log message be streamed to the GCS as a NAMED_VALUE_FLOAT, NAMED_VALUE_INT or NAMED_VALUE_STRING message, the message being chosen based on the field's type.  The value is streamed on the link this request was received on.  A limited number of fields may be streamed simultaneously.  A successful request receives no reply; a failed request is reported only in a STATUSTEXT message, and autopilots built without this feature ignore the message entirely.  Values are captured only when the message is accepted for onboard logging, so a successful request streams nothing while logging is not running (eg. ArduPilot disarmed without LOG_DISARMED set).  Integer fields are sent raw, without the scaling log viewers apply, and values outside the int32 range are saturated.</description>
+      <field type="uint8_t" name="target_system">System ID.</field>
+      <field type="uint8_t" name="target_component">Component ID.</field>
+      <field type="char[4]" name="msg_name">Log message name, eg "ATT".</field>
+      <field type="char[16]" name="field_name">Log message field name, eg "Roll".</field>
+      <field type="int16_t" name="instance">Message instance to stream the field from, -1 for any instance.  Instances are matched against the log message's instance field, eg "C" for "XKF4"; a message whose instance field is not numeric can only be requested with -1.</field>
+      <field type="char[10]" name="name">Name to stream the value under.  If empty the name is "message.field", or "message[instance].field" if an instance is given, truncated to 10 characters.</field>
+      <field type="int32_t" name="interval_us" units="us">Interval between messages.  0 to request the default rate (ArduPilot supports only the default rate, 10Hz), -1 to stop the stream with this name (the name field, or the default name above if that is empty).</field>
+    </message>
   </messages>
 </mavlink>
