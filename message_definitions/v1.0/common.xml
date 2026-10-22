@@ -361,7 +361,6 @@
       </entry>
     </enum>
     <enum name="FENCE_MITIGATE">
-      <!-- This enum is work-in-progress and it can therefore change. It should NOT be used in stable production environments. -->
       <description>Actions being taken to mitigate/prevent fence breach</description>
       <entry value="0" name="FENCE_MITIGATE_UNKNOWN">
         <description>Unknown</description>
@@ -2874,7 +2873,8 @@
         <description>Command is invalid because a frame is required and the specified frame is not supported.</description>
       </entry>
       <entry value="10" name="MAV_RESULT_NOT_IN_CONTROL">
-        <wip/>
+        <wip since="2025-09"/>
+        <!-- This entry is work-in-progress and it can therefore change. It should NOT be used in stable production environments. -->
         <description>Command has been rejected because source system is not in control of the target system/component.</description>
       </entry>
     </enum>
@@ -3814,7 +3814,8 @@
         <description>Camera supports absolute thermal range (request CAMERA_THERMAL_RANGE with MAV_CMD_REQUEST_MESSAGE).</description>
       </entry>
       <entry value="8192" name="CAMERA_CAP_FLAGS_HAS_MTI">
-        <wip/>
+        <wip since="2025-08"/>
+        <!-- This entry is work-in-progress and it can therefore change. It should NOT be used in stable production environments. -->
         <description>Camera supports Moving Target Indicators (MTI) on the camera view (using MAV_CMD_CAMERA_START_MTI).</description>
       </entry>
     </enum>
@@ -4733,7 +4734,6 @@
       </entry>
     </enum>
     <enum name="FAILURE_UNIT">
-      <!-- This enum is work-in-progress and it can therefore change. It should NOT be used in stable production environments. -->
       <description>List of possible units where failures can be injected.</description>
       <entry value="0" name="FAILURE_UNIT_SENSOR_GYRO"/>
       <entry value="1" name="FAILURE_UNIT_SENSOR_ACCEL"/>
@@ -4775,7 +4775,6 @@
       </entry>
     </enum>
     <enum name="FAILURE_TYPE">
-      <!-- This enum is work-in-progress and it can therefore change. It should NOT be used in stable production environments. -->
       <description>List of possible failure type to inject.</description>
       <entry value="0" name="FAILURE_TYPE_OK">
         <description>No failure injected, used to reset a previous failure.</description>
@@ -5905,7 +5904,7 @@
       <field type="uint8_t" name="target_component">Component which requested the command to be executed</field>
     </message>
     <message id="80" name="COMMAND_CANCEL">
-      <wip/>
+      <wip since="2020-06"/>
       <!-- This message is work-in-progress and it can therefore change. It should NOT be used in stable production environments. -->
       <description>Cancel a long running command. The target system should respond with a COMMAND_ACK to the original command with result=MAV_RESULT_CANCELLED if the long running process was cancelled. If it has already completed, the cancel action can be ignored. The cancel action can be retried until some sort of acknowledgement to the original command has been received. The command microservice is documented at https://mavlink.io/en/services/command.html</description>
       <field type="uint8_t" name="target_system">System executing long running command. Should not be broadcast (0).</field>
