@@ -1710,17 +1710,17 @@
     <!-- 192 MAG_CAL_REPORT moved to common.xml -->
     <!-- EKF status message from autopilot to GCS. -->
     <message id="193" name="EKF_STATUS_REPORT">
-      <description>EKF Status message including flags and variances.</description>
+      <description>EKF Status message including flags and innovation test ratios. Despite their names, the *_variance fields are not variances. From an EKF, each is an innovation test ratio, |innovation| / (gate * sqrt(innovation variance)), with the same meaning as the corresponding ESTIMATOR_STATUS field; a value above 1.0 normally means the measurement failed the innovation check and is being rejected. Other estimators (e.g. an external AHRS) may instead send a normalised accuracy on a similar scale, and 0 for values they don't estimate.</description>
       <field type="uint16_t" name="flags" enum="EKF_STATUS_FLAGS">Flags.</field>
       <!-- supported flags see EKF_STATUS_FLAGS enum -->
-      <field type="float" name="velocity_variance">Velocity variance.</field>
+      <field type="float" name="velocity_variance">Velocity innovation test ratio.</field>
       <!-- below 0.5 is good, 0.5~0.79 is warning, 0.8 or higher is bad -->
-      <field type="float" name="pos_horiz_variance">Horizontal Position variance.</field>
-      <field type="float" name="pos_vert_variance">Vertical Position variance.</field>
-      <field type="float" name="compass_variance">Compass variance.</field>
-      <field type="float" name="terrain_alt_variance">Terrain Altitude variance.</field>
+      <field type="float" name="pos_horiz_variance">Horizontal position innovation test ratio.</field>
+      <field type="float" name="pos_vert_variance">Vertical position innovation test ratio.</field>
+      <field type="float" name="compass_variance">Magnetometer innovation test ratio.</field>
+      <field type="float" name="terrain_alt_variance">Height above terrain innovation test ratio.</field>
       <extensions/>
-      <field type="float" name="airspeed_variance">Airspeed variance.</field>
+      <field type="float" name="airspeed_variance">True airspeed innovation test ratio.</field>
     </message>
     <!-- realtime PID tuning message -->
     <message id="194" name="PID_TUNING">
