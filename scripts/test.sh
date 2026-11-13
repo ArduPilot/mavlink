@@ -2,6 +2,7 @@
 set -e
 
 SRC_DIR=$(pwd)
+sep="##############################################"
 
 # NOTE: we must do all testing on the installed python package, not
 # on the build tree. Otherwise the testing is invalid and may not
@@ -9,27 +10,43 @@ SRC_DIR=$(pwd)
 
 test_format() {
     # check format
-    sep="##############################################"
-    echo $sep
+    echo "$sep"
     echo "FORMAT TEST"
-    echo $sep
+    echo "$sep"
     cd "$SRC_DIR"
     ./scripts/format_xml.sh -c
     echo PASS
 }
 
 generate_mavlink() {
-    echo $sep
+    echo "$sep"
     echo "GENERATING MAVLINK " \
 	    "protocol:${wire_protocol} language:${lang}"
     echo "DEFINITION : " "$msg_def"
-    echo $sep
+    echo "$sep"
     outdir="/tmp/mavlink_${wire_protocol}_${lang}"
     pymavlink/tools/mavgen.py --lang="${lang}" \
 	    --wire-protocol "${wire_protocol}" \
 	    --strict-units \
 	    --output="${outdir}" "${msg_def}"
+    compile_generated
     echo PASS
+}
+
+# mavgen accepts some names that are not valid C or C++ (for example a
+# keyword, or the same entry name in two enums), so compile the generated
+# headers too. The packed-member warning is expected from the packed structs.
+compile_generated() {
+    dialect=$(basename "$msg_def" .xml)
+    if [ "$lang" == "C" ]; then
+        echo "#include \"${dialect}/mavlink.h\"" |
+            gcc -fsyntax-only -Wno-address-of-packed-member \
+                -I"${outdir}" -x c -
+    elif [ "$lang" == "C++11" ]; then
+        echo "#include \"${dialect}/${dialect}.hpp\"" |
+            g++ -std=c++11 -fsyntax-only -Wno-address-of-packed-member \
+                -I"${outdir}" -x c++ -
+    fi
 }
 
 test_py() {

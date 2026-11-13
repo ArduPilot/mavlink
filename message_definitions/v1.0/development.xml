@@ -26,6 +26,8 @@
     <!-- ALL the entries in the MAV_CMD enum have a maximum of 7 parameters -->
     <enum name="MAV_CMD">
       <entry value="610" name="MAV_CMD_DO_SET_SYS_CMP_ID" hasLocation="false" isDestination="false" command="true">
+        <wip since="2024-03"/>
+        <!-- This command is work-in-progress and it can therefore change. It should NOT be used in stable production environments. -->
         <description>
           Set system and component id.
           This allows moving of a system and all its components to a new system id, or moving a particular component to a new system/component id.
@@ -34,30 +36,31 @@
         <param index="1" label="System ID" minValue="1" maxValue="255" increment="1">New system ID for target component(s). 0: ignore and reject command (broadcast system ID not allowed).</param>
         <param index="2" label="Component ID" minValue="0" maxValue="255" increment="1">New component ID for target component(s). 0: ignore (component IDs don't change).</param>
         <param index="3" label="Reboot">Reboot components after ID change. Any non-zero value triggers the reboot.</param>
-        <param index="4" reserved="true" default="NaN"/>
       </entry>
       <entry value="2020" name="MAV_CMD_CAMERA_START_MTI" hasLocation="false" isDestination="false" command="true">
-        <wip/>
-        <!-- This message is work-in-progress and it can therefore change. It should NOT be used in stable production environments. -->
+        <wip since="2025-08"/>
+        <!-- This command is work-in-progress and it can therefore change. It should NOT be used in stable production environments. -->
         <description>Enable Moving Target Indicators (MTI) on streamed video.
           Support for feature can be checked with CAMERA_CAP_FLAGS_HAS_MTI, and disabled with MAV_CMD_CAMERA_STOP_MTI.</description>
         <param index="1" label="Target Camera ID" minValue="0" maxValue="255" increment="1">Target camera ID. 7 to 255: MAVLink camera component id. 1 to 6 for cameras attached to the autopilot, which don't have a distinct component id. 0: all cameras. This is used to target specific autopilot-connected cameras. It is also used to target specific cameras when the MAV_CMD is used in a mission.</param>
       </entry>
       <entry value="2021" name="MAV_CMD_CAMERA_STOP_MTI" hasLocation="false" isDestination="false" command="true">
-        <wip/>
-        <!-- This message is work-in-progress and it can therefore change. It should NOT be used in stable production environments. -->
+        <wip since="2025-08"/>
+        <!-- This command is work-in-progress and it can therefore change. It should NOT be used in stable production environments. -->
         <description>Disable Moving Target Indicators (MTI) on streamed video.</description>
         <param index="1" label="Target Camera ID" minValue="0" maxValue="255" increment="1">Target camera ID. 7 to 255: MAVLink camera component id. 1 to 6 for cameras attached to the autopilot, which don't have a distinct component id. 0: all cameras. This is used to target specific autopilot-connected cameras. It is also used to target specific cameras when the MAV_CMD is used in a mission.</param>
       </entry>
       <entry value="5005" name="MAV_CMD_NAV_FENCE_HOME_CIRCLE_INCLUSION" hasLocation="false" isDestination="false" fence="true">
-        <wip/>
-        <!-- This message is work-in-progress and it can therefore change. It should NOT be used in stable production environments. -->
+        <wip since="2025-10"/>
+        <!-- This command is work-in-progress and it can therefore change. It should NOT be used in stable production environments. -->
         <description>Circular fence area centered on home. The vehicle must stay inside this area. If home is moved, the fence moves.</description>
         <param index="1" label="Radius" units="m">Radius.</param>
         <param index="2" label="Inclusion Group" minValue="0" increment="1">Vehicle must be inside ALL inclusion zones in a single group, vehicle must be inside at least one group. Ignored when sent as a command.</param>
       </entry>
     </enum>
     <enum name="GPS_SYSTEM_ERROR_FLAGS" bitmask="true">
+      <wip since="2024-06"/>
+      <!-- This enum is work-in-progress and it can therefore change. It should NOT be used in stable production environments. -->
       <description>Flags indicating errors in a GPS receiver.</description>
       <entry value="1" name="GPS_SYSTEM_ERROR_INCOMING_CORRECTIONS">
         <description>There are problems with incoming correction streams.</description>
@@ -82,6 +85,8 @@
       </entry>
     </enum>
     <enum name="GPS_AUTHENTICATION_STATE">
+      <wip since="2024-06"/>
+      <!-- This enum is work-in-progress and it can therefore change. It should NOT be used in stable production environments. -->
       <description>Signal authentication state in a GPS receiver.</description>
       <entry value="0" name="GPS_AUTHENTICATION_STATE_UNKNOWN">
         <description>The GPS receiver does not provide GPS signal authentication info.</description>
@@ -100,6 +105,8 @@
       </entry>
     </enum>
     <enum name="GPS_JAMMING_STATE">
+      <wip since="2024-06"/>
+      <!-- This enum is work-in-progress and it can therefore change. It should NOT be used in stable production environments. -->
       <description>Signal jamming state in a GPS receiver.</description>
       <entry value="0" name="GPS_JAMMING_STATE_UNKNOWN">
         <description>The GPS receiver does not provide GPS signal jamming info.</description>
@@ -115,6 +122,8 @@
       </entry>
     </enum>
     <enum name="GPS_SPOOFING_STATE">
+      <wip since="2024-06"/>
+      <!-- This enum is work-in-progress and it can therefore change. It should NOT be used in stable production environments. -->
       <description>Signal spoofing state in a GPS receiver.</description>
       <entry value="0" name="GPS_SPOOFING_STATE_UNKNOWN">
         <description>The GPS receiver does not provide GPS signal spoofing info.</description>
@@ -130,6 +139,8 @@
       </entry>
     </enum>
     <enum name="GPS_RAIM_STATE">
+      <wip since="2024-06"/>
+      <!-- This enum is work-in-progress and it can therefore change. It should NOT be used in stable production environments. -->
       <description>State of RAIM processing.</description>
       <entry value="0" name="GPS_RAIM_STATE_UNKNOWN">
         <description>RAIM capability is unknown.</description>
@@ -145,6 +156,8 @@
       </entry>
     </enum>
     <enum name="RANGING_BEACON_ALT_TYPE">
+      <wip since="2026-03"/>
+      <!-- This enum is work-in-progress and it can therefore change. It should NOT be used in stable production environments. -->
       <description>Altitude reference for RANGING_BEACON alt field.</description>
       <entry value="0" name="RANGING_BEACON_ALT_TYPE_WGS84">
         <description>Altitude above WGS84 ellipsoid.</description>
@@ -154,6 +167,8 @@
       </entry>
     </enum>
     <enum name="RANGING_BEACON_STATUS_FLAG" bitmask="true">
+      <wip since="2026-03"/>
+      <!-- This enum is work-in-progress and it can therefore change. It should NOT be used in stable production environments. -->
       <description>Status flags for a RANGING_BEACON.</description>
       <entry value="1" name="RANGING_BEACON_STATUS_FLAG_STATION_SIGNAL_POOR">
         <description>Station signal is poor. This might indicate channel fading, interference, or other signal quality issues.</description>
@@ -199,9 +214,11 @@
       <field type="uint32_t" name="intended_custom_mode" invalid="0">The custom_mode of the mode that was last commanded by the user (for example, with MAV_CMD_DO_SET_STANDARD_MODE, MAV_CMD_DO_SET_MODE or via RC). This should usually be the same as custom_mode. It will be different if the vehicle is unable to enter the intended mode, or has left that mode due to a failsafe condition. 0 indicates the intended custom mode is unknown/not supplied</field>
     </message>
     <message id="437" name="AVAILABLE_MODES_MONITOR">
-      <description>A change to the sequence number indicates that the set of AVAILABLE_MODES has changed.
-        A receiver must re-request all available modes whenever the sequence number changes.
-        This is only emitted after the first change and should then be broadcast at low rate (nominally 0.3 Hz) and on change.
+      <description>A change to the sequence number indicates that the set of AVAILABLE_MODES has changed, and that the receiver should re-request all available modes.
+
+        The message is optional, and is only needed when the set of modes can change dynamically after boot.
+        It should be emitted whenever the set of modes change.
+        It should be streamed at low rate (nominally 0.3 Hz).
       </description>
       <field type="uint8_t" name="seq">Sequence number. The value iterates sequentially whenever AVAILABLE_MODES changes (e.g. support for a new mode is added/removed dynamically).</field>
     </message>
@@ -209,8 +226,8 @@
       <wip since="2026-03"/>
       <!-- This message is work-in-progress and it can therefore change. It should NOT be used in stable production environments. -->
       <description>
-        Highly bandwidth-efficient RC override message for professional networked operations (LTE, Zigbee, GCP). 
-        Supersedes RC_CHANNELS_OVERRIDE by adding 32-channel support and a bitmask for multi-master conflict avoidance. 
+        Highly bandwidth-efficient RC override message for professional networked operations (LTE, Zigbee, GCP).
+        Supersedes RC_CHANNELS_OVERRIDE by adding 32-channel support and a bitmask for multi-master conflict avoidance.
         Uses centered-at-zero values and extension-field placement to maximize MAVLink 2 trailing-zero truncation.
       </description>
       <field type="uint8_t" name="target_system">System ID.</field>
@@ -218,12 +235,14 @@
       <field type="uint32_t" name="active_mask">Bitmap of included channels (bit 0 = CH1). 1: Valid/Override, 0: Ignore.</field>
       <extensions/>
       <field type="int16_t[32]" name="channels" minValue="-4096" maxValue="4096">
-        RC channels in centered 13-bit format. Range: -4096 to 4096, Center: 0. 
-        Conversion to PWM: (x * 5/32) + 1500. 
+        RC channels in centered 13-bit format. Range: -4096 to 4096, Center: 0.
+        Conversion to PWM: (x * 5/32) + 1500.
         Unused channels must be set to 0 to enable MAVLink 2 trailing-zero trimming.
       </field>
     </message>
     <message id="441" name="GNSS_INTEGRITY">
+      <wip since="2024-06"/>
+      <!-- This message is work-in-progress and it can therefore change. It should NOT be used in stable production environments. -->
       <description>Information about key components of GNSS receivers, like signal authentication, interference and system errors.</description>
       <field type="uint8_t" name="id" instance="true">GNSS receiver id. Must match instance ids of other messages from same receiver.</field>
       <field type="uint32_t" name="system_errors" enum="GPS_SYSTEM_ERROR_FLAGS">Errors in the GPS system.</field>
@@ -239,7 +258,7 @@
       <field type="uint8_t" name="post_processing_quality" minValue="0" maxValue="10" invalid="UINT8_MAX">An abstract value representing the estimated PPK quality, or 255 if not available.</field>
     </message>
     <message id="513" name="RANGING_BEACON">
-      <wip/>
+      <wip since="2026-03"/>
       <!-- This message is work-in-progress and it can therefore change. It should NOT be used in stable production environments. -->
       <description>Range information from a radio beacon for trilateration-based positioning.
         This message is telemetry intended for consumption by an autopilot (MAVLink does not define the mechanism used to determine the range).
