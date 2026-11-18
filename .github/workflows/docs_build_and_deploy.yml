@@ -1,0 +1,70 @@
+name: Build markdown from XML and deploy
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches:
+      - '*'
+  workflow_dispatch: # Allows manual triggering
+
+# The deploy job pushes to mavlink-devguide with its own token, so GITHUB_TOKEN
+# only needs to read this repo.
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v7
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.10"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f doc/requirements.txt ]; then pip install -r doc/requirements.txt; fi
+
+      - name: Generate markdown from XML
+        run: |
+          cd doc
+          python3 mavlink_xml_to_markdown.py
+
+      - name: Upload docs artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: xml_file_markdown_docs
+          path: doc/messages/
+          retention-days: 1
+
+  deploy:
+    # Pushes to mavlink/mavlink-devguide with upstream's secrets: only run in
+    # mavlink/mavlink, not in forks (where a push to master also matches).
+    if: ${{ github.repository == 'mavlink/mavlink' && (github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.pull_request.merged)) }}
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Download Artifact
+      uses: actions/download-artifact@v8
+      with:
+        name: xml_file_markdown_docs
+        path: ~/_messages
+
+    # TBD - copy https://github.com/PX4/PX4-user_guide/blob/main/.github/workflows/docs_deploy.yml
+    - name: Deploy
+      run: |
+           git clone --single-branch --branch master https://${{ secrets.PX4BUILTBOT_PERSONAL_ACCESS_TOKEN }}@github.com/mavlink/mavlink-devguide.git
+           rm -rf mavlink-devguide/en/messages
+           mkdir -p mavlink-devguide/en/messages
+           cp -r ~/_messages/* mavlink-devguide/en/messages/
+           cd mavlink-devguide
+           git config --global user.name "${{ secrets.PX4BUILDBOT_USER }}"
+           git config --global user.email "${{ secrets.PX4BUILDBOT_EMAIL }}"
+           git add en/messages/*
+           git commit -a -m "MAVLink messages update `date`"
+           git push origin master
