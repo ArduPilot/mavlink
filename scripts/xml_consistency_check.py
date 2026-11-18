@@ -1,0 +1,563 @@
+#! /usr/bin/python
+"""
+Script to parse all XML definition files in ../message_definitions/v1.0/ for consistency errors.
+These might include flag enums that do not include bitmask attributes, work in
+progress markers that are missing or have a bad date, and so on.
+"""
+
+from bs4 import BeautifulSoup as bs
+from bs4 import Comment
+import os
+import re
+import itertools
+import math
+from datetime import datetime, timedelta, timezone
+
+from argparse import ArgumentParser, RawDescriptionHelpFormatter
+
+# Integer ranges of given types
+types = {
+    "int8_t": [-128, 127],
+    "char": [-128, 127],  # assume signed char
+    "uint8_t": [0, 255],
+    "uint8_t_mavlink_version": [0, 255],
+    "int16_t": [-32768, 32767],
+    "uint16_t": [0, 65535],
+    "int32_t": [-2147483648, 2147483647],
+    "uint32_t": [0, 4294967295],
+    "int64_t": [-9223372036854775808, 9223372036854775807],
+    "uint64_t": [0, 18446744073709551615],
+}
+
+# Dialects in which every definition is work in progress, and so must be marked
+# with <wip since="YYYY-MM"/>. Elsewhere <wip> is optional, but must still be dated.
+WIP_REQUIRED_DIALECTS = ["development.xml"]
+
+# Same pattern the schema (mavschema.xsd) uses for the since attribute
+SINCE_PATTERN = re.compile(r"20\d{2}-(0[1-9]|1[012])")
+
+# Comment that must follow every <wip>, where {} is what is being marked
+# (message, enum, command or entry). It is for people reading the XML.
+WIP_COMMENT = ("This {} is work-in-progress and it can therefore change. "
+               "It should NOT be used in stable production environments.")
+
+warning_count = 0
+allowed_count = 0
+allowlist = set()
+matched_allowlist = set()
+
+
+def warn(message):
+    """Print a warning. If the message is in the allowlist it is still shown
+    (prefixed with [allowed]) but does not count toward the failure total
+    used by --exception. This lets CI gate on new warnings while tolerating
+    pre-existing ones."""
+    global warning_count, allowed_count
+    if message in allowlist:
+        print(f"[allowed] {message}")
+        allowed_count += 1
+        matched_allowlist.add(message)
+    else:
+        print(message)
+        warning_count += 1
+
+
+def check_enum(enum, file_name):
+    name = None
+    bitmask = None
+
+    for attr, value in enum.attrs.items():
+        if attr == 'name':
+            name = value
+        elif attr == 'bitmask':
+            bitmask = value == 'true'
+
+    if name is None:
+        raise Exception(f"{file_name}: No name for Enum: {enum}")
+
+    values = []
+    enumEntries = enum.find_all('entry')
+    for entry in enumEntries:
+        values.append(int(entry.get('value'), 0))
+
+    # Check for duplicate values
+    for a, b in itertools.combinations(values, 2):
+        if a == b:
+            warn(f"{file_name}: Enum: {name} duplicate value {a}")
+
+    # Check if should be marked as a bitmask
+    contains_zero = 0 in values
+    if bitmask and contains_zero:
+        warn(f"{file_name}: Enum: {name} bitmask should not contain 0")
+
+    # Need at least three values to tell if something should be a bitmask
+    # 1,2,4 vs 1,2,3 (assuming bits added sequentially)
+    bitmask_values = values.copy()
+    if contains_zero:
+        bitmask_values.remove(0)
+
+    if len(bitmask_values) > 2:
+        if bitmask is None:
+            bitmask = False
+
+        overlap = False
+        for a, b in itertools.combinations(bitmask_values, 2):
+            if (a & b) != 0:
+                overlap = True
+                break
+
+        if not bitmask and not overlap:
+            warn(f"{file_name}: Enum: {name} should be a marked as bitmask?")
+
+        if bitmask and overlap:
+            warn(f"{file_name}: Enum: {name} should be not be a marked as bitmask")
+
+    return {"name": name, "bitmask": bitmask, "values": values}
+
+
+def check_field(file_name, msg_name, field, enums, deprecated_enums=frozenset()):
+    name = field.get('name')
+    enum = field.get('enum')
+    units = field.get('units')
+    display = field.get('display')
+
+    # Enum with units doesn't make sense
+    if enum is not None and units is not None:
+        warn(f"{file_name}: Message {msg_name} field {name} has both units and enum")
+
+    if enum is not None:
+        # Enum should exist
+        if enum not in enums:
+            if enum in deprecated_enums:
+                warn(f"{file_name}: Message {msg_name} field {name} enum {enum} is deprecated")
+            else:
+                warn(f"{file_name}: Message {msg_name} field {name} enum {enum} does not exist")
+            return
+
+        enums[enum]["used"] = True
+
+        # display="bitmask" is redundant once the referenced enum is itself
+        # marked bitmask="true" - the enum already says so. A raw (non-enum)
+        # bitmask field still needs display="bitmask" as its only way to
+        # signal that, so that case is not deprecated.
+        if display is not None and enums[enum].get("bitmask"):
+            warn(f'{file_name}: Message {msg_name} field {name} display="{display}" is deprecated')
+
+        # An enum with no entries has min/max set to None during aggregation
+        # and was already warned about there, so there's nothing to range-check.
+        if enums[enum]["min"] is None:
+            return
+
+        # Enum should fit in given type
+        type = field.get('type').split('[')[0]
+        if type not in types:
+            warn(f"{file_name}: Message {msg_name} field {name} enum {enum} unexpected type: {type}")
+
+        elif (enums[enum]["min"] < types[type][0]) or (enums[enum]["max"] > types[type][1]):
+            warn(f"{file_name}: Message {msg_name} field {name} enum {enum} does not fit in type: {type}")
+
+
+def check_cmd_param(file_name, cmd_name, entry, enums, deprecated_enums=frozenset()):
+    index = entry.get('index')
+    enum = entry.get('enum')
+    units = entry.get('units')
+    minValue = entry.get('minValue')
+    maxValue = entry.get('maxValue')
+    increment = entry.get('increment')
+
+    # Enum with units doesn't make sense
+    if enum is not None and units is not None:
+        warn(f"{file_name}: Command {cmd_name} param {index} has both units and enum")
+
+    if enum is not None:
+        # Enum should exist
+        if enum not in enums:
+            if enum in deprecated_enums:
+                warn(f"{file_name}: Command {cmd_name} param {index} enum {enum} is deprecated")
+            else:
+                warn(f"{file_name}: Command {cmd_name} param {index} enum {enum} does not exist")
+            return
+
+        enums[enum]["used"] = True
+
+    if increment is not None and float(increment) <= 0:
+        warn(f"{file_name}: Command {cmd_name} param {index} increment must be greater than 0 got {float(increment):f}")
+        return
+
+    if minValue is not None and maxValue is not None :
+        min = float(minValue)
+        max = float(maxValue)
+        range = max - min
+        if range <= 0:
+            warn(f"{file_name}: Command {cmd_name} param {index} min and max invalid got {min:f} => {max:f}")
+            return
+
+        if increment is not None:
+            step = float(increment)
+            num_steps = range / step
+            if (not math.isfinite(num_steps)
+                    or round(num_steps) < 1
+                    or not math.isclose(num_steps, round(num_steps), rel_tol=0, abs_tol=1e-6)):
+                warn(f"{file_name}: Command {cmd_name} param {index} range {min:f} => {max:f} incompatible with increment {step:f}")
+                return
+
+            if (step == 1) and range <= 20:
+                warn(f"{file_name}: Command {cmd_name} param {index} min, max close and increment of 1, should there be a enum?")
+                return
+
+    # There are a huge amount or errors here, commented out for now
+    # Should be marked as reserved correctly
+    # if len(entry.contents) > 0:
+    #    description = entry.contents[0]
+    #    reversed_descriptions = ["Empty.", "Empty", "Reserved", "Reserved (all remaining params)", "Reserved (set to 0)"]
+    #    if description in reversed_descriptions:
+    #        print("%s: Command %s param %s should be marked reserved=\"true\"" % (file_name, cmd_name, index))
+
+
+def latest_since_month(now=None):
+    """Latest YYYY-MM that a since date may have. Uses the furthest-ahead
+    timezone (UTC+14), so a date that is the current month for the author is
+    not reported as being in the future by a CI runner on UTC."""
+    if now is None:
+        now = datetime.now(timezone.utc)
+    return (now + timedelta(hours=14)).strftime("%Y-%m")
+
+
+def wip_label(element):
+    """Describe a message, enum or enum entry in the way the other warnings do."""
+    name = element.get('name')
+    if element.name == 'message':
+        return f"Message {name}"
+    if element.name == 'entry':
+        enum = element.find_parent('enum')
+        enum_name = enum.get('name') if enum is not None else None
+        if enum_name == 'MAV_CMD':
+            return f"Command {name}"
+        return f"Enum: {enum_name} entry {name}"
+    return f"Enum: {name}"
+
+
+def check_since_dates(file_name, soup, latest_month, wip_since_required=True):
+    """The since date of a <wip>, <deprecated> or <superseded> must be well-formed
+    and not in the future. The schema requires the date on the last two but
+    leaves it optional on <wip>, so a <wip> without one is only reported if
+    wip_since_required is set."""
+    for marker in soup.find_all(['wip', 'deprecated', 'superseded']):
+        label = f"{wip_label(marker.parent)} <{marker.name}>"
+        since = marker.get('since')
+        if since is None:
+            if marker.name == 'wip' and wip_since_required:
+                warn(f"{file_name}: {label} has no since date")
+        elif not SINCE_PATTERN.fullmatch(since):
+            warn(f'{file_name}: {label} since "{since}" is not a valid YYYY-MM date')
+        elif since > latest_month:
+            warn(f'{file_name}: {label} since "{since}" is in the future')
+
+
+def wip_comment(element):
+    """The comment expected after the <wip> of a message, enum or enum entry."""
+    kind = element.name
+    if kind == 'entry':
+        enum = element.find_parent('enum')
+        if enum is not None and enum.get('name') == 'MAV_CMD':
+            kind = 'command'
+    return WIP_COMMENT.format(kind)
+
+
+def check_wip_comments(file_name, soup):
+    """Every <wip> must be immediately followed by the standard comment."""
+    for wip in soup.find_all('wip'):
+        expected = wip_comment(wip.parent)
+        following = next((node for node in wip.next_siblings if str(node).strip()), None)
+        if not isinstance(following, Comment) or following.strip() != expected:
+            warn(f"{file_name}: {wip_label(wip.parent)} <wip> is not followed by the comment: <!-- {expected} -->")
+
+
+def check_wip_required(file_name, soup, inherited_enums):
+    """Every definition in a work in progress dialect must be marked <wip>.
+
+    An enum that is also defined in an included dialect (such as MAV_CMD) is
+    being extended rather than defined, so it is the new entries that must be
+    marked. Entries of an enum defined here are covered by the enum's own <wip>.
+    The schema allows only one of wip/deprecated/superseded, so a definition
+    that is already deprecated or superseded is not expected to have a <wip>."""
+    def needs_wip(element):
+        return all(element.find(tag, recursive=False) is None
+                   for tag in ('wip', 'deprecated', 'superseded'))
+
+    elements = soup.find_all('message')
+    for enum in soup.find_all('enum'):
+        if enum.get('name') in inherited_enums:
+            elements += enum.find_all('entry', recursive=False)
+        else:
+            elements.append(enum)
+
+    for element in elements:
+        if needs_wip(element):
+            warn(f'{file_name}: {wip_label(element)} is missing <wip since="YYYY-MM"/>')
+
+
+def included_enum_names(source_dir, file_name, seen=None):
+    """Names of the enums defined in the dialects that file_name includes,
+    directly or indirectly. Read from disk, so the result does not depend on
+    which files were asked for with --file."""
+    if seen is None:
+        seen = set()
+    names = set()
+    if os.path.isfile(file_name):
+        path = file_name
+    else:
+        path = os.path.join(source_dir, file_name)
+
+    with open(path, 'r', encoding='utf-8') as f:
+        soup = bs(f.read(), 'xml')
+
+    file_dir = os.path.dirname(os.path.abspath(path))
+    for include in soup.find_all('include'):
+        included = include.text.strip()
+        if included in seen:
+            continue
+        seen.add(included)
+        inc_path = os.path.join(file_dir, included)
+        if not os.path.isfile(inc_path):
+            inc_path = os.path.join(source_dir, included)
+        with open(inc_path, 'r', encoding='utf-8') as f:
+            names.update(enum.get('name') for enum in bs(f.read(), 'xml').find_all('enum'))
+        names |= included_enum_names(source_dir, inc_path, seen)
+    return names
+
+
+def main():
+    description = """
+XML consistency parser.
+
+Checks XML definition files in ../message_definitions/v1.0/.
+Warns on consistency errors such as flag enums that do not include bitmask attributes, and so on.
+Also checks that since dates are valid and not in the future. In the managed dialects
+(common, minimal, standard, development) every <wip> must have a since date and be
+followed by the standard work-in-progress comment, and everything in development.xml
+must be marked <wip since="YYYY-MM"/>.
+
+Known, pre-existing warnings can be listed in an allowlist file (see --allowlist)
+so that CI can gate on new warnings while tolerating ones we can't fix yet.
+"""
+
+    parser = ArgumentParser(description=description,
+                            formatter_class=RawDescriptionHelpFormatter)
+
+    parser.add_argument('-f', '--file', default=None, nargs='+',
+                        help="XML file(s) to check: a path (absolute or relative to the current "
+                             "folder), or a dialect name looked up in message_definitions/v1.0/ "
+                             "(e.g. common). '.xml' is added if missing. Includes are looked up "
+                             "next to the file, then in message_definitions/v1.0/. "
+                             "Defaults to the managed dialects")
+    parser.add_argument('-e', '--exception', action='store_true',
+                        help="Throw error if any non-allowlisted warnings are found")
+    parser.add_argument('-a', '--allowlist', default=None,
+                        help="Path to allowlist file of known-acceptable warnings "
+                             "(defaults to xml_consistency_allowlist.txt next to this script)")
+
+    args = parser.parse_args()
+
+    # Resolve paths relative to this script, not the working directory, so the
+    # defaults work regardless of where the script is invoked from.
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    source_dir = os.path.normpath(os.path.join(script_dir, "../message_definitions/v1.0"))
+
+    # Dialects this repository controls. Other dialects (e.g. ardupilotmega.xml)
+    # are vendored/synced from downstream projects, so we don't gate CI on their
+    # content. They are free to run this script on their side if they wish (pass
+    # their files via -f/--file).
+    managed_dialects = ["common.xml", "minimal.xml", "standard.xml", "development.xml"]
+
+    if args.file is None:
+        files = managed_dialects
+    else:
+        files = [f if f.endswith('.xml') else f + '.xml' for f in args.file]
+
+    # Load the allowlist of known-acceptable warnings. An explicitly-passed path
+    # that doesn't exist is a hard error; a missing default is reported (not
+    # silently ignored) so that unexpectedly-failing CI is easy to diagnose.
+    default_allowlist = os.path.join(script_dir, "xml_consistency_allowlist.txt")
+    allowlist_path = args.allowlist if args.allowlist is not None else default_allowlist
+
+    if os.path.exists(allowlist_path):
+        with open(allowlist_path, 'r', encoding='utf-8') as f:
+            for line in f:
+                line = line.strip()
+                if line and not line.startswith('#'):
+                    allowlist.add(line)
+    elif args.allowlist is not None:
+        raise SystemExit(f"Allowlist file not found: {allowlist_path}")
+    else:
+        print(f"Note: no allowlist found at {allowlist_path}; all warnings will count toward the total.")
+
+    print(f"Files: {files}")
+
+    xml = {}
+    paths = {}
+    for file in files:
+        # Read the XML file
+        path = file if os.path.isfile(file) else os.path.join(source_dir, file)
+        key = os.path.basename(path)
+        if key in xml:
+            raise SystemExit(f"Two files named {key} given: {paths[key]} and {path}")
+
+        with open(path, 'r', encoding='utf-8') as f:
+            xml_content = f.read()
+
+        # Initialize BeautifulSoup with the XML content
+        xml[key] = bs(xml_content, 'xml')
+        paths[key] = path
+
+    # Get all enums
+    all_enums = {}
+    # Deprecated enums are not checked and are not counted as "used", but they do
+    # still exist. Remember their names so that a reference to one is reported as
+    # deprecated rather than as missing.
+    deprecated_enums = set()
+    for key in xml:
+        for enum in xml[key].find_all('enum'):
+            if enum.find('deprecated', recursive=False) is not None:
+                # Skip and deprecated items
+                deprecated_enums.add(enum.get('name'))
+                continue
+            decoded = check_enum(enum, key)
+            name = decoded["name"]
+            if name in all_enums:
+                # Add to existing enum
+                all_enums[name]['file'].append(key)
+                all_enums[name]['enum'].append(decoded)
+
+            else:
+                # Create new enum
+                all_enums[name] = {'name': name, 'file': [
+                    key], 'enum': [decoded], 'used': False}
+
+    # Check for enums declared in multiple locations
+    for name in all_enums:
+        # Combine results
+        enum = all_enums[name]
+
+        # Combine file names
+        enum['file'] = ", ".join(enum['file'])
+
+        values = enum['enum'][0]['values']
+        enum['bitmask'] = enum['enum'][0]['bitmask']
+        bitmask_conflict = False
+        values_conflict = False
+
+        for i in range(1, len(enum['enum'])):
+            bitmask_conflict |= bool(enum['bitmask']) != bool(
+                enum['enum'][i]['bitmask'])
+            values_conflict |= not set(values).isdisjoint(enum['enum'][i]['values'])
+            values += enum['enum'][i]['values']
+
+        if not values:
+            warn(f"{enum['file']}: Enum: {name} has no entries")
+            # Leave min/max defined (as None) so downstream field checks can
+            # detect the empty enum rather than hitting a KeyError.
+            enum['min'] = enum['max'] = None
+            continue
+
+        enum['min'] = min(values)
+        enum['max'] = max(values)
+
+        if bitmask_conflict:
+            warn(f"{enum['file']}: Enum: {name} has conflicting bitmask definitions")
+
+        if values_conflict:
+            warn(f"{enum['file']}: Enum: {name} has conflicting values")
+
+    # Check all fields against enums
+    for key in xml:
+        for message in xml[key].find_all('message'):
+            if message.find('deprecated', recursive=False) is not None:
+                # Skip and deprecated items
+                continue
+            name = message.get('name')
+            fields = message.find_all('field')
+            for field in fields:
+                check_field(key, name, field, all_enums, deprecated_enums)
+
+    # Check params in MAV_CMD
+    for key in xml:
+        for enum in xml[key].find_all('enum', {"name": "MAV_CMD"}):
+            for entry in enum.find_all('entry'):
+                if entry.find('deprecated', recursive=False) is not None:
+                    # Skip and deprecated items
+                    continue
+                name = entry.get('name')
+                seen_indices = set()   # Indices seen so far, to check for duplicates
+                for param in entry.find_all('param'):
+                    check_cmd_param(key, name, param, all_enums, deprecated_enums)
+                    idx = param.get('index')
+
+                    # Flag duplicate indices regardless of whether they're in the
+                    # valid range, so e.g. two params both with index="0" are both
+                    # reported as a duplicate and as out of range.
+                    if idx is not None:
+                        if idx in seen_indices:
+                            warn(f"{key}: Command {name} param index {idx} is duplicated")
+                        else:
+                            seen_indices.add(idx)
+
+                    # Check if the param index is an integer and in the valid range of [1,7]
+                    try:
+                        idx_int = int(idx)
+                        if idx_int < 1 or idx_int > 7:
+                            warn(f"{key}: Command {name} param index {idx} is out of range")
+                    except (TypeError, ValueError):
+                        warn(f"{key}: Command {name} param index {idx} is not an integer")
+
+    # Check lifecycle markers (wip, deprecated, superseded). A since date must
+    # be valid in any dialect. Requiring a <wip> to have a date and the standard
+    # comment is a rule for the dialects this repository manages: the schema
+    # allows a bare <wip/>, so other dialects are free to use one.
+    latest_month = latest_since_month()
+    for key in xml:
+        managed = os.path.basename(key) in managed_dialects
+        check_since_dates(key, xml[key], latest_month, wip_since_required=managed)
+        if managed:
+            check_wip_comments(key, xml[key])
+        if os.path.basename(key) in WIP_REQUIRED_DIALECTS:
+            check_wip_required(key, xml[key], included_enum_names(source_dir, paths[key]))
+
+    # Check for unused enums. Defining enums not referenced by any message or
+    # command is a legitimate use of this library, so intended orphans should be
+    # added to the allowlist rather than removed.
+    for key in all_enums:
+        if all_enums[key]["used"] is False:
+            warn(f"{all_enums[key]['file']}: Enum: {all_enums[key]['name']} is unused")
+
+    # Detect stale allowlist entries that no longer match any warning (e.g. a
+    # warning was fixed, or its message was reworded). Only meaningful on a full
+    # run: a subset run (-f) legitimately won't exercise entries for other files.
+    # Tracked separately from warning_count so CI can distinguish a new XML
+    # consistency problem from allowlist housekeeping: both fail --exception, but
+    # the messages tell you which one to fix (edit the XML vs. prune the allowlist).
+    stale = []
+    if args.file is None:
+        stale = sorted(allowlist - matched_allowlist)
+        for entry in stale:
+            print(f"Stale allowlist entry (no longer matches any warning): {entry}")
+
+    # Give summary for possible CI usage
+    if allowed_count:
+        print(f"\n{allowed_count} allowlisted warning(s) suppressed.")
+
+    if stale:
+        print(f"\n{len(stale)} stale allowlist entry(ies) no longer match any warning and "
+              f"should be removed from {allowlist_path}.")
+
+    summary = (f"Found {warning_count} new consistency warning(s) and {len(stale)} stale allowlist "
+               f"entry(ies) in: {files}")
+
+    if args.exception and (warning_count > 0 or stale):
+        raise Exception(summary + "\n")
+
+    print(f"\n{summary}\n")
+
+
+if __name__ == "__main__":
+    main()
