@@ -1139,6 +1139,9 @@
       <entry value="26" name="PLANE_MODE_AUTOLAND">
         <description>AUTOLAND</description>
       </entry>
+      <entry value="27" name="PLANE_MODE_GLIDE">
+        <description>GLIDE</description>
+      </entry>
     </enum>
     <enum name="COPTER_MODE">
       <description>A mapping of copter flight modes for custom_mode field of heartbeat.</description>
