@@ -91,7 +91,10 @@ jobs:
     name: Generate and push C headers
     needs: [format, python-tests, node-tests]
     runs-on: ubuntu-22.04
-    if: github.ref == 'refs/heads/master'
+    # Pushes generated headers to mavlink/c_library_v1 and c_library_v2 with
+    # upstream's secrets: only run in mavlink/mavlink, not in forks (where a
+    # push to master also matches).
+    if: github.repository == 'mavlink/mavlink' && github.ref == 'refs/heads/master'
     env:
       GH_TOKEN: ${{ secrets.GH_TOKEN }}
     steps:
@@ -105,6 +108,6 @@ jobs:
       - name: Install dependencies
         run: |
           pip install future lxml
-#      - name: Run deploy script
-#        run: |
-#          ./scripts/update_generated_repos.sh
+      - name: Run deploy script
+        run: |
+          ./scripts/update_generated_repos.sh
