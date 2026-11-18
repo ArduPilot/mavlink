@@ -5,20 +5,12 @@ doc/messages
 doc/*.log
 .DS_Store
 build*
+install*
 .nfs*
 share/
 __pycache__
-pymavlink/generator/C/
-pymavlink/generator/C/
-pymavlink/generator/python/
-pymavlink/generator/python/
 apidocs/
-pymavlink/generator/message_definitions
 *.swp
-pymavlink/dialects/
-pymavlink/MANIFEST
-pymavlink/dist
-pymavlink.egg-info/
 .pydevproject
 .project
 .ropeproject
@@ -28,3 +20,4 @@ include/
 *.pyc
 include/mavlink/v1.0
 .idea
+/.vscode
