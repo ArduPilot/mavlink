@@ -1582,7 +1582,7 @@
         <param index="7" label="Altitude/Z" units="m">ROI altitude (global frame) or Z coordinate (local frame), according to MAV_FRAME.</param>
       </entry>
       <entry value="196" name="MAV_CMD_DO_SET_ROI_WPNEXT_OFFSET" mission="true">
-        <description>Sets the region of interest (ROI) to be toward next waypoint, with optional pitch/roll/yaw offset. This can then be used by the vehicle's control system to control the vehicle attitude and the attitude of various sensors such as cameras.</description>
+        <description>Sets the region of interest (ROI) to be toward next waypoint, with optional pitch/roll/yaw offset. This can then be used by the vehicle's control system to control the vehicle attitude and the attitude of various sensors such as cameras. This command can be sent to a gimbal manager but not to a gimbal device. A gimbal device is not to react to this message.</description>
         <param index="1" label="Gimbal device ID">Component ID of gimbal device to address (or 1-6 for non-MAVLink gimbal), 0 for all gimbal device components. Send command multiple times for more than one gimbal (but not all gimbals).</param>
         <param index="2">Empty</param>
         <param index="3">Empty</param>
@@ -1592,7 +1592,7 @@
         <param index="7" label="Yaw Offset" units="deg">Yaw offset from next waypoint, positive yawing to the right</param>
       </entry>
       <entry value="197" name="MAV_CMD_DO_SET_ROI_NONE" mission="true" command="true">
-        <description>Cancels any previous ROI command returning the vehicle/sensors to default flight characteristics. This can then be used by the vehicle's control system to control the vehicle attitude and the attitude of various sensors such as cameras.</description>
+        <description>Cancels any previous ROI command returning the vehicle/sensors to default flight characteristics. This can then be used by the vehicle's control system to control the vehicle attitude and the attitude of various sensors such as cameras. After this command the gimbal manager should go back to manual input if available, and otherwise assume a neutral position.</description>
         <param index="1" label="Gimbal device ID">Component ID of gimbal device to address (or 1-6 for non-MAVLink gimbal), 0 for all gimbal device components. Send command multiple times for more than one gimbal (but not all gimbals).</param>
         <param index="2">Empty</param>
         <param index="3">Empty</param>
@@ -1601,8 +1601,8 @@
         <param index="6">Empty</param>
         <param index="7">Empty</param>
       </entry>
-      <entry value="198" name="MAV_CMD_DO_SET_ROI_SYSID" command="true" mission="true">
-        <description>Mount tracks system with specified system ID. Determination of target vehicle position may be done with GLOBAL_POSITION_INT or any other means.</description>
+      <entry value="198" name="MAV_CMD_DO_SET_ROI_SYSID" mission="true" command="true">
+        <description>Mount tracks system with specified system ID. Determination of target vehicle position may be done with GLOBAL_POSITION_INT or any other means. This command can be sent to a gimbal manager but not to a gimbal device. A gimbal device is not to react to this message.</description>
         <param index="1" label="System ID" minValue="1" maxValue="255" increment="1">System ID</param>
         <param index="2" label="Gimbal device ID">Component ID of gimbal device to address (or 1-6 for non-MAVLink gimbal), 0 for all gimbal device components. Send command multiple times for more than one gimbal (but not all gimbals).</param>
       </entry>
