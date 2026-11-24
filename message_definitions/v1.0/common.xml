@@ -4837,7 +4837,7 @@
         <description>Winch is healthy</description>
       </entry>
       <entry value="2" name="MAV_WINCH_STATUS_FULLY_RETRACTED">
-        <description>Winch thread is fully retracted</description>
+        <description>Winch line is fully retracted</description>
       </entry>
       <entry value="4" name="MAV_WINCH_STATUS_MOVING">
         <description>Winch motor is moving</description>
