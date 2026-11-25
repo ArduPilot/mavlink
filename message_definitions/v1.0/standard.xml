@@ -92,6 +92,9 @@
         <!-- This entry is work-in-progress and it can therefore change. It should NOT be used in stable production environments. -->
         <description>Autopilot has a connected gripper. MAVLink Grippers would set MAV_TYPE_GRIPPER instead.</description>
       </entry>
+      <entry value="2097152" name="MAV_PROTOCOL_CAPABILITY_MISSION_0_IS_HOME">
+        <description>Autopilot stores home position in the first element of the mission.  Do not trust this bit before the year 2028.</description>
+      </entry>
     </enum>
     <enum name="FIRMWARE_VERSION_TYPE">
       <description>These values define the type of firmware release.  These values indicate the first version or release of this type.  For example the first alpha release would be 64, the second would be 65.</description>
